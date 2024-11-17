@@ -11,6 +11,24 @@
 		6D7601E62CEA3EA800C49EDC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7601E52CEA3EA800C49EDC /* ContentView.swift */; };
 		6D7601E82CEA3EA900C49EDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7601E72CEA3EA900C49EDC /* Assets.xcassets */; };
 		6D7601EB2CEA3EA900C49EDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7601EA2CEA3EA900C49EDC /* Preview Assets.xcassets */; };
+		6D7601F32CEA408800C49EDC /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7601F22CEA408800C49EDC /* AppState.swift */; };
+		6D7601F72CEA40C600C49EDC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7601F62CEA40C600C49EDC /* NetworkManager.swift */; };
+		6D7601FA2CEA40EB00C49EDC /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7601F92CEA40EB00C49EDC /* KakaoSDK */; };
+		6D7601FC2CEA40EB00C49EDC /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7601FB2CEA40EB00C49EDC /* KakaoSDKAuth */; };
+		6D7601FE2CEA40EB00C49EDC /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7601FD2CEA40EB00C49EDC /* KakaoSDKCommon */; };
+		6D7602012CEA40F500C49EDC /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7602002CEA40F500C49EDC /* CodeScanner */; };
+		6D7602032CEA410200C49EDC /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7602022CEA410200C49EDC /* Interceptor.swift */; };
+		6D7602052CEA411000C49EDC /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7602042CEA411000C49EDC /* EndPoint.swift */; };
+		6D7602072CEA411D00C49EDC /* APITask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7602062CEA411D00C49EDC /* APITask.swift */; };
+		6D7602092CEA412E00C49EDC /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7602082CEA412E00C49EDC /* BaseResponse.swift */; };
+		6D76020B2CEA413B00C49EDC /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D76020A2CEA413B00C49EDC /* KeyChainManager.swift */; };
+		6D76020F2CEA41DC00C49EDC /* Fonts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D76020E2CEA41DC00C49EDC /* Fonts+.swift */; };
+		6D7602162CEA420800C49EDC /* SpoqaHanSansNeo-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D7602102CEA420800C49EDC /* SpoqaHanSansNeo-Thin.ttf */; };
+		6D7602172CEA420800C49EDC /* SpoqaHanSansNeo-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D7602112CEA420800C49EDC /* SpoqaHanSansNeo-Medium.ttf */; };
+		6D7602182CEA420800C49EDC /* SpoqaHanSansNeo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D7602122CEA420800C49EDC /* SpoqaHanSansNeo-Regular.ttf */; };
+		6D7602192CEA420800C49EDC /* SpoqaHanSansNeo-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D7602132CEA420800C49EDC /* SpoqaHanSansNeo-Bold.ttf */; };
+		6D76021A2CEA420800C49EDC /* SpoqaHanSansNeo-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D7602142CEA420800C49EDC /* SpoqaHanSansNeo-Light.ttf */; };
+		6D76021B2CEA420800C49EDC /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D7602152CEA420800C49EDC /* Pretendard-Medium.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +37,22 @@
 		6D7601E52CEA3EA800C49EDC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6D7601E72CEA3EA900C49EDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6D7601EA2CEA3EA900C49EDC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6D7601F22CEA408800C49EDC /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		6D7601F62CEA40C600C49EDC /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		6D7602022CEA410200C49EDC /* Interceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
+		6D7602042CEA411000C49EDC /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		6D7602062CEA411D00C49EDC /* APITask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APITask.swift; sourceTree = "<group>"; };
+		6D7602082CEA412E00C49EDC /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		6D76020A2CEA413B00C49EDC /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
+		6D76020E2CEA41DC00C49EDC /* Fonts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fonts+.swift"; sourceTree = "<group>"; };
+		6D7602102CEA420800C49EDC /* SpoqaHanSansNeo-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Thin.ttf"; sourceTree = "<group>"; };
+		6D7602112CEA420800C49EDC /* SpoqaHanSansNeo-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Medium.ttf"; sourceTree = "<group>"; };
+		6D7602122CEA420800C49EDC /* SpoqaHanSansNeo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Regular.ttf"; sourceTree = "<group>"; };
+		6D7602132CEA420800C49EDC /* SpoqaHanSansNeo-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Bold.ttf"; sourceTree = "<group>"; };
+		6D7602142CEA420800C49EDC /* SpoqaHanSansNeo-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SpoqaHanSansNeo-Light.ttf"; sourceTree = "<group>"; };
+		6D7602152CEA420800C49EDC /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
+		6D76021C2CEA433D00C49EDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6D76021D2CEA440D00C49EDC /* SWIPO-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "SWIPO-iOS.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +60,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D7602012CEA40F500C49EDC /* CodeScanner in Frameworks */,
+				6D7601FA2CEA40EB00C49EDC /* KakaoSDK in Frameworks */,
+				6D7601FE2CEA40EB00C49EDC /* KakaoSDKCommon in Frameworks */,
+				6D7601FC2CEA40EB00C49EDC /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,7 +89,11 @@
 		6D7601E22CEA3EA800C49EDC /* SWIPO-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */,
+				6D76021D2CEA440D00C49EDC /* SWIPO-iOS.entitlements */,
+				6D76021C2CEA433D00C49EDC /* Info.plist */,
+				6D7601F12CEA407D00C49EDC /* App */,
+				6D76020C2CEA41B300C49EDC /* Extension */,
+				6D7601F42CEA40AD00C49EDC /* Network */,
 				6D7601E52CEA3EA800C49EDC /* ContentView.swift */,
 				6D7601E72CEA3EA900C49EDC /* Assets.xcassets */,
 				6D7601E92CEA3EA900C49EDC /* Preview Content */,
@@ -65,6 +107,58 @@
 				6D7601EA2CEA3EA900C49EDC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6D7601F12CEA407D00C49EDC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */,
+				6D7601F22CEA408800C49EDC /* AppState.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		6D7601F42CEA40AD00C49EDC /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				6D7601F52CEA40B800C49EDC /* Base */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		6D7601F52CEA40B800C49EDC /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				6D7601F62CEA40C600C49EDC /* NetworkManager.swift */,
+				6D7602022CEA410200C49EDC /* Interceptor.swift */,
+				6D7602042CEA411000C49EDC /* EndPoint.swift */,
+				6D7602062CEA411D00C49EDC /* APITask.swift */,
+				6D7602082CEA412E00C49EDC /* BaseResponse.swift */,
+				6D76020A2CEA413B00C49EDC /* KeyChainManager.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		6D76020C2CEA41B300C49EDC /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6D76020D2CEA41CC00C49EDC /* Fonts */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		6D76020D2CEA41CC00C49EDC /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				6D7602152CEA420800C49EDC /* Pretendard-Medium.ttf */,
+				6D7602132CEA420800C49EDC /* SpoqaHanSansNeo-Bold.ttf */,
+				6D7602142CEA420800C49EDC /* SpoqaHanSansNeo-Light.ttf */,
+				6D7602112CEA420800C49EDC /* SpoqaHanSansNeo-Medium.ttf */,
+				6D7602122CEA420800C49EDC /* SpoqaHanSansNeo-Regular.ttf */,
+				6D7602102CEA420800C49EDC /* SpoqaHanSansNeo-Thin.ttf */,
+				6D76020E2CEA41DC00C49EDC /* Fonts+.swift */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +177,12 @@
 			dependencies = (
 			);
 			name = "SWIPO-iOS";
+			packageProductDependencies = (
+				6D7601F92CEA40EB00C49EDC /* KakaoSDK */,
+				6D7601FB2CEA40EB00C49EDC /* KakaoSDKAuth */,
+				6D7601FD2CEA40EB00C49EDC /* KakaoSDKCommon */,
+				6D7602002CEA40F500C49EDC /* CodeScanner */,
+			);
 			productName = "SWIPO-iOS";
 			productReference = 6D7601E02CEA3EA800C49EDC /* SWIPO-iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -104,13 +204,18 @@
 			};
 			buildConfigurationList = 6D7601DB2CEA3EA800C49EDC /* Build configuration list for PBXProject "SWIPO-iOS" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 6D7601D72CEA3EA800C49EDC;
+			packageReferences = (
+				6D7601F82CEA40EB00C49EDC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				6D7601FF2CEA40F500C49EDC /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			productRefGroup = 6D7601E12CEA3EA800C49EDC /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -125,8 +230,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D76021B2CEA420800C49EDC /* Pretendard-Medium.ttf in Resources */,
+				6D7602162CEA420800C49EDC /* SpoqaHanSansNeo-Thin.ttf in Resources */,
 				6D7601EB2CEA3EA900C49EDC /* Preview Assets.xcassets in Resources */,
+				6D76021A2CEA420800C49EDC /* SpoqaHanSansNeo-Light.ttf in Resources */,
+				6D7602172CEA420800C49EDC /* SpoqaHanSansNeo-Medium.ttf in Resources */,
 				6D7601E82CEA3EA900C49EDC /* Assets.xcassets in Resources */,
+				6D7602192CEA420800C49EDC /* SpoqaHanSansNeo-Bold.ttf in Resources */,
+				6D7602182CEA420800C49EDC /* SpoqaHanSansNeo-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +248,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D7602052CEA411000C49EDC /* EndPoint.swift in Sources */,
+				6D7601F72CEA40C600C49EDC /* NetworkManager.swift in Sources */,
+				6D7602032CEA410200C49EDC /* Interceptor.swift in Sources */,
+				6D7602072CEA411D00C49EDC /* APITask.swift in Sources */,
+				6D76020B2CEA413B00C49EDC /* KeyChainManager.swift in Sources */,
+				6D7601F32CEA408800C49EDC /* AppState.swift in Sources */,
+				6D76020F2CEA41DC00C49EDC /* Fonts+.swift in Sources */,
 				6D7601E62CEA3EA800C49EDC /* ContentView.swift in Sources */,
 				6D7601E42CEA3EA800C49EDC /* SWIPO_iOSApp.swift in Sources */,
+				6D7602092CEA412E00C49EDC /* BaseResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,17 +388,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SWIPO-iOS/SWIPO-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SWIPO-iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 23SCTLK482;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SWIPO-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,17 +420,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SWIPO-iOS/SWIPO-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"SWIPO-iOS/Preview Content\"";
 				DEVELOPMENT_TEAM = 23SCTLK482;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "SWIPO-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -344,6 +469,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6D7601F82CEA40EB00C49EDC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.23.0;
+			};
+		};
+		6D7601FF2CEA40F500C49EDC /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6D7601F92CEA40EB00C49EDC /* KakaoSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D7601F82CEA40EB00C49EDC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDK;
+		};
+		6D7601FB2CEA40EB00C49EDC /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D7601F82CEA40EB00C49EDC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		6D7601FD2CEA40EB00C49EDC /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D7601F82CEA40EB00C49EDC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+		6D7602002CEA40F500C49EDC /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6D7601FF2CEA40F500C49EDC /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6D7601D82CEA3EA800C49EDC /* Project object */;
 }
