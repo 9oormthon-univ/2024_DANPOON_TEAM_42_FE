@@ -275,10 +275,14 @@ struct SwipayView: View {
                                             
                                             Spacer()
                                             
-                                            Image("swipay_chevron_right")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 32 * Constants.ControlWidth)
+                                            Button(action: {
+                                                AppState.shared.navigationPath.append(swipayType.swipoint)
+                                            }, label: {
+                                                Image("swipay_chevron_right")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 32 * Constants.ControlWidth)
+                                            })
                                         }
                                         .padding(.leading, 22 * Constants.ControlWidth)
                                         .padding(.trailing, 22 * Constants.ControlHeight)
@@ -409,6 +413,13 @@ struct SwipayView: View {
                 }
             }
             .toolbar(.hidden)
+        }
+        .toolbar(.hidden)
+        .navigationDestination(for: swipayType.self) { view in
+            switch view{
+            case .swipoint:
+                SwipointView()
+            }
         }
     }
 }
@@ -582,6 +593,10 @@ struct SwipayNewsView: View {
             }
         }
     }
+}
+
+enum swipayType{
+    case swipoint
 }
 
 #Preview {

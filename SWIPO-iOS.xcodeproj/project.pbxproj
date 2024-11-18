@@ -10,9 +10,9 @@
 		6D3C63832CEB297600229404 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63822CEB297600229404 /* TermsView.swift */; };
 		6D3C63872CEB5FE300229404 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63862CEB5FE300229404 /* WebView.swift */; };
 		6D3C638A2CEB940100229404 /* SwipointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63892CEB940100229404 /* SwipointView.swift */; };
-		6D3C638C2CEB95B000229404 /* ImageBtnNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C638B2CEB95B000229404 /* ImageBtnNavigationBar.swift */; };
 		6D3C638E2CEB9E8D00229404 /* SwipointModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C638D2CEB9E8D00229404 /* SwipointModel.swift */; };
 		6D3C63902CEB9E9500229404 /* SwipointViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C638F2CEB9E9500229404 /* SwipointViewModel.swift */; };
+		6D3C63942CEBA43B00229404 /* SwipstoneGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63932CEBA43B00229404 /* SwipstoneGuideView.swift */; };
 		6D7601E42CEA3EA800C49EDC /* SWIPO_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */; };
 		6D7601E82CEA3EA900C49EDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7601E72CEA3EA900C49EDC /* Assets.xcassets */; };
 		6D7601EB2CEA3EA900C49EDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7601EA2CEA3EA900C49EDC /* Preview Assets.xcassets */; };
@@ -60,9 +60,9 @@
 		6D3C63822CEB297600229404 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		6D3C63862CEB5FE300229404 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		6D3C63892CEB940100229404 /* SwipointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipointView.swift; sourceTree = "<group>"; };
-		6D3C638B2CEB95B000229404 /* ImageBtnNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBtnNavigationBar.swift; sourceTree = "<group>"; };
 		6D3C638D2CEB9E8D00229404 /* SwipointModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipointModel.swift; sourceTree = "<group>"; };
 		6D3C638F2CEB9E9500229404 /* SwipointViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipointViewModel.swift; sourceTree = "<group>"; };
+		6D3C63932CEBA43B00229404 /* SwipstoneGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipstoneGuideView.swift; sourceTree = "<group>"; };
 		6D7601E02CEA3EA800C49EDC /* SWIPO-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWIPO-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIPO_iOSApp.swift; sourceTree = "<group>"; };
 		6D7601E72CEA3EA900C49EDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,6 +144,14 @@
 				6D3C638F2CEB9E9500229404 /* SwipointViewModel.swift */,
 			);
 			path = Swipoint;
+			sourceTree = "<group>";
+		};
+		6D3C63922CEBA3F400229404 /* Swipstone */ = {
+			isa = PBXGroup;
+			children = (
+				6D3C63932CEBA43B00229404 /* SwipstoneGuideView.swift */,
+			);
+			path = Swipstone;
 			sourceTree = "<group>";
 		};
 		6D7601D72CEA3EA800C49EDC = {
@@ -260,6 +268,7 @@
 				954FFAB82CEAD3DD00E81D16 /* Nearby */,
 				6D787BF32CEACC1F00B587F8 /* Swipay */,
 				6D3C63882CEB93E800229404 /* Swipoint */,
+				6D3C63922CEBA3F400229404 /* Swipstone */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -272,7 +281,6 @@
 				6D787C192CEB223000B587F8 /* AuthManager.swift */,
 				6D787C1B2CEB224600B587F8 /* Secrets.swift */,
 				9512B2FB2CEB31A60029A9AA /* NavigationBar.swift */,
-				6D3C638B2CEB95B000229404 /* ImageBtnNavigationBar.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -407,7 +415,6 @@
 			files = (
 				6D7602052CEA411000C49EDC /* EndPoint.swift in Sources */,
 				6D787C1A2CEB223000B587F8 /* AuthManager.swift in Sources */,
-				6D3C638C2CEB95B000229404 /* ImageBtnNavigationBar.swift in Sources */,
 				6D787BED2CEACBE300B587F8 /* Constants.swift in Sources */,
 				9512B3002CEB32040029A9AA /* StoreListView.swift in Sources */,
 				6D787C1C2CEB224600B587F8 /* Secrets.swift in Sources */,
@@ -421,6 +428,7 @@
 				954FFABB2CEAD3F200E81D16 /* NearbyView.swift in Sources */,
 				6D787BEB2CEACBDE00B587F8 /* Color.swift in Sources */,
 				9512B2FC2CEB31A60029A9AA /* NavigationBar.swift in Sources */,
+				6D3C63942CEBA43B00229404 /* SwipstoneGuideView.swift in Sources */,
 				6D3C638A2CEB940100229404 /* SwipointView.swift in Sources */,
 				954FFABF2CEAD44600E81D16 /* MapViewController.swift in Sources */,
 				954FFABD2CEAD43F00E81D16 /* MapView.swift in Sources */,

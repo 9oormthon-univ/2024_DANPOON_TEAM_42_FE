@@ -13,18 +13,23 @@ struct SwipointView: View {
     
     var body: some View {
         
-        @State var barBtn: Bool = false
         ZStack{
             VStack(spacing: 0){
-                ImageBtnNavigationBar(title: "스위포인트", imageType: "question_circle_mark", showBackButton: true, barBtn: $barBtn)
+                ImageBtnNavigationBar(title: "스위포인트", 
+                                      imageType: "question_circle_mark",
+                                      showBackButton: true)
                 
                 SwipointMainView(viewModel: viewModel)
                 
                 Spacer()
             }
-            .sheet(isPresented: $barBtn, content: {
-                
-            })
+        }
+        .toolbar(.hidden)
+        .navigationDestination(for: swipointType.self) { view in
+            switch view{
+            case .guide:
+                SwipstoneGuideView()
+            }
         }
     }
 }
@@ -67,6 +72,7 @@ struct SwipointMainView: View {
                                     }
                                 }
                             }
+                            .scrollDisabled(true)
                             .padding(.bottom, 10 * Constants.ControlHeight)
                             
                             HStack(spacing: 6){
@@ -130,6 +136,49 @@ struct SwipointCardView: View {
                     .scaledToFit()
                     .frame(width: 242 * Constants.ControlWidth, height: 386 * Constants.ControlHeight)
             }
+        }
+    }
+}
+
+enum swipointType{
+    case guide
+}
+
+struct ImageBtnNavigationBar: View {
+    let title: String
+    let imageType: String
+    let showBackButton: Bool
+
+    var body: some View {
+        ZStack {
+            HStack {
+                // 뒤로가기 버튼
+                if showBackButton {
+                    Button(action: {
+                        AppState.shared.navigationPath.removeLast()
+                    }, label: {
+                        Image("back_btn")
+                    })
+                }
+
+                Spacer()
+
+                // 네비게이션 타이틀
+                Text(title)
+                    .font(.Headline)
+                    .foregroundColor(.greyLighter)
+
+                Spacer()
+
+                // 오른쪽 버튼
+                Button(action: {
+                    AppState.shared.navigationPath.append(swipointType.guide)
+                }, label: {
+                    Image(imageType)
+                        .frame(width: 38 * Constants.ControlWidth)
+                })
+            }
+            .frame(height: 58 * Constants.ControlHeight)
         }
     }
 }
