@@ -16,7 +16,7 @@ struct SWIPO_iOSApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     init() {
-        KakaoSDK.initSDK(appKey: "")
+        KakaoSDK.initSDK(appKey: Secrets.kakaoLoginNativeTestAppKey)
     }
 
     var body: some Scene {
