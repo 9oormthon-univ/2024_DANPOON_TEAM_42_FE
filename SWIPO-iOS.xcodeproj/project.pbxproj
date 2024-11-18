@@ -35,6 +35,9 @@
 		6D787BF72CEACC1F00B587F8 /* SwipayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787BF12CEACC1F00B587F8 /* SwipayView.swift */; };
 		6D787BF82CEACC1F00B587F8 /* SwipayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787BF22CEACC1F00B587F8 /* SwipayViewModel.swift */; };
 		6D787BF92CEACC1F00B587F8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787BF42CEACC1F00B587F8 /* MainView.swift */; };
+		6D787C1A2CEB223000B587F8 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787C192CEB223000B587F8 /* AuthManager.swift */; };
+		6D787C1C2CEB224600B587F8 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787C1B2CEB224600B587F8 /* Secrets.swift */; };
+		6D787C202CEB242100B587F8 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787C1F2CEB242100B587F8 /* LoginView.swift */; };
 		954FFAB72CEAD3B500E81D16 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 954FFAB62CEAD3B500E81D16 /* KakaoMapsSDK-SPM */; };
 		954FFABB2CEAD3F200E81D16 /* NearbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABA2CEAD3F200E81D16 /* NearbyView.swift */; };
 		954FFABD2CEAD43F00E81D16 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABC2CEAD43F00E81D16 /* MapView.swift */; };
@@ -71,6 +74,9 @@
 		6D787BF12CEACC1F00B587F8 /* SwipayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipayView.swift; sourceTree = "<group>"; };
 		6D787BF22CEACC1F00B587F8 /* SwipayViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipayViewModel.swift; sourceTree = "<group>"; };
 		6D787BF42CEACC1F00B587F8 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		6D787C192CEB223000B587F8 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		6D787C1B2CEB224600B587F8 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		6D787C1F2CEB242100B587F8 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		954FFABA2CEAD3F200E81D16 /* NearbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyView.swift; sourceTree = "<group>"; };
 		954FFABC2CEAD43F00E81D16 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		954FFABE2CEAD44600E81D16 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -115,8 +121,10 @@
 			children = (
 				6D76021D2CEA440D00C49EDC /* SWIPO-iOS.entitlements */,
 				6D76021C2CEA433D00C49EDC /* Info.plist */,
-				6D787BF52CEACC1F00B587F8 /* Main */,
 				6D7601F12CEA407D00C49EDC /* App */,
+				6D787BF52CEACC1F00B587F8 /* Main */,
+				6D787C1D2CEB240400B587F8 /* Login */,
+				6D787C182CEB220A00B587F8 /* Common */,
 				6D76020C2CEA41B300C49EDC /* Extension */,
 				6D7601F42CEA40AD00C49EDC /* Network */,
 				6D7601E72CEA3EA900C49EDC /* Assets.xcassets */,
@@ -166,7 +174,6 @@
 		6D76020C2CEA41B300C49EDC /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				6D787BEE2CEACBE600B587F8 /* MainNavigationBar.swift */,
 				6D787BEC2CEACBE300B587F8 /* Constants.swift */,
 				6D787BEA2CEACBDE00B587F8 /* Color.swift */,
 				954FFAC02CEAD48500E81D16 /* Custom */,
@@ -207,6 +214,24 @@
 				6D787BF32CEACC1F00B587F8 /* Swipay */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		6D787C182CEB220A00B587F8 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6D787BEE2CEACBE600B587F8 /* MainNavigationBar.swift */,
+				6D787C192CEB223000B587F8 /* AuthManager.swift */,
+				6D787C1B2CEB224600B587F8 /* Secrets.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		6D787C1D2CEB240400B587F8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				6D787C1F2CEB242100B587F8 /* LoginView.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		954FFAB82CEAD3DD00E81D16 /* Nearby */ = {
@@ -319,7 +344,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D7602052CEA411000C49EDC /* EndPoint.swift in Sources */,
+				6D787C1A2CEB223000B587F8 /* AuthManager.swift in Sources */,
 				6D787BED2CEACBE300B587F8 /* Constants.swift in Sources */,
+				6D787C1C2CEB224600B587F8 /* Secrets.swift in Sources */,
+				6D787C202CEB242100B587F8 /* LoginView.swift in Sources */,
 				6D7601F72CEA40C600C49EDC /* NetworkManager.swift in Sources */,
 				6D787BF72CEACC1F00B587F8 /* SwipayView.swift in Sources */,
 				954FFAC22CEAD49100E81D16 /* CustomTextField.swift in Sources */,
@@ -476,11 +504,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SWIPO-iOS/Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SWIPO가 사용자의 위치를 사용하도록 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -508,11 +538,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "SWIPO-iOS/Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "SWIPO가 사용자의 위치를 사용하도록 허용하시겠습니까?";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
