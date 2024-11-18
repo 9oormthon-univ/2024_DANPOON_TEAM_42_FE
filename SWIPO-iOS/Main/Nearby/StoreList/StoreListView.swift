@@ -19,6 +19,14 @@ struct StoreListView: View {
     @State var sortModal: Bool = false
     @State var sort: String = "가까운순"
 
+    var filteredStores: [Store] {
+        stores.filter { store in
+            let matchesSearch = searchText.isEmpty || store.name.contains(searchText)
+            let matchesCategory = category == "전체" || store.category == category
+            return matchesSearch && matchesCategory
+        }
+    }
+
     var body: some View {
         ZStack {
             VStack {
@@ -45,7 +53,7 @@ struct StoreListView: View {
                 .padding(.horizontal, 17)
                 .shadow(radius: 2)
                 .padding(.top, 8)
-                
+
                 HStack {
                     Button(action: {
                         categoryModal.toggle()
@@ -101,9 +109,9 @@ struct StoreListView: View {
                                     options: ["인기순", "추천순", "별점순", "가까운순", "관심등록순"],
                                     height: 416
                                 )
-                                    .background(ClearBackgroundView())
-                                    .foregroundColor(.white)
-                                    .presentationDetents([.height(416 * Constants.ControlHeight)])
+                                .background(ClearBackgroundView())
+                                .foregroundColor(.white)
+                                .presentationDetents([.height(416 * Constants.ControlHeight)])
                             }
                     }
 
@@ -113,15 +121,24 @@ struct StoreListView: View {
                 .padding(.top, 8)
 
                 ScrollView {
-                    ForEach(stores) { store in
-                        StoreRowView(store: store)
-                            .padding(.horizontal)
-                            .padding(.bottom, 33)
+                    if filteredStores.isEmpty {
+                        VStack {
+                            Text("검색 결과가 없습니다.")
+                                .font(.Body2)
+                                .foregroundColor(.greyLightHover)
+                                .padding(.top, 20)
+                        }
+                    } else {
+                        ForEach(filteredStores) { store in
+                            StoreRowView(store: store)
+                                .padding(.bottom, 33)
+                        }
                     }
                 }
                 .padding(.top, 20)
                 .padding(.bottom, 40)
-            }.background(Color.black)
+            }
+            .background(.black)
 
             VStack {
                 Spacer()
