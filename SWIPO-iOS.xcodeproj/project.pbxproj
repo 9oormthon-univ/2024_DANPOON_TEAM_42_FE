@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D3C63832CEB297600229404 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63822CEB297600229404 /* TermsView.swift */; };
 		6D7601E42CEA3EA800C49EDC /* SWIPO_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */; };
 		6D7601E82CEA3EA900C49EDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7601E72CEA3EA900C49EDC /* Assets.xcassets */; };
 		6D7601EB2CEA3EA900C49EDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7601EA2CEA3EA900C49EDC /* Preview Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D3C63822CEB297600229404 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		6D7601E02CEA3EA800C49EDC /* SWIPO-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWIPO-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIPO_iOSApp.swift; sourceTree = "<group>"; };
 		6D7601E72CEA3EA900C49EDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,6 +102,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D3C63802CEB295D00229404 /* Join */ = {
+			isa = PBXGroup;
+			children = (
+				6D3C63812CEB296800229404 /* Terms */,
+			);
+			path = Join;
+			sourceTree = "<group>";
+		};
+		6D3C63812CEB296800229404 /* Terms */ = {
+			isa = PBXGroup;
+			children = (
+				6D3C63822CEB297600229404 /* TermsView.swift */,
+			);
+			path = Terms;
+			sourceTree = "<group>";
+		};
 		6D7601D72CEA3EA800C49EDC = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +142,7 @@
 				6D7601F12CEA407D00C49EDC /* App */,
 				6D787BF52CEACC1F00B587F8 /* Main */,
 				6D787C1D2CEB240400B587F8 /* Login */,
+				6D3C63802CEB295D00229404 /* Join */,
 				6D787C182CEB220A00B587F8 /* Common */,
 				6D76020C2CEA41B300C49EDC /* Extension */,
 				6D7601F42CEA40AD00C49EDC /* Network */,
@@ -359,6 +378,7 @@
 				6D7602072CEA411D00C49EDC /* APITask.swift in Sources */,
 				6D76020B2CEA413B00C49EDC /* KeyChainManager.swift in Sources */,
 				6D7601F32CEA408800C49EDC /* AppState.swift in Sources */,
+				6D3C63832CEB297600229404 /* TermsView.swift in Sources */,
 				6D787BF92CEACC1F00B587F8 /* MainView.swift in Sources */,
 				6D787BEF2CEACBE600B587F8 /* MainNavigationBar.swift in Sources */,
 				6D787BF82CEACC1F00B587F8 /* SwipayViewModel.swift in Sources */,
