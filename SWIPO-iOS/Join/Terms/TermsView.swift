@@ -32,11 +32,11 @@ struct TermsView: View {
     @State private var isChkTerm6: Bool = false
     @State private var isChkTerm6Modal: Bool = false
     
-    
     var body: some View {
         
         ZStack{
             VStack(spacing: 0){
+                
                 
                 HStack(spacing: 0){
                     Text("서비스 이용을 위해 \n 이용약관에 동의해 주세요")
@@ -102,7 +102,7 @@ struct TermsView: View {
                     }
                     .padding(.bottom, 24 * Constants.ControlHeight)
                     .sheet(isPresented: $isChkAllModal) {
-                        
+                        WebView(url: URL(string: "https://attractive-reason-70a.notion.site/1363d7dd9ab0803eab58d135b8725ede?pvs=4")!)
                     }
                 
 
@@ -137,7 +137,7 @@ struct TermsView: View {
                 }
                 .padding()
                 .sheet(isPresented: $isChkTerm1Modal) {
-                    
+                    WebView(url: URL(string: "https://attractive-reason-70a.notion.site/1363d7dd9ab0803eab58d135b8725ede?pvs=4")!)
                 }
                 
                 HStack(spacing: 0){
@@ -171,7 +171,7 @@ struct TermsView: View {
                 }
                 .padding()
                 .sheet(isPresented: $isChkTerm2Modal) {
-                    
+                    WebView(url: URL(string: "https://attractive-reason-70a.notion.site/1363d7dd9ab0803eab58d135b8725ede?pvs=4")!)
                 }
                 
                 HStack(spacing: 0){
@@ -205,7 +205,7 @@ struct TermsView: View {
                 }
                 .padding()
                 .sheet(isPresented: $isChkTerm3Modal) {
-                    
+                    WebView(url: URL(string: "https://attractive-reason-70a.notion.site/1363d7dd9ab0803eab58d135b8725ede?pvs=4")!)
                 }
                 
                 HStack(spacing: 0){
@@ -239,7 +239,7 @@ struct TermsView: View {
                 }
                 .padding()
                 .sheet(isPresented: $isChkTerm4Modal) {
-                    
+                    WebView(url: URL(string: "https://attractive-reason-70a.notion.site/1363d7dd9ab0803eab58d135b8725ede?pvs=4")!)
                 }
                 
                 HStack(spacing: 0){
@@ -273,7 +273,7 @@ struct TermsView: View {
                 }
                 .padding()
                 .sheet(isPresented: $isChkTerm5Modal) {
-                    
+                    WebView(url: URL(string: "https://attractive-reason-70a.notion.site/1363d7dd9ab0803eab58d135b8725ede?pvs=4")!)
                 }
                 
                 HStack(spacing: 0){
@@ -307,7 +307,7 @@ struct TermsView: View {
                 }
                 .padding()
                 .sheet(isPresented: $isChkTerm6Modal) {
-                    
+                    WebView(url: URL(string: "https://attractive-reason-70a.notion.site/1363d7dd9ab0803eab58d135b8725ede?pvs=4")!)
                 }
                 
                 
@@ -341,7 +341,6 @@ struct TermsView: View {
             return false
         }
     }
-    
 }
 
 #Preview {

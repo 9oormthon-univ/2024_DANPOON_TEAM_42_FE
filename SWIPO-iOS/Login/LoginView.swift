@@ -96,7 +96,7 @@ struct LoginView: View {
                                 default:
                                     break
                                 }
-    
+                                AppState.shared.navigationPath.append(loginType.term(type: "apple"))
                             case .failure(let error):
                                 print(error.localizedDescription)
                                 print("error")
@@ -127,7 +127,7 @@ struct LoginView: View {
                     }
                     
                     Button(action: {
-
+                        AppState.shared.navigationPath.append(loginType.term(type: "phone"))
                     }, label: {
                         RoundedRectangle(cornerRadius: 16)
                             .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
@@ -146,16 +146,23 @@ struct LoginView: View {
             }
             .onChange(of: authManager.kakaoSuccess) { success in
                 if success {
-
+                    AppState.shared.navigationPath.append(loginType.term(type: "kakao"))
                 }
             }
-
+            .navigationDestination(for: loginType.self) { viewType in
+                switch viewType {
+                case let .term(type):
+                    TermsView(howLogin: type)
+                }
+            }
         }
     }
     
+    enum loginType: Hashable{
+        case term(type: String)
+    }
 }
 
 #Preview {
     LoginView()
 }
-
