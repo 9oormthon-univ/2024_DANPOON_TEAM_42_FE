@@ -6,12 +6,34 @@
 //
 
 import SwiftUI
+import KakaoSDKCommon
+import KakaoSDKAuth
+import KakaoMapsSDK
 
 @main
 struct SWIPO_iOSApp: App {
+    @StateObject var appState = AppState.shared
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
+    init() {
+        KakaoSDK.initSDK(appKey: "")
+    }
+
     var body: some Scene {
         WindowGroup {
             MainView()
         }
+    }
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KAKAO_APP_KEY") as? String {
+            SDKInitializer.InitSDK(appKey: kakaoAppKey)
+        } else {
+            fatalError("Kakao App Key is missing in Info.plist")
+        }
+        return true
     }
 }

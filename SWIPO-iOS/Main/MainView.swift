@@ -42,8 +42,8 @@ struct MainView: View {
             
             // 선택된 탭에 따른 콘텐츠
             TabContentView(selectedTab: selectedTab)
-                .padding(.top, 13 * Constants.ControlHeight)
-            
+                .padding(.top, selectedTab != .nearby ? 13 * Constants.ControlHeight : 0)
+
             Spacer()
         }
         .edgesIgnoringSafeArea(.bottom)
@@ -97,9 +97,7 @@ struct TabContentView: View {
     var body: some View {
         switch selectedTab {
         case .nearby:
-            Text("내 주변 콘텐츠")
-                .font(.title)
-                .foregroundColor(.white)
+            NearbyView()
             
         case .swipePay:
             SwipayView()
