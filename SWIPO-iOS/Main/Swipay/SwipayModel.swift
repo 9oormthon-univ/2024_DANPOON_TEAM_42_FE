@@ -16,7 +16,7 @@ struct RecentUsageModel: Codable{
     var price: String
 }
 
-struct SwipointCardModel: Codable{
+struct SwipayCardModel: Codable{
     var id: Int64
     var region: String
     var cardImage: String

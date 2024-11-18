@@ -152,7 +152,8 @@ struct LoginView: View {
             .navigationDestination(for: loginType.self) { viewType in
                 switch viewType {
                 case let .term(type):
-                    TermsView(howLogin: type)
+//                    TermsView(howLogin: type)
+                    MainView()
                 }
             }
         }
