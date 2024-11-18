@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Secrets {
+struct secret {
     static let baseUrl = ""
     static let appleTeamId = "UM6P9H795G"
     static let appleKeyId = "9JRUHFTK3L"

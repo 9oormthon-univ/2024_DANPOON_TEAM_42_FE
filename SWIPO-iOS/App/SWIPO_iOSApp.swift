@@ -14,13 +14,13 @@ struct SWIPO_iOSApp: App {
     @StateObject var appState = AppState.shared
     
     init() {
-        KakaoSDK.initSDK(appKey: Secrets.kakaoLoginNativeTestAppKey)
+        KakaoSDK.initSDK(appKey: secret.kakaoLoginNativeTestAppKey)
         }
     
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $appState.navigationPath) {
-                LoginView()
+                MainView()
                     .onOpenURL(perform: { url in
                         if AuthApi.isKakaoTalkLoginUrl(url) {
                             AuthController.handleOpenUrl(url: url)
