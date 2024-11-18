@@ -38,6 +38,7 @@
 		954FFAB72CEAD3B500E81D16 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 954FFAB62CEAD3B500E81D16 /* KakaoMapsSDK-SPM */; };
 		954FFABB2CEAD3F200E81D16 /* NearbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABA2CEAD3F200E81D16 /* NearbyView.swift */; };
 		954FFAC22CEAD49100E81D16 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFAC12CEAD49100E81D16 /* CustomTextField.swift */; };
+		954FFAC52CEAE6B500E81D16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 954FFAC42CEAE6B500E81D16 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +81,7 @@
 				6D7602012CEA40F500C49EDC /* CodeScanner in Frameworks */,
 				6D7601FA2CEA40EB00C49EDC /* KakaoSDK in Frameworks */,
 				954FFAB72CEAD3B500E81D16 /* KakaoMapsSDK-SPM in Frameworks */,
+				954FFAC52CEAE6B500E81D16 /* SnapKit in Frameworks */,
 				6D7601FE2CEA40EB00C49EDC /* KakaoSDKCommon in Frameworks */,
 				6D7601FC2CEA40EB00C49EDC /* KakaoSDKAuth in Frameworks */,
 			);
@@ -241,6 +243,7 @@
 				6D7601FD2CEA40EB00C49EDC /* KakaoSDKCommon */,
 				6D7602002CEA40F500C49EDC /* CodeScanner */,
 				954FFAB62CEAD3B500E81D16 /* KakaoMapsSDK-SPM */,
+				954FFAC42CEAE6B500E81D16 /* SnapKit */,
 			);
 			productName = "SWIPO-iOS";
 			productReference = 6D7601E02CEA3EA800C49EDC /* SWIPO-iOS.app */;
@@ -275,6 +278,7 @@
 				6D7601F82CEA40EB00C49EDC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				6D7601FF2CEA40F500C49EDC /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				954FFAB52CEAD3B500E81D16 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
+				954FFAC32CEAE6B500E81D16 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 6D7601E12CEA3EA800C49EDC /* Products */;
 			projectDirPath = "";
@@ -563,6 +567,14 @@
 				minimumVersion = 2.12.0;
 			};
 		};
+		954FFAC32CEAE6B500E81D16 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -590,6 +602,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 954FFAB52CEAD3B500E81D16 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
 			productName = "KakaoMapsSDK-SPM";
+		};
+		954FFAC42CEAE6B500E81D16 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 954FFAC32CEAE6B500E81D16 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
