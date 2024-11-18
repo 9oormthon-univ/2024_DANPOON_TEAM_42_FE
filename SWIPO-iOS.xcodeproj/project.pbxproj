@@ -37,6 +37,7 @@
 		6D787BF92CEACC1F00B587F8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787BF42CEACC1F00B587F8 /* MainView.swift */; };
 		6D787C002CEACEE600B587F8 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787BFF2CEACEE600B587F8 /* AuthManager.swift */; };
 		6D787C062CEACF5D00B587F8 /* secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787C052CEACF5D00B587F8 /* secret.swift */; };
+		6D787C142CEAF27700B587F8 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787C132CEAF27700B587F8 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +70,7 @@
 		6D787BF42CEACC1F00B587F8 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		6D787BFF2CEACEE600B587F8 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
 		6D787C052CEACF5D00B587F8 /* secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = secret.swift; sourceTree = "<group>"; };
+		6D787C132CEAF27700B587F8 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				6D76021C2CEA433D00C49EDC /* Info.plist */,
 				6D7601F12CEA407D00C49EDC /* App */,
 				6D787BF52CEACC1F00B587F8 /* Main */,
+				6D787C122CEAF26800B587F8 /* Login */,
 				6D787C032CEACF4500B587F8 /* Common */,
 				6D76020C2CEA41B300C49EDC /* Extension */,
 				6D7601F42CEA40AD00C49EDC /* Network */,
@@ -217,6 +220,14 @@
 			path = Util;
 			sourceTree = "<group>";
 		};
+		6D787C122CEAF26800B587F8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				6D787C132CEAF27700B587F8 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -320,6 +331,7 @@
 				6D787BF82CEACC1F00B587F8 /* SwipayViewModel.swift in Sources */,
 				6D787BF62CEACC1F00B587F8 /* SwipayModel.swift in Sources */,
 				6D76020F2CEA41DC00C49EDC /* Fonts+.swift in Sources */,
+				6D787C142CEAF27700B587F8 /* LoginView.swift in Sources */,
 				6D7601E42CEA3EA800C49EDC /* SWIPO_iOSApp.swift in Sources */,
 				6D7602092CEA412E00C49EDC /* BaseResponse.swift in Sources */,
 			);
