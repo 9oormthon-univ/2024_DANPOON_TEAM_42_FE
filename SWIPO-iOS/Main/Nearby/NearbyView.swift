@@ -11,6 +11,8 @@ import CoreLocation
 
 struct NearbyView: View {
     @State var searchText: String = ""
+    @State var payButtonEnable: Bool = false
+
     private var mapView = MapView()
 
     var body: some View {
@@ -88,7 +90,8 @@ struct NearbyView: View {
                 }) {
                     RoundedRectangle(cornerRadius: 16)
                         .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
-                        .foregroundColor(.mainNormal)
+                        .disabled(payButtonEnable)
+                        .foregroundColor(payButtonEnable ? .mainNormal : .mainLightActive)
                         .overlay {
                             Text("결제하기")
                                 .foregroundColor(Color.white)
@@ -102,9 +105,7 @@ struct NearbyView: View {
         .navigationDestination(for: mainType.self) { viewType in
             switch viewType {
             case .storeList:
-                Text("내 주변 가맹점")
-                    .font(.title)
-                    .foregroundColor(.white)
+                StoreListView()
             }
         }
     }
