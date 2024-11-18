@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct Store: Identifiable {
+class Store: Identifiable, ObservableObject {
     let id = UUID()
     let name: String
     let address: String
@@ -15,9 +16,31 @@ struct Store: Identifiable {
     let point: String
     let rating: Double
     let reviewCount: Int
-    let isFavorite: Bool
+    @Published var isFavorite: Bool
     let isHot: Bool
     let category: String
+
+    init(
+        name: String,
+        address: String,
+        imageName: String,
+        point: String,
+        rating: Double,
+        reviewCount: Int,
+        isFavorite: Bool,
+        isHot: Bool,
+        category: String
+    ) {
+        self.name = name
+        self.address = address
+        self.imageName = imageName
+        self.point = point
+        self.rating = rating
+        self.reviewCount = reviewCount
+        self.isFavorite = isFavorite
+        self.isHot = isHot
+        self.category = category
+    }
 }
 
 let sampleStores = [

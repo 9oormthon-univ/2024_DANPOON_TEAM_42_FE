@@ -105,9 +105,7 @@ struct NearbyView: View {
         .navigationDestination(for: mainType.self) { viewType in
             switch viewType {
             case .storeList:
-                Text("내 주변 가맹점")
-                    .font(.title)
-                    .foregroundColor(.white)
+                StoreListView()
             }
         }
     }

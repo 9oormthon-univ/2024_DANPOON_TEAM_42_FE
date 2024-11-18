@@ -203,7 +203,7 @@ struct StoreListView: View {
 }
 
 struct StoreRowView: View {
-    let store: Store
+    @ObservedObject var store: Store
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -213,11 +213,16 @@ struct StoreRowView: View {
                     .aspectRatio(contentMode: .fill)
                     .frame(height: 160)
                     .clipped()
-                Image(store.isFavorite ? .heartFilled : .heart)
-                    .resizable()
-                    .frame(width: 27 * Constants.ControlWidth, height: 27 * Constants.ControlHeight)
-                    .padding(10)
-                    .foregroundColor(.white)
+
+                Button(action: {
+                    store.isFavorite.toggle()
+                }) {
+                    Image(store.isFavorite ? .heartFilled : .heart)
+                        .resizable()
+                        .frame(width: 27 * Constants.ControlWidth, height: 27 * Constants.ControlHeight)
+                        .padding(10)
+                        .foregroundColor(.white)
+                }
             }
 
             VStack(alignment: .leading, spacing: 5) {
