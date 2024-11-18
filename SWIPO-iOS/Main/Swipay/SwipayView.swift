@@ -419,6 +419,8 @@ struct SwipayView: View {
             switch view{
             case .swipoint:
                 SwipointView()
+            case .swipointDetail(let id):
+                SwipointView(isSelectedRegion: id)
             }
         }
     }
@@ -518,10 +520,14 @@ struct SwipayCardView: View {
                                         
                                         Spacer()
                                         
-                                        Image("swipay_chevron_right_greyLighterHover")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 24 * Constants.ControlWidth)
+                                        Button(action: {
+                                            AppState.shared.navigationPath.append(swipayType.swipointDetail(id: data.id))
+                                        }, label: {
+                                            Image("swipay_chevron_right_greyLighterHover")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 24 * Constants.ControlWidth)
+                                        })
                                     }
                                     .padding(.top, 22 * Constants.ControlHeight)
                                     .padding(.leading, 22 * Constants.ControlWidth)
@@ -595,10 +601,12 @@ struct SwipayNewsView: View {
     }
 }
 
-enum swipayType{
+enum swipayType: Hashable{
     case swipoint
+    case swipointDetail(id: Int64)
 }
 
 #Preview {
     SwipayView()
 }
+

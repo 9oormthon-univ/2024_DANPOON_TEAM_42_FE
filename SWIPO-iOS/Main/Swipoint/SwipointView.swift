@@ -10,16 +10,19 @@ import SwiftUI
 struct SwipointView: View {
     
     @StateObject var viewModel = SwipointViewModel()
+    @StateObject private var geoServiceManager = GeoServiceManager()
+    @State var address: String = ""
+    @State var isSelectedRegion: Int64? = nil
     
     var body: some View {
         
         ZStack{
             VStack(spacing: 0){
-                ImageBtnNavigationBar(title: "스위포인트", 
+                ImageBtnNavigationBar(title: "스위포인트",
                                       imageType: "question_circle_mark",
                                       showBackButton: true)
                 
-                SwipointMainView(viewModel: viewModel)
+                SwipointMainView(viewModel: viewModel, isSelectedRegion: $isSelectedRegion)
                 
                 Spacer()
             }
@@ -31,12 +34,32 @@ struct SwipointView: View {
                 SwipstoneGuideView()
             }
         }
+        .onAppear {
+            geoServiceManager.onAddressUpdate = { addressResult in
+                address = addressResult // 주소 업데이트
+                print("주소: \(addressResult)")
+            }
+        }
+        .alert(isPresented: $geoServiceManager.showAlert) {
+            Alert(
+                title: Text("위치 접근 권한이 필요합니다"),
+                message: Text("앱 설정으로 가서 위치 접근 권한을 허용해 주세요."),
+                primaryButton: .cancel(Text("취소")),
+                secondaryButton: .default(Text("설정하기"), action: {
+                    // 설정 화면으로 이동
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                })
+            )
+        }
     }
 }
 
 struct SwipointMainView: View {
     @ObservedObject var viewModel: SwipointViewModel
     @State private var selectedCardIndex: Int = 0 // 현재 선택된 카드 인덱스
+    @Binding var isSelectedRegion: Int64?
     
     var body: some View {
         ZStack{
@@ -56,19 +79,24 @@ struct SwipointMainView: View {
                                         Spacer()
                                             .padding(.trailing, 56 * Constants.ControlWidth)
                                         
-                                        ForEach(viewModel.state.getSwipointCardResponse.indices, id: \.self) { index in
-                                            SwipointCardView(region: viewModel.state.getSwipointCardResponse[index].region, point: viewModel.state.getSwipointCardResponse[index].point, cardImage: viewModel.state.getSwipointCardResponse[index].cardImage)
+                                        ForEach(viewModel.state.getSwipointCardResponse, id: \.id) { data in
+                                            SwipointCardView(region: data.region, point: data.point, cardImage: data.cardImage)
                                                 .onTapGesture {
                                                     withAnimation(.easeInOut) {
-                                                        selectedCardIndex = index
-                                                        proxy.scrollTo(index, anchor: .center)
+                                                        selectedCardIndex = Int(data.id)
+                                                        proxy.scrollTo(Int(data.id), anchor: .center)
                                                     }
                                                 }
-                                                .id(index)
+                                                .id(Int(data.id))
                                         }
                                         
                                         Spacer()
                                             .padding(.leading, 56 * Constants.ControlWidth)
+                                    }
+                                    .onAppear {
+                                        if let isSelectedRegion = isSelectedRegion {
+                                            proxy.scrollTo(Int(isSelectedRegion), anchor: .center) // 선택된 리뷰 ID로 스크롤
+                                        }
                                     }
                                 }
                             }
@@ -186,3 +214,4 @@ struct ImageBtnNavigationBar: View {
 #Preview {
     SwipointView()
 }
+
