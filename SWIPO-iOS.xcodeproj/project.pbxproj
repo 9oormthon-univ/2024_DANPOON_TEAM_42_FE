@@ -35,6 +35,7 @@
 		6D787BF72CEACC1F00B587F8 /* SwipayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787BF12CEACC1F00B587F8 /* SwipayView.swift */; };
 		6D787BF82CEACC1F00B587F8 /* SwipayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787BF22CEACC1F00B587F8 /* SwipayViewModel.swift */; };
 		6D787BF92CEACC1F00B587F8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787BF42CEACC1F00B587F8 /* MainView.swift */; };
+		954FFAB72CEAD3B500E81D16 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 954FFAB62CEAD3B500E81D16 /* KakaoMapsSDK-SPM */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 			files = (
 				6D7602012CEA40F500C49EDC /* CodeScanner in Frameworks */,
 				6D7601FA2CEA40EB00C49EDC /* KakaoSDK in Frameworks */,
+				954FFAB72CEAD3B500E81D16 /* KakaoMapsSDK-SPM in Frameworks */,
 				6D7601FE2CEA40EB00C49EDC /* KakaoSDKCommon in Frameworks */,
 				6D7601FC2CEA40EB00C49EDC /* KakaoSDKAuth in Frameworks */,
 			);
@@ -216,6 +218,7 @@
 				6D7601FB2CEA40EB00C49EDC /* KakaoSDKAuth */,
 				6D7601FD2CEA40EB00C49EDC /* KakaoSDKCommon */,
 				6D7602002CEA40F500C49EDC /* CodeScanner */,
+				954FFAB62CEAD3B500E81D16 /* KakaoMapsSDK-SPM */,
 			);
 			productName = "SWIPO-iOS";
 			productReference = 6D7601E02CEA3EA800C49EDC /* SWIPO-iOS.app */;
@@ -249,6 +252,7 @@
 			packageReferences = (
 				6D7601F82CEA40EB00C49EDC /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				6D7601FF2CEA40F500C49EDC /* XCRemoteSwiftPackageReference "CodeScanner" */,
+				954FFAB52CEAD3B500E81D16 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */,
 			);
 			productRefGroup = 6D7601E12CEA3EA800C49EDC /* Products */;
 			projectDirPath = "";
@@ -527,6 +531,14 @@
 				minimumVersion = 2.5.1;
 			};
 		};
+		954FFAB52CEAD3B500E81D16 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.12.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -549,6 +561,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6D7601FF2CEA40F500C49EDC /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
+		};
+		954FFAB62CEAD3B500E81D16 /* KakaoMapsSDK-SPM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 954FFAB52CEAD3B500E81D16 /* XCRemoteSwiftPackageReference "KakaoMapsSDK-SPM" */;
+			productName = "KakaoMapsSDK-SPM";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
