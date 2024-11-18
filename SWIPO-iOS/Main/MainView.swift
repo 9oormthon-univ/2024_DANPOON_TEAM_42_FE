@@ -97,9 +97,7 @@ struct TabContentView: View {
     var body: some View {
         switch selectedTab {
         case .nearby:
-            Text("내 주변 콘텐츠")
-                .font(.title)
-                .foregroundColor(.white)
+            NearbyView()
             
         case .swipePay:
             SwipayView()
