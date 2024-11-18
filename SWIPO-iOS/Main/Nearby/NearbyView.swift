@@ -15,7 +15,7 @@ struct NearbyView: View {
 
     var body: some View {
         ZStack {
-//            mapView
+            mapView
 
             VStack {
                 HStack {
@@ -37,6 +37,7 @@ struct NearbyView: View {
                 .cornerRadius(14)
                 .padding(.horizontal)
                 .shadow(radius: 2)
+                .padding(.top, 18)
 
                 HStack {
                     Button(action: {
@@ -94,7 +95,6 @@ struct NearbyView: View {
                                 .font(.Subhead3)
                         }
                 }
-                .padding(.top)
                 .padding(.bottom, 30)
             }
         }

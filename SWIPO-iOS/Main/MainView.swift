@@ -42,8 +42,8 @@ struct MainView: View {
             
             // 선택된 탭에 따른 콘텐츠
             TabContentView(selectedTab: selectedTab)
-                .padding(.top, 13 * Constants.ControlHeight)
-            
+                .padding(.top, selectedTab != .nearby ? 13 * Constants.ControlHeight : 0)
+
             Spacer()
         }
         .edgesIgnoringSafeArea(.bottom)

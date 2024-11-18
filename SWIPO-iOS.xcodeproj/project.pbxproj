@@ -202,9 +202,9 @@
 		6D787BF52CEACC1F00B587F8 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				6D787BF42CEACC1F00B587F8 /* MainView.swift */,
 				954FFAB82CEAD3DD00E81D16 /* Nearby */,
 				6D787BF32CEACC1F00B587F8 /* Swipay */,
-				6D787BF42CEACC1F00B587F8 /* MainView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";

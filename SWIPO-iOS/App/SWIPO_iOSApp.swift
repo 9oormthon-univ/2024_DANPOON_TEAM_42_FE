@@ -6,10 +6,19 @@
 //
 
 import SwiftUI
+import KakaoSDKCommon
+import KakaoSDKAuth
 import KakaoMapsSDK
 
 @main
 struct SWIPO_iOSApp: App {
+    @StateObject var appState = AppState.shared
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
+    init() {
+        KakaoSDK.initSDK(appKey: "")
+    }
+
     var body: some Scene {
         WindowGroup {
             MainView()
