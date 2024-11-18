@@ -36,7 +36,7 @@ struct TermsView: View {
         
         ZStack{
             VStack(spacing: 0){
-                
+                NavigationBar(title: "회원가입", showBackButton: true)
                 
                 HStack(spacing: 0){
                     Text("서비스 이용을 위해 \n 이용약관에 동의해 주세요")
