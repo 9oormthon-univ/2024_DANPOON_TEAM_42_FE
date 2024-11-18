@@ -13,18 +13,18 @@ struct StoreListView: View {
 
     @State var searchText: String = ""
 
-    @State var optionModal: Bool = false
-    @State var option: String = ""
-
     @State var categoryModal: Bool = false
-    @State var category: String = ""
+    @State var category: String = "전체"
+
+    @State var sortModal: Bool = false
+    @State var sort: String = "가까운순"
 
     var body: some View {
         ZStack {
             VStack {
                 NavigationBar(title: "내 주변 가맹점", showBackButton: true)
                     .padding(.horizontal, 17)
-                
+
                 HStack {
                     Image("search")
                         .resizable()
@@ -55,7 +55,7 @@ struct StoreListView: View {
                             .foregroundColor(.greyDark)
                             .overlay {
                                 HStack {
-                                    Text("전체")
+                                    Text(category)
                                         .foregroundColor(Color.white)
                                         .font(.Body2)
                                     Image("down")
@@ -64,17 +64,28 @@ struct StoreListView: View {
                                         .foregroundColor(Color.white)
                                 }
                             }
+                            .sheet(isPresented: $categoryModal) {
+                                StoreOptionView(
+                                    isModalVisible: $categoryModal,
+                                    selectedOption: $category,
+                                    options: ["전체", "카페", "디저트", "음식점", "마트", "소품샵", "숙박"],
+                                    height: 532
+                                )
+                                .background(ClearBackgroundView())
+                                .foregroundColor(.white)
+                                .presentationDetents([.height(532 * Constants.ControlHeight)])
+                            }
                     }
-                    
+
                     Button(action: {
-                        optionModal.toggle()
+                        sortModal.toggle()
                     }) {
                         RoundedRectangle(cornerRadius: 12)
                             .frame(width: 116 * Constants.ControlWidth, height: 34 * Constants.ControlHeight)
                             .foregroundColor(.greyDark)
                             .overlay {
                                 HStack {
-                                    Text("가까운 순")
+                                    Text(sort)
                                         .foregroundColor(Color.white)
                                         .font(.Body2)
                                     Image("down")
@@ -83,13 +94,24 @@ struct StoreListView: View {
                                         .foregroundColor(Color.white)
                                 }
                             }
+                            .sheet(isPresented: $sortModal) {
+                                StoreOptionView(
+                                    isModalVisible: $sortModal,
+                                    selectedOption: $sort,
+                                    options: ["인기순", "추천순", "별점순", "가까운순", "관심등록순"],
+                                    height: 416
+                                )
+                                    .background(ClearBackgroundView())
+                                    .foregroundColor(.white)
+                                    .presentationDetents([.height(416 * Constants.ControlHeight)])
+                            }
                     }
-                    
+
                     Spacer()
                 }
                 .padding(.horizontal)
                 .padding(.top, 8)
-                
+
                 ScrollView {
                     ForEach(stores) { store in
                         StoreRowView(store: store)
@@ -100,13 +122,13 @@ struct StoreListView: View {
                 .padding(.top, 20)
                 .padding(.bottom, 40)
             }.background(Color.black)
-            
+
             VStack {
                 Spacer()
-                
+
                 HStack {
                     Spacer()
-                    
+
                     Button(action: {
                     }) {
                         Circle()
@@ -122,7 +144,7 @@ struct StoreListView: View {
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 10)
-                
+
                 Button(action: {
                 }, label: {
                     RoundedRectangle(cornerRadius: 16)
@@ -147,12 +169,12 @@ struct StoreListView: View {
             }
             return view
         }
+
         func updateUIView(_ uiView: UIViewType, context: Context) {
         }
     }
     
     struct ClearBackgroundViewModifier: ViewModifier {
-        
         func body(content: Content) -> some View {
             content
                 .background(ClearBackgroundView())
@@ -177,7 +199,7 @@ struct StoreRowView: View {
                     .padding(10)
                     .foregroundColor(.white)
             }
-            
+
             VStack(alignment: .leading, spacing: 5) {
                 Text(store.name)
                     .font(.Headline)
@@ -185,7 +207,7 @@ struct StoreRowView: View {
                 Text(store.address)
                     .font(.Body2)
                     .foregroundColor(.white)
-                
+
                 HStack {
                     RoundedRectangle(cornerRadius: 6)
                         .frame(width: 80 * Constants.ControlWidth, height: 24 * Constants.ControlHeight)
@@ -208,7 +230,7 @@ struct StoreRowView: View {
                     }
 
                     Spacer()
-                    
+
                     HStack(spacing: 2) {
                         Image("favorite")
                             .resizable()
@@ -231,4 +253,3 @@ struct StoreRowView: View {
 #Preview {
     StoreListView()
 }
-
