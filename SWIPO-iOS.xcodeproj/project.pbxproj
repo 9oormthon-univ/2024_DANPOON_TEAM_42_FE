@@ -37,6 +37,8 @@
 		6D787BF92CEACC1F00B587F8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787BF42CEACC1F00B587F8 /* MainView.swift */; };
 		954FFAB72CEAD3B500E81D16 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 954FFAB62CEAD3B500E81D16 /* KakaoMapsSDK-SPM */; };
 		954FFABB2CEAD3F200E81D16 /* NearbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABA2CEAD3F200E81D16 /* NearbyView.swift */; };
+		954FFABD2CEAD43F00E81D16 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABC2CEAD43F00E81D16 /* MapView.swift */; };
+		954FFABF2CEAD44600E81D16 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABE2CEAD44600E81D16 /* MapViewController.swift */; };
 		954FFAC22CEAD49100E81D16 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFAC12CEAD49100E81D16 /* CustomTextField.swift */; };
 		954FFAC52CEAE6B500E81D16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 954FFAC42CEAE6B500E81D16 /* SnapKit */; };
 /* End PBXBuildFile section */
@@ -70,6 +72,8 @@
 		6D787BF22CEACC1F00B587F8 /* SwipayViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipayViewModel.swift; sourceTree = "<group>"; };
 		6D787BF42CEACC1F00B587F8 /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		954FFABA2CEAD3F200E81D16 /* NearbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyView.swift; sourceTree = "<group>"; };
+		954FFABC2CEAD43F00E81D16 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		954FFABE2CEAD44600E81D16 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		954FFAC12CEAD49100E81D16 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -209,6 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				954FFABA2CEAD3F200E81D16 /* NearbyView.swift */,
+				954FFABC2CEAD43F00E81D16 /* MapView.swift */,
+				954FFABE2CEAD44600E81D16 /* MapViewController.swift */,
 			);
 			path = Nearby;
 			sourceTree = "<group>";
@@ -320,6 +326,8 @@
 				6D7602032CEA410200C49EDC /* Interceptor.swift in Sources */,
 				954FFABB2CEAD3F200E81D16 /* NearbyView.swift in Sources */,
 				6D787BEB2CEACBDE00B587F8 /* Color.swift in Sources */,
+				954FFABF2CEAD44600E81D16 /* MapViewController.swift in Sources */,
+				954FFABD2CEAD43F00E81D16 /* MapView.swift in Sources */,
 				6D7602072CEA411D00C49EDC /* APITask.swift in Sources */,
 				6D76020B2CEA413B00C49EDC /* KeyChainManager.swift in Sources */,
 				6D7601F32CEA408800C49EDC /* AppState.swift in Sources */,

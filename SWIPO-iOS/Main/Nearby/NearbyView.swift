@@ -11,7 +11,7 @@ import CoreLocation
 
 struct NearbyView: View {
     @State var searchText: String = ""
-//    private var mapView = MapView()
+    private var mapView = MapView()
 
     var body: some View {
         ZStack {
@@ -58,7 +58,7 @@ struct NearbyView: View {
                                 }
                             }
                     }
-                    
+
                     Spacer()
 
                     Button(action: {
