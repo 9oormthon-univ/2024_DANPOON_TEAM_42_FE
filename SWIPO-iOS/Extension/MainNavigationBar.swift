@@ -7,33 +7,29 @@
 
 import SwiftUI
 
-struct NavigationBar: View {
-    @Environment(\.dismiss) var dismiss
-    
-    let title: String
-    let showBackButton: Bool
+struct MainNavigationBar: View {
     
     var body: some View {
         ZStack{
-            
             HStack {
+                Image("main_logo")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 116 * Constants.ControlWidth, height: 36 * Constants.ControlHeight)
+                    .padding()
+                
+                Spacer()
                 
                 Button(action: {
-                    AppState.shared.navigationPath.removeLast()
+                    
                 }, label: {
-                    Image("back_btn")
+                    Image("main_mypage_button")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24 * Constants.ControlWidth)
                 })
+                .padding()
                 
-                Spacer()
-                
-                Text("\(title)")
-                    .font(.Headline)
-                    .foregroundColor(Color(hex: "F5F4F3"))
-                
-                Spacer()
-                
-                Image("back_blank")
-                    .scaledToFit()
             }
             .frame(height: 58 * Constants.ControlHeight)
             
@@ -43,5 +39,5 @@ struct NavigationBar: View {
 }
 
 #Preview {
-    NavigationBar(title: "회원가입", showBackButton: true)
+    MainNavigationBar()
 }
