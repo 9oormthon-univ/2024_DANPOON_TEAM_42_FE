@@ -19,6 +19,8 @@ struct StoreListView: View {
     @State var sortModal: Bool = false
     @State var sort: String = "가까운순"
 
+    @State var payButtonEnable: Bool = false
+
     var filteredStores: [Store] {
         stores.filter { store in
             let matchesSearch = searchText.isEmpty || store.name.contains(searchText)
@@ -166,7 +168,8 @@ struct StoreListView: View {
                 }, label: {
                     RoundedRectangle(cornerRadius: 16)
                         .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
-                        .foregroundColor(.mainNormal)
+                        .disabled(payButtonEnable)
+                        .foregroundColor(payButtonEnable ? .mainNormal : .mainLightActive)
                         .overlay {
                             Text("결제하기")
                                 .foregroundColor(Color.white)
