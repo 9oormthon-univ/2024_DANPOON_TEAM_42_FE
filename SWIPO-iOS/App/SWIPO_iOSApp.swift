@@ -14,21 +14,14 @@ import KakaoMapsSDK
 struct SWIPO_iOSApp: App {
     @StateObject var appState = AppState.shared
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    
+
     init() {
-        KakaoSDK.initSDK(appKey: secret.kakaoLoginNativeTestAppKey)
-        }
+        KakaoSDK.initSDK(appKey: "")
+    }
 
     var body: some Scene {
         WindowGroup {
-            NavigationStack(path: $appState.navigationPath) {
-                MainView()
-                    .onOpenURL(perform: { url in
-                        if AuthApi.isKakaoTalkLoginUrl(url) {
-                            AuthController.handleOpenUrl(url: url)
-                        }
-                    })
-            }
+            MainView()
         }
     }
 }
