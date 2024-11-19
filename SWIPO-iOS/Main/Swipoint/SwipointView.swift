@@ -23,7 +23,7 @@ struct SwipointView: View {
             VStack(spacing: 0){
                 ImageBtnNavigationBar(title: "스위포인트",
                                       imageType: "question_circle_mark",
-                                      showBackButton: true)
+                                      showBackButton: true, blur: false)
                 
                 SwipointMainView(viewModel: viewModel, isSelectedRegion: $isSelectedRegion, makeCardModal: $makeCardModal)
                 
@@ -35,6 +35,8 @@ struct SwipointView: View {
             switch view{
             case .guide:
                 SwipstoneGuideView()
+            case .custom:
+                CustomView()
             }
         }
         .onAppear {
@@ -196,12 +198,14 @@ struct SwipointCardView: View {
 
 enum swipointType{
     case guide
+    case custom
 }
 
 struct ImageBtnNavigationBar: View {
     let title: String
     let imageType: String
     let showBackButton: Bool
+    var blur: Bool
 
     var body: some View {
         ZStack {
@@ -211,7 +215,7 @@ struct ImageBtnNavigationBar: View {
                     Button(action: {
                         AppState.shared.navigationPath.removeLast()
                     }, label: {
-                        Image("back_btn")
+                        Image(blur == false ? "back_btn" : "back_btn_8b8b8b")
                     })
                 }
 
@@ -220,7 +224,7 @@ struct ImageBtnNavigationBar: View {
                 // 네비게이션 타이틀
                 Text(title)
                     .font(.Headline)
-                    .foregroundColor(.greyLighter)
+                    .foregroundColor(blur == false ? .greyLighter : Color(hex: "8B8B8B"))
 
                 Spacer()
 

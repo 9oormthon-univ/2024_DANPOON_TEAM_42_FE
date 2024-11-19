@@ -76,6 +76,7 @@ struct LocationNewModal: View {
                         
                         
                         Button(action: {
+                            AppState.shared.navigationPath.append(swipointType.custom)
                             newCardModal = false
                         }, label: {
                             RoundedRectangle(cornerRadius: 16)
