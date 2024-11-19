@@ -10,37 +10,71 @@ import SwiftUI
 struct CustomView: View {
     
     @ObservedObject var appState = AppState.shared
+    @State var makeStopModal: Bool = false
+    @State var makeFinishModal: Bool = false
+    @State var generatedImage: UIImage?
     
     var body: some View {
         ZStack{
             VStack(spacing: 0){
                 
-                //                if appState.swipointTutorial {
-                //                    ImageBtnNavigationBar(title: "스위포인트",
-                //                                          imageType: "question_circle_mark_8b8b8b",
-                //                                          showBackButton: true, blur: true)
-                //
-                //                    CustomTutorialView()
-                //                } else {
-                //                    ImageBtnNavigationBar(title: "스위포인트",
-                //                                          imageType: "question_circle_mark",
-                //                                          showBackButton: true, blur: false)
-                //
-                //                    CustomMainView()
-                //                        .padding(.top, 27 * Constants.ControlHeight)
-                //                }
-                ImageBtnNavigationBar(title: "스위포인트",
-                                      imageType: "question_circle_mark",
-                                      showBackButton: true, blur: false)
-                
-                CustomMainView()
-                    .padding(.top, 27 * Constants.ControlHeight)
-                
-                Spacer()
+                if appState.swipointTutorial {
+                    CustomNavigationBar(title: "스위포인트",
+                                        imageType: "question_circle_mark_8b8b8b",
+                                        stopModal: $makeStopModal, blur: true)
+                    
+                    CustomTutorialView()
+                    
+                } else {
+                    CustomNavigationBar(title: "스위포인트",
+                                        imageType: "question_circle_mark",
+                                        stopModal: $makeStopModal, blur: false)
+                    
+                    CustomMainView(generatedImage: $generatedImage, makeFinishModal: $makeFinishModal)
+                        .padding(.top, 27 * Constants.ControlHeight)
+                    
+                    Spacer()
+                }
             }
             
         }
         .toolbar(.hidden)
+        .sheet(isPresented: $makeStopModal, content: {
+            CustomStopModal(makeStopModal: $makeStopModal)
+                .background(ClearBackgroundView())// 팝업 뷰 height 조절
+                .presentationDetents([.height(240 * Constants.ControlHeight)])
+        })
+        .sheet(isPresented: $makeFinishModal, content: {
+            CustomFinishModal(makeFinishModal: $makeFinishModal)
+                .background(ClearBackgroundView())// 팝업 뷰 height 조절
+                .presentationDetents([.height(240 * Constants.ControlHeight)])
+        })
+        .navigationDestination(for: customType.self) { view in
+            switch view {
+            case .register:
+                CustomRegisterView(generatedImage: $generatedImage)
+            }
+        }
+    }
+    
+    struct ClearBackgroundView: UIViewRepresentable {
+        func makeUIView(context: Context) -> some UIView {
+            let view = UIView()
+            DispatchQueue.main.async {
+                view.superview?.superview?.backgroundColor = UIColor.black.withAlphaComponent(0)
+            }
+            return view
+        }
+        func updateUIView(_ uiView: UIViewType, context: Context) {
+        }
+    }
+    
+    struct ClearBackgroundViewModifier: ViewModifier {
+        
+        func body(content: Content) -> some View {
+            content
+                .background(ClearBackgroundView())
+        }
     }
 }
 
@@ -54,8 +88,6 @@ struct CustomTutorialView: View {
         ZStack{
             if currentIndex < tutorial.count {
                 Image(tutorial[currentIndex])
-                    .resizable()
-                    .scaledToFit()
                     .onTapGesture {
                         if currentIndex < tutorial.count - 1 {
                             // 다음 이미지로 전환
@@ -76,11 +108,14 @@ struct CustomMainView: View {
     @State private var selectedStickerID: UUID? = nil // 현재 선택된 스티커 ID
     @State var isPressed: Bool = false
     
-    var expression: [String] = ["swipoint_expression1", "swipoint_expression2", "swipoint_expression3", "swipoint_expression4"]
+    var expression: [String] = ["expression1", "expression2", "expression3", "expression4"]
     var expressionLayout: [GridItem] = [GridItem(.flexible())]
     
     var region: [String] = ["seoul", "gyeongnam", "gyeonggi", "incheon", "gangwon", "chungcheongnam", "daejeon", "chungcheongbuk", "sejong", "busan", "ulsan", "daegu", "gyeongsangbuk", "jeollanam", "gwanju", "jeollabuk", "jeju"]
     var regionLayout: [GridItem] = [GridItem(.flexible())]
+    @Binding var generatedImage: UIImage? // 생성된 이미지를 저장
+    
+    @Binding var makeFinishModal: Bool
     
     var body: some View {
         GeometryReader{ geo in
@@ -89,41 +124,11 @@ struct CustomMainView: View {
                     
                     ZStack {
                         // 카드 배경
-                        RoundedRectangle(cornerRadius: 8.4)
-                            .foregroundColor(.greyDarkHover)
-                            .frame(width: 242.21 * Constants.ControlWidth, height: 384.1 * Constants.ControlHeight)
-                            .clipShape(Rectangle()) // 클립 처리
-                        
-                        // 카드에 추가된 스티커
-                        ForEach(stickers) { sticker in
-                            DraggableStickerView(
-                                sticker: sticker,
-                                isSelected: sticker.id == selectedStickerID,
-                                cardFrame: CGSize(
-                                    width: 242.21 * Constants.ControlWidth,
-                                    height: 384.1 * Constants.ControlHeight
-                                ),
-                                onUpdatePosition: { newPosition in
-                                    if let index = stickers.firstIndex(where: { $0.id == sticker.id }) {
-                                        stickers[index].position = newPosition
-                                    }
-                                },
-                                onTap: {
-                                    selectedStickerID = sticker.id
-                                }
-                            )
-                        }
-                        
-                        Image("swipoint_card_basic")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 242.21 * Constants.ControlWidth, height: 384.1 * Constants.ControlHeight)
-                            .zIndex(1)
-                            .allowsHitTesting(false)
+                        cardContent
                     }
-                    .frame(width: 242 * Constants.ControlWidth, height: 384 * Constants.ControlHeight)
+                    .frame(width: 242.21 * Constants.ControlWidth, height: 384.1 * Constants.ControlHeight)
                     .clipped()
-                    .padding(.bottom, 40 * Constants.ControlHeight)
+                    .padding(.bottom, 39.9 * Constants.ControlHeight)
                     
                     
                     
@@ -164,7 +169,7 @@ struct CustomMainView: View {
                                             Image(region[index])
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 59.35 * Constants.ControlWidth, height: 43.24 * Constants.ControlHeight)
+                                                .frame(width: 61.34 * Constants.ControlWidth, height: 61.34 * Constants.ControlHeight)
                                                 .id(index) // 각 아이템에 고유 ID 추가
                                                 .onTapGesture {
                                                     // 새로운 스티커 추가
@@ -189,17 +194,23 @@ struct CustomMainView: View {
                                 }
                             }
                         }
-                        .padding(.bottom, 30 * Constants.ControlHeight)
+                        .padding(.bottom, 23 * Constants.ControlHeight)
                     
                     
-                    RoundedRectangle(cornerRadius: 16)
-                        .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
-                        .foregroundColor(.mainNormal)
-                        .overlay {
-                            Text("새로운 카드 등록")
-                                .font(.Subhead3)
-                                .foregroundColor(.white)
-                        }
+                    
+                    Button(action: {
+                        makeFinishModal = true
+                        saveCardAsImage()
+                    }, label: {
+                        RoundedRectangle(cornerRadius: 16)
+                            .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
+                            .foregroundColor(.mainNormal)
+                            .overlay {
+                                Text("새로운 카드 등록")
+                                    .font(.Subhead3)
+                                    .foregroundColor(.white)
+                            }
+                    })
                 }
                 
                 VStack(spacing: 0){
@@ -234,6 +245,52 @@ struct CustomMainView: View {
             }
         }
     }
+    
+    // View를 이미지로 저장하는 함수
+    @MainActor func saveCardAsImage() {
+        let renderer = ImageRenderer(content: cardContent)
+        if let image = renderer.uiImage {
+            generatedImage = image // 이미지 저장
+            // 여기서 이미지를 파일로 저장하거나 서버로 전송 가능
+        }
+    }
+    
+    var cardContent: some View {
+        ZStack {
+            
+            RoundedRectangle(cornerRadius: 8.4)
+                .foregroundColor(.greyDarkHover) // 배경색 설정
+                .frame(width: 242.21 * Constants.ControlWidth, height: 384.1 * Constants.ControlHeight)
+            
+            ForEach(stickers.indices, id: \.self) { index in
+                DraggableStickerView(
+                    sticker: stickers[index],
+                    isSelected: stickers[index].id == selectedStickerID,
+                    cardFrame: CGSize(
+                        width: 242.21 * Constants.ControlWidth,
+                        height: 384.1 * Constants.ControlHeight
+                    ),
+                    onUpdatePosition: { newPosition in
+                        stickers[index].position = newPosition
+                    },
+                    onTap: {
+                        if stickers[index].isSelectable {
+                            selectedStickerID = stickers[index].id
+                            stickers[index].isSelectable = false // 선택 불가 상태로 변경
+                        }
+                    }
+                )
+            }
+            
+            Image("swipoint_card_basic")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 242.21 * Constants.ControlWidth, height: 384.1 * Constants.ControlHeight)
+                .clipped()
+                .zIndex(1)
+                .allowsHitTesting(false)
+        }
+    }
 }
 
 struct DraggableStickerView: View {
@@ -242,24 +299,23 @@ struct DraggableStickerView: View {
     var cardFrame: CGSize
     var onUpdatePosition: (CGPoint) -> Void
     var onTap: () -> Void
-
+    
     @State private var dragOffset = CGSize.zero
-
+    
     var body: some View {
         // 선택된 스티커 크기 계산
         let stickerSize = calculateStickerSize(for: sticker)
-
-        Image(sticker.image)
+        
+        Image(sticker.isSelectable && isSelected ? "\(sticker.image)_light" : sticker.image)
             .resizable()
-            .scaledToFit()
             .frame(width: stickerSize.width, height: stickerSize.height)
             .position(CGPoint(
                 x: max(0, min(cardFrame.width, sticker.position.x + dragOffset.width)),
                 y: max(0, min(cardFrame.height, sticker.position.y + dragOffset.height))
-            )) // 카드 영역 내에만 위치하도록 제한
-            .zIndex(isSelected ? 1 : 0) // 선택된 스티커는 가장 위로
+            ))
+            .zIndex(isSelected ? 1 : 0)
             .gesture(
-                DragGesture()
+                isSelected && sticker.isSelectable ? DragGesture() // 선택된 경우에만 드래그 가능
                     .onChanged { value in
                         dragOffset = value.translation
                     }
@@ -271,20 +327,24 @@ struct DraggableStickerView: View {
                         onUpdatePosition(newPosition)
                         dragOffset = .zero
                     }
+                : nil // 선택되지 않은 경우 드래그 동작 없음
             )
             .onTapGesture {
-                onTap()
+                if sticker.isSelectable { // 선택 가능 여부 확인
+                    onTap()
+                }
             }
+            .clipShape(RoundedRectangle(cornerRadius: 8.4))
     }
-
+    
     /// 스티커 유형에 따라 크기를 계산하는 함수
     private func calculateStickerSize(for sticker: StickerItemModel) -> CGSize {
         if sticker.type == .expression {
-            return CGSize(width: 95.59 * Constants.ControlWidth, height: 69.63 * Constants.ControlHeight)
+            return CGSize(width: 95.58 * Constants.ControlWidth, height: 69.63 * Constants.ControlHeight)
         } else if sticker.type == .region {
             return CGSize(width: 231.16 * Constants.ControlWidth, height: 231.16 * Constants.ControlHeight)
         } else {
-            return CGSize(width: 95.59 * Constants.ControlWidth, height: 69.63 * Constants.ControlHeight) // 기본값
+            return CGSize(width: 95.58 * Constants.ControlWidth, height: 69.63 * Constants.ControlHeight) // 기본값
         }
     }
 }
@@ -292,6 +352,71 @@ struct DraggableStickerView: View {
 enum StickerType {
     case expression
     case region
+}
+
+enum customType{
+    case register
+}
+
+struct CustomNavigationBar: View {
+    let title: String
+    let imageType: String
+    @Binding var stopModal: Bool
+    var blur: Bool
+    
+    var body: some View {
+        if blur {
+            ZStack {
+                HStack {
+                    Image(blur == false ? "back_btn" : "back_btn_8b8b8b")
+                    
+                    Spacer()
+                    
+                    // 네비게이션 타이틀
+                    Text(title)
+                        .font(.Headline)
+                        .foregroundColor(blur == false ? .greyLighter : Color(hex: "8B8B8B"))
+                    
+                    Spacer()
+                    
+                    Image(imageType)
+                        .frame(width: 38 * Constants.ControlWidth)
+                }
+                .frame(height: 58 * Constants.ControlHeight)
+            }
+            .background(Color(hex: "0B0B0B"))
+            .padding(.top, 10 * Constants.ControlHeight)
+        } else {
+            ZStack {
+                HStack {
+                    // 뒤로가기 버튼
+                    Button(action: {
+                        stopModal = true
+                    }, label: {
+                        Image(blur == false ? "back_btn" : "back_btn_8b8b8b")
+                    })
+                    
+                    Spacer()
+                    
+                    // 네비게이션 타이틀
+                    Text(title)
+                        .font(.Headline)
+                        .foregroundColor(blur == false ? .greyLighter : Color(hex: "8B8B8B"))
+                    
+                    Spacer()
+                    
+                    // 오른쪽 버튼
+                    Button(action: {
+                        AppState.shared.navigationPath.append(swipointType.guide)
+                    }, label: {
+                        Image(imageType)
+                            .frame(width: 38 * Constants.ControlWidth)
+                    })
+                }
+                .frame(height: 58 * Constants.ControlHeight)
+            }
+        }
+    }
 }
 
 #Preview {
