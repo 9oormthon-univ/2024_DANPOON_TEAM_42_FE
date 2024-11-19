@@ -106,7 +106,7 @@ struct PayChargeView: View {
                         .disabled(chargeButtonEnable)
                         .foregroundColor(chargeButtonEnable ? .mainNormal : .mainLightActive)
                         .overlay {
-                            Text("결제하기")
+                            Text("충전하기")
                                 .foregroundColor(Color.white)
                                 .font(.Subhead3)
                         }
