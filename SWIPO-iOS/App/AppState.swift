@@ -14,4 +14,5 @@ class AppState: ObservableObject {
   
     // 네비게이션 스택 경로
     @Published var navigationPath = NavigationPath()
+    @Published var swipointTutorial = true
 }
