@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct PayChargeView: View {
-    @State var chargeButtonEnable: Bool = false
     @State var isTipHidden: Bool = true
     @State private var selectedCharge: Int = 0
 
@@ -96,15 +95,14 @@ struct PayChargeView: View {
                     }
                 }
                 .zIndex(1)
-                
 
                 Button(action: {
                     // 카카오 페이 결제창 이동
                 }) {
                     RoundedRectangle(cornerRadius: 16)
                         .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
-                        .disabled(chargeButtonEnable)
-                        .foregroundColor(chargeButtonEnable ? .mainNormal : .mainLightActive)
+                        .disabled(selectedCharge == 0)
+                        .foregroundColor(selectedCharge != 0 ? .mainNormal : .mainLightActive)
                         .overlay {
                             Text("충전하기")
                                 .foregroundColor(Color.white)
