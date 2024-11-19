@@ -92,22 +92,26 @@ struct SwipayView: View {
                                 .padding(.bottom, 21 * Constants.ControlHeight)
                                 
                                 HStack(spacing: 0){
-                                    RoundedRectangle(cornerRadius: 6)
-                                        .frame(width: 156.6 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
-                                        .scaledToFit()
-                                        .foregroundColor(.greyNormalHover)
-                                        .overlay {
-                                            HStack(spacing: 4){
-                                                Image("swipay_kakaopay")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 42 * Constants.ControlWidth, height: 13.18 * Constants.ControlHeight)
-                                                
-                                                Text("충전")
-                                                    .font(.Body1)
-                                                    .foregroundColor(.white)
+                                    Button(action: {
+                                        AppState.shared.navigationPath.append(swipayType.payCharge)
+                                    }, label: {
+                                        RoundedRectangle(cornerRadius: 6)
+                                            .frame(width: 156.6 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+                                            .scaledToFit()
+                                            .foregroundColor(.greyNormalHover)
+                                            .overlay {
+                                                HStack(spacing: 4){
+                                                    Image("swipay_kakaopay")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 42 * Constants.ControlWidth, height: 13.18 * Constants.ControlHeight)
+
+                                                    Text("충전")
+                                                        .font(.Body1)
+                                                        .foregroundColor(.white)
+                                                }
                                             }
-                                        }
+                                    })
                                     
                                     Spacer()
                                     
@@ -416,7 +420,9 @@ struct SwipayView: View {
         }
         .toolbar(.hidden)
         .navigationDestination(for: swipayType.self) { view in
-            switch view{
+            switch view {
+            case .payCharge:
+                PayChargeView()
             case .swipoint:
                 SwipointView()
             case .swipointDetail(let id):
@@ -601,7 +607,8 @@ struct SwipayNewsView: View {
     }
 }
 
-enum swipayType: Hashable{
+enum swipayType: Hashable {
+    case payCharge
     case swipoint
     case swipointDetail(id: Int64)
 }
