@@ -26,8 +26,7 @@ struct SwipointView: View {
                                       showBackButton: true, blur: false)
                 
                 SwipointMainView(viewModel: viewModel, isSelectedRegion: $isSelectedRegion, makeCardModal: $makeCardModal)
-                
-                Spacer()
+                    .padding(.top, 30 * Constants.ControlHeight)
             }
         }
         .toolbar(.hidden)
@@ -86,7 +85,7 @@ struct SwipointMainView: View {
         ZStack{
             VStack{
                 RoundedRectangle(cornerRadius: 6)
-                    .frame(width: Constants.screenWidth, height: 542 * Constants.ControlHeight)
+                    .frame(width: Constants.screenWidth, height: 582 * Constants.ControlHeight)
                     .foregroundColor(.greyDarkHover)
                     .edgesIgnoringSafeArea(.leading)
                     .edgesIgnoringSafeArea(.trailing)
@@ -122,8 +121,8 @@ struct SwipointMainView: View {
                                 }
                             }
                             .scrollDisabled(true)
-                            .padding(.bottom, 10 * Constants.ControlHeight)
-                            .padding(.top, 20 * Constants.ControlHeight)
+                            .padding(.bottom, 14 * Constants.ControlHeight)
+                            .padding(.top, 22 * Constants.ControlHeight)
                             
                             HStack(spacing: 6){
                                 RoundedRectangle(cornerRadius: 6)
@@ -144,8 +143,7 @@ struct SwipointMainView: View {
                                             .foregroundColor(.white)
                                     }
                             }
-                            
-                            Spacer()
+                            .padding(.bottom, 30 * Constants.ControlHeight)
                         }
                     })
                 
@@ -164,7 +162,6 @@ struct SwipointMainView: View {
                         }
                 })
             }
-            .padding(.top, 30 * Constants.ControlHeight)
         }
     }
 }
@@ -179,18 +176,22 @@ struct SwipointCardView: View {
         ZStack{
             VStack(spacing: 0){
                 Text("\(region) 스위포인트")
+                    .frame(height: 32 * Constants.ControlHeight)
+                    .tracking(-0.6)
                     .font(.Headline)
                     .foregroundColor(.white)
                 
                 Text("\(point)원 사용 가능")
                     .font(.Subhead3)
+                    .frame(height: 22 * Constants.ControlHeight)
+                    .tracking(-0.6)
                     .foregroundColor(.mainLightHover)
-                    .padding(.bottom)
+                    .padding(.bottom, 22 * Constants.ControlHeight)
                 
                 Image("swipay_card_ex1")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 242 * Constants.ControlWidth, height: 386 * Constants.ControlHeight)
+                    .frame(width: 242 * Constants.ControlWidth, height: 384 * Constants.ControlHeight)
             }
         }
     }

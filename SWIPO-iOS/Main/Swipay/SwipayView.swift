@@ -291,12 +291,15 @@ struct SwipayView: View {
                                         .padding(.leading, 22 * Constants.ControlWidth)
                                         .padding(.trailing, 22 * Constants.ControlHeight)
                                     }
-                                                                
+                                        
+                                
                                 SwipayCardView(viewModel: viewModel)
                                     .padding(.leading, 22 * Constants.ControlWidth)
                                     .padding(.top, 22 * Constants.ControlHeight)
                                     .padding(.trailing, 22 * Constants.ControlWidth)
                                     .padding(.bottom)
+                                
+                                Spacer()
                             }
                         }
                     

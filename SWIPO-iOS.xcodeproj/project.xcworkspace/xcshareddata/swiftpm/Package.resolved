@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kakao-mapsSDK/KakaoMapsSDK-SPM.git",
       "state" : {
-        "revision" : "ddeadbe5166909370b7518366ad5ebd517452be6",
-        "version" : "2.12.0"
+        "revision" : "7defbab551d7f28ea3a00498ad122752a0d171fd",
+        "version" : "2.12.1"
       }
     },
     {
