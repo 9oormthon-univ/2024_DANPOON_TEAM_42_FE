@@ -151,7 +151,7 @@ struct PayChargePriceView: View {
                         .font(.Display1)
                         .foregroundColor(.white)
                     Button(action: {
-                        if selectedCharge < 500000 {
+                        if selectedCharge + chargeAmount <= 500000 {
                             selectedCharge += chargeAmount
                         }
                     }, label: {
