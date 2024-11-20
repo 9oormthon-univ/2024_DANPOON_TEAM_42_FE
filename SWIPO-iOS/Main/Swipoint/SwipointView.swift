@@ -35,7 +35,7 @@ struct SwipointView: View {
             case .guide:
                 SwipstoneGuideView()
             case .custom:
-                CustomView()
+                CustomView(region: $address)
             }
         }
         .onAppear {
