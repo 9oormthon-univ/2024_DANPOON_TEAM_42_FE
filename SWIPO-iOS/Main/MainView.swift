@@ -12,7 +12,7 @@ struct MainView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            MainNavigationBar()
+            MainNavigationBar(selectedTab: $selectedTab)
             
             // 커스텀 탭 바
             HStack {
@@ -20,12 +20,12 @@ struct MainView: View {
                     selectedTab = .nearby
                 }
                 
-                TabButton(title: "스위페이", isSelected: selectedTab == .swipePay) {
-                    selectedTab = .swipePay
+                TabButton(title: "스위페이", isSelected: selectedTab == .swipPay) {
+                    selectedTab = .swipPay
                 }
                 
-                TabButton(title: "스윕스톤", isSelected: selectedTab == .sweepStone) {
-                    selectedTab = .sweepStone
+                TabButton(title: "스윕스톤", isSelected: selectedTab == .swipStone) {
+                    selectedTab = .swipStone
                 }
                 
                 TabButton(title: "", isSelected: false) {
@@ -62,15 +62,28 @@ struct TabButton: View {
             VStack {
                 VStack(spacing: 0){
                     
-                    HStack(spacing: 0){
-                        Spacer()
-                        
-                        Circle()
-                            .scaledToFit()
-                            .frame(width: 6)
-                            .foregroundColor(isSelected ? .danger : .clear)
-                        
+                    if title == "스위페이"{
+                        HStack(spacing: 0){
+                            Spacer()
+                            
+                            Circle()
+                                .scaledToFit()
+                                .frame(width: 6)
+                                .foregroundColor(.danger)
+                            
+                        }
+                    } else {
+                        HStack(spacing: 0){
+                            Spacer()
+                            
+                            Circle()
+                                .scaledToFit()
+                                .frame(width: 6)
+                                .foregroundColor(.clear)
+                            
+                        }
                     }
+                    
                     Text(title)
                         .font(isSelected ? .Subhead3 : .Body2)
                         .foregroundColor(isSelected ? .white : .greyLighter)
@@ -99,13 +112,11 @@ struct TabContentView: View {
         case .nearby:
             NearbyView()
             
-        case .swipePay:
+        case .swipPay:
             SwipayView()
             
-        case .sweepStone:
-            Text("스윕스톤 콘텐츠")
-                .font(.title)
-                .foregroundColor(.white)
+        case .swipStone:
+            SwipstoneView()
         }
     }
 }
@@ -113,8 +124,8 @@ struct TabContentView: View {
 // 탭을 정의한 열거형
 enum Tab {
     case nearby
-    case swipePay
-    case sweepStone
+    case swipPay
+    case swipStone
 }
 
 
