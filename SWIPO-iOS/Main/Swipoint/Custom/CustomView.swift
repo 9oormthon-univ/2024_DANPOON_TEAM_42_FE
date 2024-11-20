@@ -13,6 +13,7 @@ struct CustomView: View {
     @State var makeStopModal: Bool = false
     @State var makeFinishModal: Bool = false
     @State var generatedImage: UIImage?
+    @Binding var region: String
     
     var body: some View {
         ZStack{
@@ -52,7 +53,7 @@ struct CustomView: View {
         .navigationDestination(for: customType.self) { view in
             switch view {
             case .register:
-                CustomRegisterView(generatedImage: $generatedImage)
+                CustomRegisterView(generatedImage: $generatedImage, region: $region)
             }
         }
     }
@@ -246,15 +247,6 @@ struct CustomMainView: View {
         }
     }
     
-    // View를 이미지로 저장하는 함수
-    @MainActor func saveCardAsImage() {
-        let renderer = ImageRenderer(content: cardContent)
-        if let image = renderer.uiImage {
-            generatedImage = image // 이미지 저장
-            // 여기서 이미지를 파일로 저장하거나 서버로 전송 가능
-        }
-    }
-    
     var cardContent: some View {
         ZStack {
             
@@ -291,7 +283,64 @@ struct CustomMainView: View {
                 .allowsHitTesting(false)
         }
     }
+    
+    var cardContentWithoutLight: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 8.4)
+                .foregroundColor(.greyDarkHover) // 배경색 설정
+                .frame(width: 242.21 * Constants.ControlWidth, height: 384.1 * Constants.ControlHeight)
+            
+            ForEach(stickers.indices, id: \.self) { index in
+                let stickerImage = stickers[index].image.replacingOccurrences(of: "_light", with: "")
+                Image(stickerImage)
+                    .resizable()
+                    .frame(width: calculateStickerSize(for: stickers[index]).width,
+                           height: calculateStickerSize(for: stickers[index]).height)
+                    .position(stickers[index].position)
+            }
+            
+            Image("swipoint_card_basic")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 242.21 * Constants.ControlWidth, height: 384.1 * Constants.ControlHeight)
+                .clipped()
+                .zIndex(1)
+                .allowsHitTesting(false)
+        }
+    }
+    @MainActor func saveCardAsImage() {
+        let renderer = ImageRenderer(content: cardContentWithoutLight) // `_light`가 제거된 콘텐츠 사용
+        renderer.scale = UIScreen.main.scale // 고화질 저장을 위한 스케일 설정
+        
+        if let image = renderer.uiImage {
+            // UIImage를 JPEG 데이터로 변환 (1.0은 최대 품질)
+            if let jpegData = image.jpegData(compressionQuality: 1.0) {
+                // JPEG 데이터를 UIImage로 다시 변환
+                if let highQualityImage = UIImage(data: jpegData) {
+                    generatedImage = highQualityImage // 이미지 저장
+                    
+                    // 여기서 파일로 저장하거나 서버로 전송 가능
+                    saveToDocuments(imageData: jpegData) // 예시
+                }
+            }
+        }
+    }
+    
+    // 파일 저장 예제 (옵션)
+    func saveToDocuments(imageData: Data) {
+        let fileManager = FileManager.default
+        if let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = documentsURL.appendingPathComponent("NewCard.jpeg")
+            do {
+                try imageData.write(to: fileURL)
+                print("Image saved to: \(fileURL.path)")
+            } catch {
+                print("Error saving image: \(error)")
+            }
+        }
+    }
 }
+
 
 struct DraggableStickerView: View {
     var sticker: StickerItemModel
@@ -336,16 +385,16 @@ struct DraggableStickerView: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: 8.4))
     }
-    
-    /// 스티커 유형에 따라 크기를 계산하는 함수
-    private func calculateStickerSize(for sticker: StickerItemModel) -> CGSize {
-        if sticker.type == .expression {
-            return CGSize(width: 95.58 * Constants.ControlWidth, height: 69.63 * Constants.ControlHeight)
-        } else if sticker.type == .region {
-            return CGSize(width: 231.16 * Constants.ControlWidth, height: 231.16 * Constants.ControlHeight)
-        } else {
-            return CGSize(width: 95.58 * Constants.ControlWidth, height: 69.63 * Constants.ControlHeight) // 기본값
-        }
+}
+
+/// 스티커 유형에 따라 크기를 계산하는 함수
+private func calculateStickerSize(for sticker: StickerItemModel) -> CGSize {
+    if sticker.type == .expression {
+        return CGSize(width: 95.58 * Constants.ControlWidth, height: 69.63 * Constants.ControlHeight)
+    } else if sticker.type == .region {
+        return CGSize(width: 231.16 * Constants.ControlWidth, height: 231.16 * Constants.ControlHeight)
+    } else {
+        return CGSize(width: 95.58 * Constants.ControlWidth, height: 69.63 * Constants.ControlHeight) // 기본값
     }
 }
 
@@ -420,5 +469,5 @@ struct CustomNavigationBar: View {
 }
 
 #Preview {
-    CustomView()
+    CustomView(region: .constant(""))
 }
