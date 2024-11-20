@@ -17,7 +17,7 @@ struct StoreListView: View {
     @State var category: String = "전체"
 
     @State var sortModal: Bool = false
-    @State var sort: String = "가까운순"
+    @State var sort: String = "스위포 PICK!"
 
     @State var payButtonEnable: Bool = false
 
@@ -91,7 +91,7 @@ struct StoreListView: View {
                         sortModal.toggle()
                     }) {
                         RoundedRectangle(cornerRadius: 12)
-                            .frame(width: 116 * Constants.ControlWidth, height: 34 * Constants.ControlHeight)
+                            .frame(width: 141 * Constants.ControlWidth, height: 34 * Constants.ControlHeight)
                             .foregroundColor(.greyDark)
                             .overlay {
                                 HStack {
@@ -108,12 +108,12 @@ struct StoreListView: View {
                                 StoreOptionView(
                                     isModalVisible: $sortModal,
                                     selectedOption: $sort,
-                                    options: ["인기순", "추천순", "별점순", "가까운순", "관심등록순"],
-                                    height: 416
+                                    options: ["스위포 PICK!", "사용자 트렌드", "내 취향 가득", "관심 등록순", "전체 인기순", "별점순", "가까운순"],
+                                    height: 532
                                 )
                                 .background(ClearBackgroundView())
                                 .foregroundColor(.white)
-                                .presentationDetents([.height(416 * Constants.ControlHeight)])
+                                .presentationDetents([.height(532 * Constants.ControlHeight)])
                             }
                     }
 
