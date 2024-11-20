@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MainNavigationBar: View {
     
+    @Binding var selectedTab: Tab
+    
     var body: some View {
         ZStack{
             HStack {
@@ -39,5 +41,5 @@ struct MainNavigationBar: View {
 }
 
 #Preview {
-    MainNavigationBar()
+    MainNavigationBar(selectedTab: .constant(Tab.swipStone))
 }
