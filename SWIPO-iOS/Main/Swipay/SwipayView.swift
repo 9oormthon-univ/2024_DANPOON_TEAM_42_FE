@@ -66,7 +66,7 @@ struct SwipayView: View {
                                     Spacer()
                                     
                                     Button(action: {
-                                        
+                                        AppState.shared.navigationPath.append(swipayType.payment)
                                     }, label: {
                                         RoundedRectangle(cornerRadius: 6)
                                             .frame(width: 66 * Constants.ControlWidth, height: 34 * Constants.ControlHeight)
@@ -426,6 +426,8 @@ struct SwipayView: View {
             switch view {
             case .payCharge:
                 PayChargeView()
+            case .payment:
+                QRScannerView()
             case .swipoint:
                 SwipointView()
             case .swipointDetail(let id):
@@ -612,6 +614,7 @@ struct SwipayNewsView: View {
 
 enum swipayType: Hashable {
     case payCharge
+    case payment
     case swipoint
     case swipointDetail(id: Int64)
 }
