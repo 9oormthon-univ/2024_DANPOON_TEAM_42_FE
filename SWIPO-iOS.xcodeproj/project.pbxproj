@@ -22,6 +22,7 @@
 		6D3C63AB2CECE99000229404 /* CustomStopModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63AA2CECE99000229404 /* CustomStopModal.swift */; };
 		6D3C63AD2CED218D00229404 /* CustomFinishModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63AC2CED218D00229404 /* CustomFinishModal.swift */; };
 		6D3C63AF2CED2FC900229404 /* CustomRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63AE2CED2FC900229404 /* CustomRegisterView.swift */; };
+		6D648E6F2CEEE45500BF869A /* QRScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D648E6E2CEEE45500BF869A /* QRScannerView.swift */; };
 		6D67265B2CEDC8F200301A50 /* SwipstoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67265A2CEDC8F200301A50 /* SwipstoneView.swift */; };
 		6D67265D2CEDCEDF00301A50 /* SwipstoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67265C2CEDCEDF00301A50 /* SwipstoneModel.swift */; };
 		6D67265F2CEDCEE700301A50 /* SwipstoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67265E2CEDCEE700301A50 /* SwipstoneViewModel.swift */; };
@@ -97,6 +98,7 @@
 		6D3C63AA2CECE99000229404 /* CustomStopModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStopModal.swift; sourceTree = "<group>"; };
 		6D3C63AC2CED218D00229404 /* CustomFinishModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFinishModal.swift; sourceTree = "<group>"; };
 		6D3C63AE2CED2FC900229404 /* CustomRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomRegisterView.swift; sourceTree = "<group>"; };
+		6D648E6E2CEEE45500BF869A /* QRScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerView.swift; sourceTree = "<group>"; };
 		6D67265A2CEDC8F200301A50 /* SwipstoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipstoneView.swift; sourceTree = "<group>"; };
 		6D67265C2CEDCEDF00301A50 /* SwipstoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipstoneModel.swift; sourceTree = "<group>"; };
 		6D67265E2CEDCEE700301A50 /* SwipstoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipstoneViewModel.swift; sourceTree = "<group>"; };
@@ -227,6 +229,14 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
+		6D648E6B2CEEE42600BF869A /* Payment */ = {
+			isa = PBXGroup;
+			children = (
+				6D648E6E2CEEE45500BF869A /* QRScannerView.swift */,
+			);
+			path = Payment;
+			sourceTree = "<group>";
+		};
 		6D6726682CEE395A00301A50 /* Password */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,6 +283,7 @@
 				6D787C1D2CEB240400B587F8 /* Login */,
 				6D3C63802CEB295D00229404 /* Join */,
 				6D6726682CEE395A00301A50 /* Password */,
+				6D648E6B2CEEE42600BF869A /* Payment */,
 				6D787C182CEB220A00B587F8 /* Common */,
 				6D76020C2CEA41B300C49EDC /* Extension */,
 				6D7601F42CEA40AD00C49EDC /* Network */,
@@ -568,6 +579,7 @@
 				6D787BF62CEACC1F00B587F8 /* SwipayModel.swift in Sources */,
 				6D6726612CEE29AC00301A50 /* SwipstoneAchiveModal.swift in Sources */,
 				6D3C63A92CEC99B900229404 /* CustomModel.swift in Sources */,
+				6D648E6F2CEEE45500BF869A /* QRScannerView.swift in Sources */,
 				6D76020F2CEA41DC00C49EDC /* Fonts+.swift in Sources */,
 				6D3C638E2CEB9E8D00229404 /* SwipointModel.swift in Sources */,
 				6D67267D2CEE488700301A50 /* LoginViewModel.swift in Sources */,
