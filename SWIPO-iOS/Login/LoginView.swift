@@ -14,6 +14,7 @@ import AuthenticationServices
 struct LoginView: View {
     
     @ObservedObject var authManager = AuthManager()
+    @StateObject var viewModel = LoginViewModel()
     
     var body: some View {
         NavigationStack{
@@ -54,6 +55,14 @@ struct LoginView: View {
                     
                     Button(action: {
                         authManager.kakaoLogin()
+                        Task{
+                            // 카카오 로그인 성공 후 액세스 토큰을 가져와서 전달
+                            if let token = authManager.kakaoAccessToken {
+                                await kakaoLogin(kakaoCode: token)
+                            } else {
+                                print("카카오 토큰을 가져올 수 없습니다.")
+                            }
+                        }
                     }, label: {
                         RoundedRectangle(cornerRadius: 16)
                             .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
@@ -152,16 +161,22 @@ struct LoginView: View {
             .navigationDestination(for: loginType.self) { viewType in
                 switch viewType {
                 case let .term(type):
-//                    TermsView(howLogin: type)
-                    MainView()
+                    TermsView(howLogin: type)
                 }
             }
         }
     }
     
-    enum loginType: Hashable{
-        case term(type: String)
+    func kakaoLogin(kakaoCode: String) async {
+        await viewModel.action(.getKakaoLogin(kakaoCode: kakaoCode))
     }
+    
+    func appleLogin(code: String) async {
+        await viewModel.action(.getAppleLogin(code: code))
+    }
+}
+enum loginType: Hashable{
+    case term(type: String)
 }
 
 #Preview {
