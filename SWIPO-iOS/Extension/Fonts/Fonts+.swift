@@ -106,7 +106,7 @@ extension Font {
     }
     
     static var Subhead1: Font {
-        return .spoqa(.bold, size: 12)
+        return .spoqa(.medium, size: 12)
     }
     
     static var Subhead2: Font {
@@ -114,7 +114,7 @@ extension Font {
     }
     
     static var Subhead3: Font {
-        return .spoqa(.bold, size: 16)
+        return .spoqa(.medium, size: 16)
     }
     
     static var Display1: Font {
@@ -122,11 +122,11 @@ extension Font {
     }
     
     static var Display2: Font {
-        return .spoqa(.bold, size: 28)
+        return .spoqa(.medium, size: 28)
     }
     
     static var Display3: Font {
-        return .spoqa(.bold, size: 32)
+        return .spoqa(.medium, size: 32)
     }
     
     static var Display4: Font {

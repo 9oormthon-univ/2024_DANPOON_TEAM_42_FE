@@ -14,6 +14,7 @@ struct NearbyView: View {
     @State var payButtonEnable: Bool = false
 
     private var mapView = MapView()
+    private var horizontalScrollButtonView = HorizontalScrollButtonView()
 
     var body: some View {
         ZStack {
@@ -21,53 +22,29 @@ struct NearbyView: View {
 
             VStack {
                 HStack {
-                    Image("search")
-                        .resizable()
-                        .frame(width: 24 * Constants.ControlWidth, height: 24 * Constants.ControlHeight)
-                        .foregroundColor(Color.greyLightActive)
-                    CustomTextField(
-                        placeholder: "지역 및 가맹점을 검색해 보세요",
-                        text: $searchText,
-                        placeholderColor: UIColor.gray,
-                        textColor: UIColor.black, iconColor: .greyLightActive
-                    )
-                }
-                .padding(.vertical, 3)
-                .padding(.horizontal, 12)
-                .frame(height: 40 * Constants.ControlHeight)
-                .background(Color.white)
-                .cornerRadius(14)
-                .padding(.horizontal)
-                .shadow(radius: 2)
-                .padding(.top, 18)
-
-                HStack {
-                    Button(action: {
-                    }) {
-                        RoundedRectangle(cornerRadius: 16)
-                            .frame(width: 173 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
-                            .foregroundColor(.white)
-                            .cornerRadius(14)
-                            .shadow(radius: 2)
-                            .overlay {
-                                HStack {
-                                    Image("location")
-                                        .resizable()
-                                        .frame(width: 24 * Constants.ControlWidth, height: 24 * Constants.ControlHeight)
-                                        .foregroundColor(Color.greyLightActive)
-                                    Text("내 위치 새로고침")
-                                        .foregroundColor(Color.greyLightActive)
-                                        .font(.Body2)
-                                }
-                            }
+                    HStack {
+                        Image("search")
+                            .resizable()
+                            .frame(width: 24 * Constants.ControlWidth, height: 24 * Constants.ControlHeight)
+                            .foregroundColor(Color.greyLightActive)
+                        CustomTextField(
+                            placeholder: "지역 및 가맹점을 검색해 보세요",
+                            text: $searchText,
+                            placeholderColor: UIColor.gray,
+                            textColor: UIColor.black, iconColor: .greyLightActive
+                        )
                     }
-
-                    Spacer()
+                    .padding(.vertical, 3)
+                    .padding(.horizontal, 12)
+                    .frame(width: 305 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+                    .background(Color.white)
+                    .cornerRadius(14)
+                    .shadow(radius: 2)
 
                     Button(action: {
                         AppState.shared.navigationPath.append(mainType.storeList)
                     }, label: {
-                            RoundedRectangle(cornerRadius: 16)
+                            RoundedRectangle(cornerRadius: 14)
                                 .frame(width: 50 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
                                 .foregroundColor(.white)
                                 .cornerRadius(14)
@@ -82,7 +59,9 @@ struct NearbyView: View {
                                 }
                         })
                 }
-                .padding(.horizontal)
+                .padding(.top, 18)
+
+                horizontalScrollButtonView
 
                 Spacer()
 
@@ -117,4 +96,33 @@ struct NearbyView: View {
 
 #Preview {
     MainView()
+}
+
+struct HorizontalScrollButtonView: View {
+    let buttonTitles: [String] = ["전체", "💛 관심 등록", "👍 스위포 PICK!", "🔥 사용자 트렌드", "🥰 내 취향 가득", "👩‍🔬 스윕 Lab"]
+    @State private var selectedButton: String = "전체"
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 4) {
+                ForEach(buttonTitles, id: \.self) { title in
+                    Button(action: {
+                        selectedButton = title
+                    }) {
+                        Text(title)
+                            .font(.Subhead3)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 15)
+                            .background(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .fill(selectedButton == title ? .mainNormal : .white)
+                            )
+                            .foregroundColor(selectedButton == title ? .white : .mainNormal)
+                    }
+                }
+            }
+            .padding(.horizontal, 16)
+        }
+        .padding(.top, 4)
+    }
 }
