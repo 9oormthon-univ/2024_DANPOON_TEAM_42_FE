@@ -29,5 +29,13 @@
 		<string>SpoqaHanSansNeo-Thin.ttf</string>
 		<string>Pretendard-Medium.ttf</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>SWIPO가 사용자의 위치를 사용하도록 허용하시겠습니까?</string>
+	<key>NSCameraUsageDescription</key>
+	<string>SWIPO가 QR스캔을 위해 카메라를 사용하도록 허용하시겠습니까?</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+	</array>
 </dict>
 </plist>

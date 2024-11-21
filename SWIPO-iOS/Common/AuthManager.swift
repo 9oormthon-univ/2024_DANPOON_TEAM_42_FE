@@ -15,6 +15,7 @@ import Alamofire
 
 final class AuthManager: NSObject, ObservableObject{
     @Published var kakaoSuccess: Bool = false // 로그인 성공 여부를 나타내는 변수
+    @Published var kakaoAccessToken: String? // 액세스 토큰 저장
     
     //카카오톡 로그인
     func kakaoLogin(){
@@ -29,8 +30,9 @@ final class AuthManager: NSObject, ObservableObject{
                    print("카카오톡 로그인 success")
                     
                    // 추가작업
-                   _ = oauthToken
+                    self.kakaoAccessToken = oauthToken?.accessToken
                     print("\(oauthToken!.accessToken)")
+                    
                     self.kakaoSuccess = true // 로그인 성공 시 true로 설정
                 }
              }
@@ -44,7 +46,7 @@ final class AuthManager: NSObject, ObservableObject{
                     print("카카오계정 로그인 success")
 
                     // 추가작업
-                   _ = oauthToken
+                    self.kakaoAccessToken = oauthToken?.accessToken
                     print("\(oauthToken!.accessToken)")
                     self.kakaoSuccess = true // 로그인 성공 시 true로 설정
                 }

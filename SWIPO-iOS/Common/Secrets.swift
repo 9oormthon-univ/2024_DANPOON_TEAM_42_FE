@@ -8,7 +8,7 @@
 import Foundation
 
 struct Secrets {
-    static let baseUrl = ""
+    static let baseUrl = "https://duoh.site/v1"
     static let appleTeamId = "23SCTLK482"
     static let appleKeyId = "WT8F54W8L5"
     static let appleKeyPath = "AuthKey_WT8F54W8L5"

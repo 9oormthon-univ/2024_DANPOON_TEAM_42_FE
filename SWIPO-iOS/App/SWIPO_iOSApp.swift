@@ -22,8 +22,8 @@ struct SWIPO_iOSApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $appState.navigationPath) {
-//                LoginView()
-                MainView()
+                LoginView()
+//                MainView()
                     .onOpenURL(perform: { url in
                         if AuthApi.isKakaoTalkLoginUrl(url) {
                             AuthController.handleOpenUrl(url: url)

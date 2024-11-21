@@ -32,6 +32,8 @@ struct TermsView: View {
     @State private var isChkTerm6: Bool = false
     @State private var isChkTerm6Modal: Bool = false
     
+    @StateObject private var geoServiceManager = GeoServiceManager()
+    
     var body: some View {
         
         ZStack{
@@ -315,7 +317,8 @@ struct TermsView: View {
                 
                 Button(action: {
                     if chkTerm() {
-                        
+                        AppState.shared.navigationPath.append(termType.join)
+                        fetchCurrentLocation()
                     }
                 }, label: {
                     RoundedRectangle(cornerRadius: 16)
@@ -330,6 +333,14 @@ struct TermsView: View {
                 })
                 
             }
+            .navigationDestination(for: termType.self) { viewType in
+                switch viewType {
+                case .join:
+                    JoinView()
+                case .password:
+                    PasswordView(usage: "설정", paymentModal: .constant(false))
+                }
+            }
         }
         .toolbar(.hidden)
     }
@@ -341,6 +352,23 @@ struct TermsView: View {
             return false
         }
     }
+    
+    private func fetchCurrentLocation() {
+        do {
+            try geoServiceManager.requestLocation()
+        } catch GeoError.accessRestricted {
+            print("위치 접근이 제한되었습니다.")
+        } catch GeoError.accessDenied {
+            print("위치 접근이 제한되었습니다.")
+        } catch {
+            print("알 수 없는 오류가 발생했습니다.")
+        }
+    }
+}
+
+enum termType {
+    case join
+    case password
 }
 
 #Preview {
