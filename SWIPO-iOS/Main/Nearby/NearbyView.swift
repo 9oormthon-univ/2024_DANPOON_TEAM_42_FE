@@ -160,7 +160,7 @@ struct CategoryModalView: View {
                         .foregroundColor(.white)
                         .padding(.top, 11)
                     
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         if selectedCategoryIndex == 0 {
                             VStack(spacing: 12) {
                                 ForEach(viewModel.state.categoryType.indices, id: \.self) { index in
@@ -188,6 +188,12 @@ struct CategoryModalView: View {
                                     CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
 
                                     CategoryTasteView()
+                                        .padding(.bottom, 22)
+                                }
+                                .padding()
+                            } else if selectedCategoryIndex == 5 {
+                                VStack(spacing: 12) {
+                                    CategoryLabView()
                                         .padding(.bottom, 22)
                                 }
                                 .padding()

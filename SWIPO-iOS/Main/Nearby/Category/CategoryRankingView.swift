@@ -19,7 +19,8 @@ struct CategoryRankingView: View {
                 Image(store.imageName[0])
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 146 * Constants.ControlWidth, height: 144 * Constants.ControlHeight)
+                    .frame(width: 146 * Constants.ControlWidth,
+                           height: 144 * Constants.ControlHeight)
                     .cornerRadius(12)
                     .clipped()
                     .overlay {
@@ -28,12 +29,14 @@ struct CategoryRankingView: View {
                                 HStack {
                                     Image(rankingImageArr[rankingImageIndex])
                                         .resizable()
-                                        .frame(width: 45 * Constants.ControlWidth, height: 45 * Constants.ControlHeight)
+                                        .frame(width: 45 * Constants.ControlWidth,
+                                               height: 45 * Constants.ControlHeight)
                                     
                                     Spacer()
                                     
                                     RoundedRectangle(cornerRadius: 6)
-                                        .frame(width: 72 * Constants.ControlWidth, height: 24 * Constants.ControlHeight)
+                                        .frame(width: 72 * Constants.ControlWidth,
+                                               height: 24 * Constants.ControlHeight)
                                         .foregroundColor(.white)
                                         .overlay (
                                             RoundedRectangle(cornerRadius: 6)
@@ -83,7 +86,8 @@ struct CategoryRankingView: View {
                     HStack(alignment: .center, spacing: 2) {
                         Image("location2")
                             .resizable()
-                            .frame(width: 18 * Constants.ControlWidth, height: 18 * Constants.ControlHeight)
+                            .frame(width: 18 * Constants.ControlWidth,
+                                   height: 18 * Constants.ControlHeight)
                         
                         Text(store.address)
                             .font(.Caption)
@@ -93,7 +97,8 @@ struct CategoryRankingView: View {
                 }
             }
         }
-        .frame(width: 146 * Constants.ControlWidth, height: 190 * Constants.ControlHeight)
+        .frame(width: 146 * Constants.ControlWidth,
+               height: 190 * Constants.ControlHeight)
     }
 }
 
