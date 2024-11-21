@@ -12,7 +12,6 @@ import AVFoundation
 struct QRScannerView: View {
     
     @State var storeTitle: String = ""
-    @State var price: String = ""
     
     var body: some View {
         ZStack {
@@ -20,7 +19,7 @@ struct QRScannerView: View {
             VStack(spacing: 0) {
                 NavigationBar(title: "QR 결제", showBackButton: true)
                 
-                QRMainView(storeTitle: $storeTitle, price: $price)
+                QRMainView(storeTitle: $storeTitle)
                 
                 Spacer()
             }
@@ -29,7 +28,7 @@ struct QRScannerView: View {
         .navigationDestination(for: qrType.self) { view in
             switch view{
             case .payment:
-                PaymentView(storeTitle: $storeTitle, price: $price)
+                PaymentView(storeTitle: $storeTitle)
             }
         }
     }
@@ -42,7 +41,6 @@ struct QRMainView: View {
     @State private var isShowing = false
     
     @Binding var storeTitle: String
-    @Binding var price: String
     
     var body: some View {
         ZStack {
@@ -145,7 +143,6 @@ struct QRMainView: View {
         let components = result.split(separator: "/")
         if components.count == 2 {
             storeTitle = String(components[0])
-            price = String(components[1])
         } else {
             print("Invalid QR format: \(result)")
         }

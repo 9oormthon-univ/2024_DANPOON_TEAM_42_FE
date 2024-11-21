@@ -12,6 +12,7 @@ struct SwipayView: View {
     @StateObject var viewModel = SwipayViewModel()
     @State private var currentIndex: Int = 0
     @State private var newsCurrentIndex: Int = 0
+    @State var comingSoon: Bool = false
     
     var body: some View {
         ScrollView{
@@ -23,120 +24,148 @@ struct SwipayView: View {
                         .scaledToFit()
                         .foregroundColor(.greyDarkHover)
                         .overlay {
-                            VStack(spacing: 0){
-                                Rectangle()
-                                    .frame(width: 361 * Constants.ControlWidth, height: 72 * Constants.ControlHeight)
-                                    .scaledToFit()
-                                    .overlay{
-                                        LinearGradient(gradient: Gradient(colors: [Color(hex: "4F4FFD"), Color(hex: "8C8CFF")]), startPoint: UnitPoint(x: 0.3, y: 0.5), endPoint: .trailing)
-                                    }
-                                    .cornerRadius(16, corners: .topLeft)
-                                    .cornerRadius(16, corners: .topRight)
-                                    .overlay {
-                                        HStack(spacing: 5){
-                                            Image("swipay_P")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 19 * Constants.ControlWidth, height: 22 * Constants.ControlWidth)
-                                            
-                                            Text("스위페이")
-                                                .font(.Headline)
-                                                .foregroundColor(.white)
-                                            
-                                            Spacer()
-                                            
-                                            Image("swipay_chevron_right")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 32 * Constants.ControlWidth)
-                                        }
-                                        .padding(.leading, 22 * Constants.ControlWidth)
-                                        .padding(.trailing, 22 * Constants.ControlHeight)
-                                    }
-                                
-                                HStack(spacing: 4){
-                                    Text("82,597")
-                                        .font(.Display3)
-                                        .foregroundColor(.white)
-                                    
-                                    Text("원")
-                                        .font(.Display1)
-                                        .foregroundColor(.white)
-                                    
-                                    Spacer()
-                                    
-                                    Button(action: {
-                                        AppState.shared.navigationPath.append(swipayType.payment)
-                                    }, label: {
-                                        RoundedRectangle(cornerRadius: 6)
-                                            .frame(width: 66 * Constants.ControlWidth, height: 34 * Constants.ControlHeight)
-                                            .foregroundColor(.greyNormalHover)
-                                            .overlay {
-                                                HStack(spacing: 4){
-                                                    Image("swipay_scan")
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                        .frame(width: 20 * Constants.ControlWidth)
-                                                    
-                                                    Text("결제")
-                                                        .font(.Body1)
-                                                        .foregroundColor(.white)
-                                                }
-                                            }
-                                            .scaledToFit()
-                                    })
-                                }
-                                .padding(.top, 21 * Constants.ControlHeight)
-                                .padding(.leading, 22 * Constants.ControlWidth)
-                                .padding(.trailing, 22 * Constants.ControlWidth)
-                                .padding(.bottom, 21 * Constants.ControlHeight)
-                                
-                                HStack(spacing: 0){
-                                    Button(action: {
-                                        AppState.shared.navigationPath.append(swipayType.payCharge)
-                                    }, label: {
-                                        RoundedRectangle(cornerRadius: 6)
-                                            .frame(width: 156.6 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
-                                            .scaledToFit()
-                                            .foregroundColor(.greyNormalHover)
-                                            .overlay {
-                                                HStack(spacing: 4){
-                                                    Image("swipay_kakaopay")
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                        .frame(width: 42 * Constants.ControlWidth, height: 13.18 * Constants.ControlHeight)
-
-                                                    Text("충전")
-                                                        .font(.Body1)
-                                                        .foregroundColor(.white)
-                                                }
-                                            }
-                                    })
-                                    
-                                    Spacer()
-                                    
-                                    RoundedRectangle(cornerRadius: 6)
-                                        .frame(width: 156.6 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+                            ZStack{
+                                VStack(spacing: 0){
+                                    Rectangle()
+                                        .frame(width: 361 * Constants.ControlWidth, height: 72 * Constants.ControlHeight)
                                         .scaledToFit()
-                                        .foregroundColor(.greyNormalActive)
+                                        .overlay{
+                                            LinearGradient(gradient: Gradient(colors: [Color(hex: "4F4FFD"), Color(hex: "8C8CFF")]), startPoint: UnitPoint(x: 0.3, y: 0.5), endPoint: .trailing)
+                                        }
+                                        .cornerRadius(16, corners: .topLeft)
+                                        .cornerRadius(16, corners: .topRight)
                                         .overlay {
-                                            HStack(spacing: 4){
-                                                Image("swipay_link")
+                                            HStack(spacing: 5){
+                                                Image("swipay_P")
                                                     .resizable()
                                                     .scaledToFit()
-                                                    .frame(width: 20 * Constants.ControlWidth)
+                                                    .frame(width: 19 * Constants.ControlWidth, height: 22 * Constants.ControlWidth)
                                                 
-                                                Text("계좌 연동")
-                                                    .font(.Body1)
-                                                    .foregroundColor(.greyLightActive)
+                                                Text("스위페이")
+                                                    .font(.Headline)
+                                                    .foregroundColor(.white)
+                                                
+                                                Spacer()
+                                                
+                                                Image("swipay_chevron_right")
+                                                    .resizable()
+                                                    .scaledToFit()
+                                                    .frame(width: 32 * Constants.ControlWidth)
                                             }
+                                            .padding(.leading, 22 * Constants.ControlWidth)
+                                            .padding(.trailing, 22 * Constants.ControlHeight)
                                         }
+                                    
+                                    HStack(spacing: 4){
+                                        Text("82,597")
+                                            .font(.Display3)
+                                            .foregroundColor(.white)
+                                        
+                                        Text("원")
+                                            .font(.Display1)
+                                            .foregroundColor(.white)
+                                        
+                                        Spacer()
+                                        
+                                        Button(action: {
+                                            AppState.shared.navigationPath.append(swipayType.payment)
+                                        }, label: {
+                                            RoundedRectangle(cornerRadius: 6)
+                                                .frame(width: 66 * Constants.ControlWidth, height: 34 * Constants.ControlHeight)
+                                                .foregroundColor(.greyNormalHover)
+                                                .overlay {
+                                                    HStack(spacing: 4){
+                                                        Image("swipay_scan")
+                                                            .resizable()
+                                                            .scaledToFit()
+                                                            .frame(width: 20 * Constants.ControlWidth)
+                                                        
+                                                        Text("결제")
+                                                            .font(.Body1)
+                                                            .foregroundColor(.white)
+                                                    }
+                                                }
+                                                .scaledToFit()
+                                        })
+                                    }
+                                    .padding(.top, 21 * Constants.ControlHeight)
+                                    .padding(.leading, 22 * Constants.ControlWidth)
+                                    .padding(.trailing, 22 * Constants.ControlWidth)
+                                    .padding(.bottom, 21 * Constants.ControlHeight)
+                                    
+                                    HStack(spacing: 0){
+                                        Button(action: {
+                                            AppState.shared.navigationPath.append(swipayType.payCharge)
+                                        }, label: {
+                                            RoundedRectangle(cornerRadius: 6)
+                                                .frame(width: 156.6 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+                                                .scaledToFit()
+                                                .foregroundColor(.greyNormalHover)
+                                                .overlay {
+                                                    HStack(spacing: 4){
+                                                        Image("swipay_kakaopay")
+                                                            .resizable()
+                                                            .scaledToFit()
+                                                            .frame(width: 42 * Constants.ControlWidth, height: 13.18 * Constants.ControlHeight)
+                                                        
+                                                        Text("충전")
+                                                            .font(.Body1)
+                                                            .foregroundColor(.white)
+                                                    }
+                                                }
+                                        })
+                                        
+                                        Spacer()
+                                        
+                                        Button(action: {
+                                            comingSoon = true
+                                        }, label: {
+                                            RoundedRectangle(cornerRadius: 6)
+                                                .frame(width: 156.6 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+                                                .scaledToFit()
+                                                .foregroundColor(.greyNormalActive)
+                                                .overlay {
+                                                    HStack(spacing: 4){
+                                                        Image("swipay_link")
+                                                            .resizable()
+                                                            .scaledToFit()
+                                                            .frame(width: 20 * Constants.ControlWidth)
+                                                        
+                                                        Text("계좌 연동")
+                                                            .font(.Body1)
+                                                            .foregroundColor(.greyLightActive)
+                                                    }
+                                                }
+                                        })
+                                    }
+                                    .padding(.leading, 22 * Constants.ControlWidth)
+                                    .padding(.trailing, 22 * Constants.ControlWidth)
+                                    
+                                    Spacer()
+                                    
                                 }
-                                .padding(.leading, 22 * Constants.ControlWidth)
-                                .padding(.trailing, 22 * Constants.ControlWidth)
                                 
-                                Spacer()
-                                
+                                VStack(spacing: 0){
+                                    
+                                    HStack(spacing: 0){
+                                        
+                                        Spacer()
+                                        
+                                        if comingSoon == true {
+                                            Image("swipay_coming_soon")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 160 * Constants.ControlWidth)
+                                                .padding(.trailing, 20 * Constants.ControlWidth)
+                                                .padding(.top, 60 * Constants.ControlHeight)
+                                                .onAppear {
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                        comingSoon = false
+                                                    }
+                                                }
+                                        }
+                                    }
+                                }
                             }
                         }
                     
@@ -228,8 +257,8 @@ struct SwipayView: View {
                                 TabView(selection: $currentIndex) {
                                     ForEach(viewModel.state.getRecentUsageResponse.indices, id: \.self) { index in
                                         UsageDetailItem(region: viewModel.state.getRecentUsageResponse[index].region, title: viewModel.state.getRecentUsageResponse[index].title, date: viewModel.state.getRecentUsageResponse[index].date, type: viewModel.state.getRecentUsageResponse[index].type, price: viewModel.state.getRecentUsageResponse[index].price)
-                                        .padding(.top, 14 * Constants.ControlHeight)
-                                        .tag(index)
+                                            .padding(.top, 14 * Constants.ControlHeight)
+                                            .tag(index)
                                     }
                                 }
                                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -291,7 +320,7 @@ struct SwipayView: View {
                                         .padding(.leading, 22 * Constants.ControlWidth)
                                         .padding(.trailing, 22 * Constants.ControlHeight)
                                     }
-                                        
+                                
                                 
                                 SwipayCardView(viewModel: viewModel)
                                     .padding(.leading, 22 * Constants.ControlWidth)
@@ -339,11 +368,11 @@ struct SwipayView: View {
                                 .padding(.top)
                                 .padding(.leading, 22 * Constants.ControlWidth)
                                 .padding(.trailing, 22 * Constants.ControlWidth)
-                            
+                                
                                 TabView(selection: $newsCurrentIndex) {
                                     ForEach(viewModel.state.getSwipayNewsResponse.indices, id: \.self) { index in
                                         SwipayNewsView(title: viewModel.state.getSwipayNewsResponse[index].title, content: viewModel.state.getSwipayNewsResponse[index].content)
-                                        .tag(index)
+                                            .tag(index)
                                     }
                                 }
                                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -559,7 +588,7 @@ struct SwipayCardView: View {
                                         .scaledToFit()
                                         .frame(width: 202 * Constants.ControlWidth, height: 320.33 * Constants.ControlHeight)
                                         .padding(.bottom, 14 * Constants.ControlHeight)
-                                
+                                    
                                     RoundedRectangle(cornerRadius: 6)
                                         .frame(width: 202 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
                                         .scaledToFit()
