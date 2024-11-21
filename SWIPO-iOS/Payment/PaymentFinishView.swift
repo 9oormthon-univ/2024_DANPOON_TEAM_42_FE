@@ -9,6 +9,8 @@ import SwiftUI
 struct PaymentFinishView: View {
 
     @Binding var paymentModal: Bool
+    @Binding var koreaAddress: String
+    @Binding var englishAddress: String
     
     var body: some View {
         ZStack{
@@ -22,7 +24,7 @@ struct PaymentFinishView: View {
                             .padding(.top)
                             .padding(.bottom, 10 * Constants.ControlHeight)
                         
-                        Image("payment_piece")
+                        Image("\(englishAddress)")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 76 * Constants.ControlWidth, height: 76 * Constants.ControlHeight)
@@ -33,7 +35,7 @@ struct PaymentFinishView: View {
                             .padding(.top)
                             .padding(.bottom, 8 * Constants.ControlHeight)
                         
-                        Text("부산 스윕스톤을 획득 했어요!\n스윕스톤을 모아 추가 포인트를 획득하세요!")
+                        Text("\(koreaAddress) 스윕스톤을 획득 했어요!\n스윕스톤을 모아 추가 포인트를 획득하세요!")
                             .font(.Subhead2)
                             .foregroundColor(.greyLightActive)
                             .multilineTextAlignment(.center)
@@ -89,6 +91,8 @@ struct PaymentFinishView: View {
                         
                         Button(action: {
                             paymentModal.toggle()
+                            AppState.shared.navigationPath.removeLast()
+                            AppState.shared.navigationPath.removeLast()
                         }, label: {
                             RoundedRectangle(cornerRadius: 16)
                                 .frame(width: 319 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
@@ -113,5 +117,5 @@ struct PaymentFinishView: View {
 }
 
 #Preview {
-    PaymentFinishView(paymentModal: .constant(false))
+    PaymentFinishView(paymentModal: .constant(false), koreaAddress: .constant(""), englishAddress: .constant(""))
 }

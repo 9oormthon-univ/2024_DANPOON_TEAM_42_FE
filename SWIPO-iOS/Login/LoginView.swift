@@ -19,13 +19,25 @@ struct LoginView: View {
     var body: some View {
         NavigationStack{
             ZStack{
+                VStack(spacing: 0){
+                    Image("login_background")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 393 * Constants.ControlWidth, height: 641 * Constants.ControlHeight)
+                    
+                    Spacer()
+                }
+                .edgesIgnoringSafeArea(.top)
+                
                 VStack(spacing: 15){
                     Image("login_logo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 212 * Constants.ControlWidth, height: 67 * Constants.ControlHeight)
-                    Text("지역 화폐의 새로운 패러다임")
+                    Text("지역 상생 가맹점을 즐겁게!")
                         .font(.Subhead3)
+                        .tracking(-0.6)
+                        .foregroundColor(.white)
                     Spacer()
                 }
                 .padding(.top, 174 * Constants.ControlHeight)

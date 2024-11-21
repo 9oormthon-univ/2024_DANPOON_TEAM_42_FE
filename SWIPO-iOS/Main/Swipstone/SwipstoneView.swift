@@ -154,6 +154,7 @@ struct SwipstoneView: View {
         }
     }
 }
+
 struct SwipstoneCardView: View {
     
     var point: String
