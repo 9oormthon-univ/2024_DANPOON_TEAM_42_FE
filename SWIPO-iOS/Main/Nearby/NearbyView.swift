@@ -14,7 +14,8 @@ struct NearbyView: View {
     @State var payButtonEnable: Bool = false
 
     private var mapView = MapView()
-    private var horizontalScrollButtonView = HorizontalScrollButtonView()
+    private var categoryButtonView = CategoryButtonView()
+    private var categoryModalView = CategoryModalView()
 
     var body: some View {
         ZStack {
@@ -61,24 +62,35 @@ struct NearbyView: View {
                 }
                 .padding(.top, 18)
 
-                horizontalScrollButtonView
+                categoryButtonView
 
                 Spacer()
 
-                Button(action: {
-                }) {
-                    RoundedRectangle(cornerRadius: 16)
-                        .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
-                        .disabled(payButtonEnable)
-                        .foregroundColor(payButtonEnable ? .mainNormal : .mainLightActive)
-                        .overlay {
-                            Text("결제하기")
-                                .foregroundColor(Color.white)
-                                .font(.Subhead3)
-                        }
+                HStack {
+                    Spacer()
+
+                    Button(action: {
+                    }) {
+                       Circle()
+                            .frame(width: 50 * Constants.ControlWidth, height: 50 * Constants.ControlHeight)
+                            .foregroundColor(.white.opacity(0.8))
+                            .overlay {
+                                Image("location")
+                                    .resizable()
+                                    .frame(width: 33 * Constants.ControlWidth,
+                                           height: 33 * Constants.ControlHeight)
+                            }
+                    }
                 }
-                .padding(.bottom, 30)
+                .padding(.bottom, 130)
+                .padding(.horizontal)
             }
+
+            categoryModalView
+                .onTapGesture {
+                    // 모달 외부를 터치하면 닫힘
+                }
+
         }
         .navigationBarBackButtonHidden()
         .navigationDestination(for: mainType.self) { viewType in
@@ -98,7 +110,7 @@ struct NearbyView: View {
     MainView()
 }
 
-struct HorizontalScrollButtonView: View {
+struct CategoryButtonView: View {
     let buttonTitles: [String] = ["전체", "💛 관심 등록", "👍 스위포 PICK!", "🔥 사용자 트렌드", "🥰 내 취향 가득", "👩‍🔬 스윕 Lab"]
     @State private var selectedButton: String = "전체"
 
@@ -124,5 +136,116 @@ struct HorizontalScrollButtonView: View {
             .padding(.horizontal, 16)
         }
         .padding(.top, 4)
+    }
+}
+
+struct CategoryModalView: View {
+    enum ModalPosition {
+        case collapsed
+        case halfExpanded
+        case fullyExpanded
+    }
+
+    @State private var modalPosition: ModalPosition = .collapsed
+    @State private var dragOffset: CGFloat = 0
+
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .bottom) {
+                // 모달 뷰
+                VStack {
+                    Capsule()
+                        .frame(width: 50, height: 5)
+                        .foregroundColor(.white)
+                        .padding(.top, 11)
+
+                    ScrollView {
+                        VStack(spacing: 20) {
+                            Text("내용")
+                                .font(.Headline)
+                        }
+                        .padding()
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color.black))
+                .shadow(radius: 12)
+                .offset(y: min(max(modalOffset(for: modalPosition, in: geometry) + dragOffset, 0),
+                               modalOffset(for: .collapsed, in: geometry)))
+                .gesture(
+                    DragGesture()
+                        .onChanged { value in
+                            if modalPosition == .fullyExpanded && value.translation.height < 0 {
+                                dragOffset = 0
+                            } else if modalPosition == .collapsed && value.translation.height > 0 {
+                                dragOffset = 0
+                            } else {
+                                dragOffset = value.translation.height
+                            }
+                        }
+                        .onEnded { value in
+                            let height = value.translation.height
+                            dragOffset = 0
+                            determineModalPosition(from: height)
+                        }
+                )
+                .foregroundColor(.white)
+                .animation(.easeInOut(duration: 0.3), value: modalPosition)
+            }
+        }
+    }
+
+    private func modalOffset(for position: ModalPosition, in geometry: GeometryProxy) -> CGFloat {
+        let screenHeight = geometry.size.height
+        switch position {
+        case .collapsed:
+            return screenHeight - 111
+        case .halfExpanded:
+            return screenHeight - 345
+        case .fullyExpanded:
+            return 14
+        }
+    }
+
+    private func determineModalPosition(from dragHeight: CGFloat) {
+        let dragThreshold: CGFloat = 50
+        switch modalPosition {
+        case .collapsed:
+            if dragHeight < -dragThreshold {
+                modalPosition = .halfExpanded
+            }
+        case .halfExpanded:
+            if dragHeight < -dragThreshold {
+                modalPosition = .fullyExpanded
+            } else if dragHeight > dragThreshold {
+                modalPosition = .collapsed
+            }
+        case .fullyExpanded:
+            if dragHeight > dragThreshold {
+                modalPosition = .halfExpanded
+            }
+        }
+    }
+
+    private func moveUp() {
+        switch modalPosition {
+        case .collapsed:
+            modalPosition = .halfExpanded
+        case .halfExpanded:
+            modalPosition = .fullyExpanded
+        case .fullyExpanded:
+            break
+        }
+    }
+
+    private func moveDown() {
+        switch modalPosition {
+        case .fullyExpanded:
+            modalPosition = .halfExpanded
+        case .halfExpanded:
+            modalPosition = .collapsed
+        case .collapsed:
+            break
+        }
     }
 }
