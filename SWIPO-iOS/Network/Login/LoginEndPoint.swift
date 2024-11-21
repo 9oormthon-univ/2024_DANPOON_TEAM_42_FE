@@ -10,7 +10,7 @@ import Alamofire
 
 enum LoginEndPoint {
     case getKakaoLogin(kakaoCode: String) // 카카오 로그인
-    case getAppleLogin(code: String) //애플 로그인
+    case getAppleLogin(token: String) //애플 로그인
 }
 
 extension LoginEndPoint: EndPoint {
@@ -41,9 +41,9 @@ extension LoginEndPoint: EndPoint {
         case let .getKakaoLogin(kakaoCode):
             let param = ["kakaoCode": kakaoCode] as [String: Any]
             return .requestParameters(parameters: param)
-        case let .getAppleLogin(code):
-            let param = ["code": code] as [String: Any]
-            return .requestParameters(parameters: param)
+        case let .getAppleLogin(token):
+            let body = ["token": token]
+            return .requestWithoutInterceptor(body: body)
         }
     }
 }

@@ -22,13 +22,23 @@ struct SWIPO_iOSApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $appState.navigationPath) {
-                LoginView()
+                if let passwordString = KeyChainManager.readItem(key: "providerId") {
+                    MainView()
+                        .onOpenURL(perform: { url in
+                            if AuthApi.isKakaoTalkLoginUrl(url) {
+                                AuthController.handleOpenUrl(url: url)
+                            }
+                        })
+                } else {
+                    LoginView()
+                        .onOpenURL(perform: { url in
+                            if AuthApi.isKakaoTalkLoginUrl(url) {
+                                AuthController.handleOpenUrl(url: url)
+                            }
+                        })
+                }
 //                MainView()
-                    .onOpenURL(perform: { url in
-                        if AuthApi.isKakaoTalkLoginUrl(url) {
-                            AuthController.handleOpenUrl(url: url)
-                        }
-                    })
+                    
             }
         }
     }

@@ -11,13 +11,14 @@ import Combine
 
 struct JoinView: View {
     @StateObject private var geoServiceManager = GeoServiceManager()
+    @StateObject var viewModel = JoinViewModel()
     
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
                 NavigationBar(title: "회원가입", showBackButton: true)
                 
-                JoinMainView(geoServiceManager: geoServiceManager)
+                JoinMainView(geoServiceManager: geoServiceManager, viewModel: viewModel)
                 Spacer()
             }
         }
@@ -41,6 +42,7 @@ struct JoinView: View {
 struct JoinMainView: View {
     
     @ObservedObject var geoServiceManager: GeoServiceManager
+    @ObservedObject var viewModel: JoinViewModel
     
     @State private var isChk: Bool = false
     @State private var isChkModal: Bool = false
@@ -220,6 +222,12 @@ struct JoinMainView: View {
                         .font(.Headline)
                         .frame(width: 160 * Constants.ControlWidth)
                         .foregroundColor(.white)
+                        .onChange(of: birth1) { newValue in
+                            // 4글자로 제한
+                            if newValue.count > 6 {
+                                birth1 = String(newValue.prefix(6))
+                            }
+                        }
                         .overlay {
                             HStack(spacing: 0){
                                 Text(birth1 == "" ? "생년월일 6자리" : "")
@@ -241,6 +249,12 @@ struct JoinMainView: View {
                         .keyboardType(.decimalPad)
                         .font(.Headline)
                         .foregroundColor(.clear)
+                        .onChange(of: birth2) { newValue in
+                            // 4글자로 제한
+                            if newValue.count > 1 {
+                                birth2 = String(newValue.prefix(1))
+                            }
+                        }
                         .overlay {
                             HStack(spacing: 0){
                                 Image(birth2 == "" ? "join_birth_blank" : "join_birth")
@@ -343,6 +357,12 @@ struct JoinMainView: View {
                         .keyboardType(.decimalPad)
                         .font(.Headline)
                         .foregroundColor(.white)
+                        .onChange(of: phone) { newValue in
+                            // 4글자로 제한
+                            if newValue.count > 11 {
+                                phone = String(newValue.prefix(11))
+                            }
+                        }
                         .overlay {
                             HStack(spacing: 0){
                                 Text(phone == "" ? "숫자만 입력" : "")
@@ -360,7 +380,12 @@ struct JoinMainView: View {
                     
                     Button(action: {
                         ageChk(Int(birth1) ?? 0)
+                        
+                        Task{
+                            await phoneChk(phone: phone)
+                        }
                         startTimer()
+                        
                     }, label: {
                         RoundedRectangle(cornerRadius: 6)
                             .frame(width: 66 * Constants.ControlWidth, height: 32 * Constants.ControlHeight)
@@ -396,6 +421,18 @@ struct JoinMainView: View {
                         .keyboardType(.decimalPad)
                         .font(.Headline)
                         .foregroundColor(.white)
+                        .onChange(of: number) { newValue in
+                            // 4글자로 제한
+                            if newValue.count > 4 {
+                                number = String(newValue.prefix(4))
+                            }
+                            // 4글자 입력이 완료되었을 때 함수 실행
+                            if number.count == 4 {
+//                                Task {
+//                                    await verificationChk(phone: phone, code: number)
+//                                }
+                            }
+                        }
                         .overlay {
                             HStack(spacing: 0){
                                 Text(number == "" ? "인증번호 입력" : "")
@@ -449,7 +486,7 @@ struct JoinMainView: View {
             .navigationDestination(for: joinType.self) { view in
                 switch view{
                 case .password:
-                    PasswordView(usage: "설정", paymentModal: .constant(false))
+                    PasswordView(usage: "가입", paymentModal: .constant(false))
                 }
             }
         }
@@ -491,7 +528,16 @@ struct JoinMainView: View {
     func chkJoin() -> Bool {
         if name == "" || address == "" || birth1 == "" || birth2 == "" || agency == "" || phone == "" || number == "" {
             return false
-        } else {
+        }
+            //else if !viewModel.state.verification { // verification이 false인 경우
+//            return false }
+        else {
+            UserDefaults.standard.set(name, forKey: "name")
+            UserDefaults.standard.set(address, forKey: "address")
+            UserDefaults.standard.set(birth1, forKey: "birth")
+            UserDefaults.standard.set(agency, forKey: "telecom")
+            UserDefaults.standard.set(phone, forKey: "phone")
+
             return true
         }
     }
@@ -545,7 +591,7 @@ struct JoinMainView: View {
         if Int(current_date_string) ?? 0 <= compareBirth {
             age -= 1
         }
-
+        
         if age >= 14 {
             return true
         } else {
@@ -563,6 +609,14 @@ struct JoinMainView: View {
     enum joinType{
         case password
     }
+    
+    func phoneChk(phone: String) async {
+        await viewModel.action(.getPhoneChk(phone: phone))
+    }
+//    
+//    func verificationChk(phone: String, code: String) async {
+//        await viewModel.action(.getVerificationChk(phone: phone, code: code))
+//    }
 }
 
 #Preview {

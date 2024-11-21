@@ -106,14 +106,11 @@ struct LoginView: View {
                                 switch authResults.credential{
                                 case let appleIDCredential as ASAuthorizationAppleIDCredential:
                                     // 계정 정보 가져오기
-                                    let UserIdentifier = appleIDCredential.user
-                                    let fullName = appleIDCredential.fullName
-                                    let name =  (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
-                                    let email = appleIDCredential.email
                                     let IdentityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)
-                                    let AuthorizationCode = String(data: appleIDCredential.authorizationCode!, encoding: .utf8)
+                                    Task{
+                                        await appleLogin(token: IdentityToken ?? "")
+                                    }
                                     
-                                    print("\(IdentityToken)")
                                 default:
                                     break
                                 }
@@ -183,8 +180,8 @@ struct LoginView: View {
         await viewModel.action(.getKakaoLogin(kakaoCode: kakaoCode))
     }
     
-    func appleLogin(code: String) async {
-        await viewModel.action(.getAppleLogin(code: code))
+    func appleLogin(token: String) async {
+        await viewModel.action(.getAppleLogin(token: token))
     }
 }
 enum loginType: Hashable{

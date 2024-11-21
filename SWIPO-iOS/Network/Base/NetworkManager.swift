@@ -140,6 +140,7 @@ class NetworkManager {
                         }
                     }, to: URL(string: "\(endPoint.baseURL)\(endPoint.path)")!, method: endPoint.method, headers: endPoint.headers, interceptor: withInterceptor ? Interceptor() : nil)
                     .validate()
+            
         }
     }
 }

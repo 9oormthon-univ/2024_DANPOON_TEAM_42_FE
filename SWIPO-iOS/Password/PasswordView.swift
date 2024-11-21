@@ -16,6 +16,8 @@ struct PasswordView: View {
     @State var resetFinishModal: Bool = false
     @State var navigation: String = ""
     
+    @StateObject var viewModel = JoinViewModel()
+    
     
     var body: some View {
         ZStack{
@@ -28,6 +30,9 @@ struct PasswordView: View {
                     NavigationBar(title: "결제하기", showBackButton: true)
                         .padding(.bottom, 60 * Constants.ControlHeight)
                 } else if usage == "재설정" {
+                    NavigationBar(title: "간편 비밀번호 재설정", showBackButton: true)
+                        .padding(.bottom, 60 * Constants.ControlHeight)
+                } else if usage == "가입" {
                     NavigationBar(title: "간편 비밀번호 재설정", showBackButton: true)
                         .padding(.bottom, 60 * Constants.ControlHeight)
                 }
@@ -108,7 +113,7 @@ struct PasswordMainView: View {
     @Binding var resetModal: Bool
     @Binding var resetFinishModal: Bool
     
-
+    @StateObject var viewModel = JoinViewModel()
     
     var body: some View {
         ZStack{
@@ -190,12 +195,12 @@ struct PasswordMainView: View {
                                 }
                                 
                                 // 비밀번호 입력 완료 시
-                                    if password.count == 4 && passwordChk.isEmpty {
-                                        // 비밀번호 저장 로직 실행 전에 잠시 대기
-                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                            savePassword()
-                                        }
+                                if password.count == 4 && passwordChk.isEmpty {
+                                    // 비밀번호 저장 로직 실행 전에 잠시 대기
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                        savePassword()
                                     }
+                                }
                                 if passwordChk.count == 4{
                                     if chkPassword() {
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -240,8 +245,8 @@ struct PasswordMainView: View {
                                 .foregroundColor(Color(hex: "FF6636"))
                                 .underline()
                         }
-
-
+                        
+                        
                     } else {
                         Text(" ")
                             .font(.Caption)
@@ -296,8 +301,8 @@ struct PasswordMainView: View {
                                         isfail = true
                                         failCout += 1
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                                    password.removeAll()
-                                                }
+                                            password.removeAll()
+                                        }
                                     }
                                 }
                                 
@@ -426,7 +431,149 @@ struct PasswordMainView: View {
                     }
                     
                 }
+            } else if usage == "가입"{
+                VStack(spacing: 0){
+                    
+                    Text(password.count == 4 ? "비밀번호를 한 번 더 입력해 주세요" : "새 비밀번호를 입력해 주세요")
+                        .font(.Display1)
+                        .foregroundColor(.white)
+                    if isfail {
+                        Text("비밀번호가 일치하지 않아요")
+                            .font(.Caption)
+                            .foregroundColor(Color(hex: "FF6636"))
+                    } else {
+                        Text(" ")
+                            .font(.Caption)
+                    }
+                    
+                    
+                    if saveChk {
+                        HStack(spacing: 0){
+                            Image(passwordChk.count >= 1 ? "password_1" : "password_blank1")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48 * Constants.ControlWidth, height: 48 * Constants.ControlHeight)
+                            
+                            Image(passwordChk.count >= 2 ? "password_2" : "password_blank2")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48 * Constants.ControlWidth, height: 48 * Constants.ControlHeight)
+                            
+                            Image(passwordChk.count >= 3 ? "password_3" : "password_blank3")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48 * Constants.ControlWidth, height: 48 * Constants.ControlHeight)
+                            
+                            Image(passwordChk.count >= 4 ? "password_4" : "password_blank4")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48 * Constants.ControlWidth, height: 48 * Constants.ControlHeight)
+                        }
+                        .padding(.top, 36 * Constants.ControlHeight)
+                    } else {
+                        HStack(spacing: 0){
+                            Image(password.count >= 1 ? "password_1" : "password_blank1")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48 * Constants.ControlWidth, height: 48 * Constants.ControlHeight)
+                            
+                            Image(password.count >= 2 ? "password_2" : "password_blank2")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48 * Constants.ControlWidth, height: 48 * Constants.ControlHeight)
+                            
+                            Image(password.count >= 3 ? "password_3" : "password_blank3")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48 * Constants.ControlWidth, height: 48 * Constants.ControlHeight)
+                            
+                            Image(password.count >= 4 ? "password_4" : "password_blank4")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48 * Constants.ControlWidth, height: 48 * Constants.ControlHeight)
+                        }
+                        .padding(.top, 36 * Constants.ControlHeight)
+                    }
+                    
+                    Spacer()
+                    
+                    LazyVGrid(columns: layout) {
+                        ForEach(number, id: \.self) { index in
+                            Button(action: {
+                                if password.count < 4 && index != 12{
+                                    password.append(index)
+                                    print(password)
+                                } else if passwordChk.count < 4 && index != 12{
+                                    passwordChk.append(index)
+                                    print(passwordChk)
+                                }
+                                
+                                // 비밀번호 입력 완료 시
+                                if password.count == 4 && passwordChk.isEmpty {
+                                    // 비밀번호 저장 로직 실행 전에 잠시 대기
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                        savePassword()
+                                    }
+                                }
+                                if passwordChk.count == 4{
+                                    if chkPassword() {
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                            Task{
+                                                await join()
+                                            }
+                                        }
+                                    } else {
+                                        isfail = true
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                                            passwordChk.removeAll()
+                                        }
+                                    }
+                                    
+                                }
+                                
+                                if password.count == 4 && index == 12 {
+                                    passwordChk.removeLast()
+                                    print(passwordChk)
+                                } else if passwordChk.count == 0 && index == 12 && password.count != 4{
+                                    password.removeLast()
+                                    print(password)
+                                }
+                            }, label: {
+                                Numberpad(number: index)
+                                    .foregroundColor(.white)
+                            })
+                        }
+                        .padding(.bottom, 35 * Constants.ControlHeight)
+                    }
+                    
+                }
             }
+        }
+    }
+    
+    func join() async {
+        let savedProvider = KeyChainManager.readItem(key: "provider") ?? ""
+        let savedProviderId = KeyChainManager.readItem(key: "providerId") ?? ""
+        
+        let savedName = UserDefaults.standard.string(forKey: "name") ?? ""
+        let savedAddress = UserDefaults.standard.string(forKey: "address") ?? ""
+        let savedbirth = UserDefaults.standard.string(forKey: "birth") ?? ""
+        let savedTelecom = UserDefaults.standard.string(forKey: "telecom") ?? ""
+        let savedPhone = UserDefaults.standard.string(forKey: "phone") ?? ""
+        
+        let passwordString = password.map { String($0) }.joined()
+        
+        await viewModel.action(.getJoin(provider: savedProvider, providerId: savedProviderId, name: savedName, address: savedAddress, birth: savedbirth, telecom: savedTelecom, phone: savedPhone, isMarket: true, pwd: passwordString))
+        
+        // getJoinResponse가 성공적으로 업데이트되었는지 확인
+        if viewModel.state.getJoinResponse.user_id != 0 {
+            // 성공하면 navigationPath에 finish 추가
+            DispatchQueue.main.async {
+                AppState.shared.navigationPath.append(passwordType.finish)
+            }
+        } else {
+            // 실패 시 추가 작업 (필요하다면)
+            print("회원 가입 실패")
         }
     }
     
@@ -468,7 +615,7 @@ struct PasswordMainView: View {
         func updateUIView(_ uiView: UIViewType, context: Context) {
         }
     }
-
+    
     struct ClearBackgroundViewModifier: ViewModifier {
         
         func body(content: Content) -> some View {

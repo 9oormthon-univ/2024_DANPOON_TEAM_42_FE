@@ -12,36 +12,36 @@ struct EmptyResponseModel: Codable {
 }
 
 struct BaseResponse<T: Codable>: Codable {
-    let status: Int
+    let code: Int
     let message: String
-    let result: T?
+    let data: T?
 
     enum CodingKeys: String, CodingKey {
-        case status
+        case code
         case message
-        case result
+        case data
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        status = try container.decode(Int.self, forKey: .status)
+        code = try container.decode(Int.self, forKey: .code)
         message = try container.decode(String.self, forKey: .message)
-        result = try container.decodeIfPresent(T.self, forKey: .result)
+        data = try container.decodeIfPresent(T.self, forKey: .data)
     }
 }
 
 struct DeleteResponse: Codable {
-    let status: Int
+    let code: Int
     let message: String
 
     enum CodingKeys: String, CodingKey {
-        case status
+        case code
         case message
     }
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        status = try container.decode(Int.self, forKey: .status)
+        code = try container.decode(Int.self, forKey: .code)
         message = try container.decode(String.self, forKey: .message)
     }
 }
