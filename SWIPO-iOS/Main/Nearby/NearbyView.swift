@@ -14,8 +14,8 @@ struct NearbyView: View {
     @State var payButtonEnable: Bool = false
 
     private var mapView = MapView()
-    private var categoryButtonView = CategoryButtonView()
-    private var categoryModalView = CategoryModalView()
+    @StateObject var viewModel = CategoryViewModel()
+    @State private var selectedCategoryIndex: Int = 0
 
     var body: some View {
         ZStack {
@@ -62,7 +62,7 @@ struct NearbyView: View {
                 }
                 .padding(.top, 18)
 
-                categoryButtonView
+                CategoryButtonView(selectedCategoryIndex: $selectedCategoryIndex)
 
                 Spacer()
 
@@ -86,11 +86,10 @@ struct NearbyView: View {
                 .padding(.horizontal)
             }
 
-            categoryModalView
+            CategoryModalView(viewModel: viewModel, selectedCategoryIndex: $selectedCategoryIndex)
                 .onTapGesture {
                     // 모달 외부를 터치하면 닫힘
                 }
-
         }
         .navigationBarBackButtonHidden()
         .navigationDestination(for: mainType.self) { viewType in
@@ -112,24 +111,24 @@ struct NearbyView: View {
 
 struct CategoryButtonView: View {
     let buttonTitles: [String] = ["전체", "💛 관심 등록", "👍 스위포 PICK!", "🔥 사용자 트렌드", "🥰 내 취향 가득", "👩‍🔬 스윕 Lab"]
-    @State private var selectedButton: String = "전체"
+    @Binding var selectedCategoryIndex: Int
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 4) {
-                ForEach(buttonTitles, id: \.self) { title in
+                ForEach(buttonTitles.indices, id: \.self) { index in
                     Button(action: {
-                        selectedButton = title
+                        selectedCategoryIndex = index
                     }) {
-                        Text(title)
+                        Text(buttonTitles[index])
                             .font(.Subhead3)
                             .padding(.vertical, 10)
                             .padding(.horizontal, 15)
                             .background(
                                 RoundedRectangle(cornerRadius: 14)
-                                    .fill(selectedButton == title ? .mainNormal : .white)
+                                    .fill(selectedCategoryIndex == index ? .mainNormal : .white)
                             )
-                            .foregroundColor(selectedButton == title ? .white : .mainNormal)
+                            .foregroundColor(selectedCategoryIndex == index ? .white : .mainNormal)
                     }
                 }
             }
@@ -148,6 +147,8 @@ struct CategoryModalView: View {
 
     @State private var modalPosition: ModalPosition = .collapsed
     @State private var dragOffset: CGFloat = 0
+    @StateObject var viewModel = CategoryViewModel()
+    @Binding var selectedCategoryIndex: Int
 
     var body: some View {
         GeometryReader { geometry in
@@ -158,13 +159,49 @@ struct CategoryModalView: View {
                         .frame(width: 50, height: 5)
                         .foregroundColor(.white)
                         .padding(.top, 11)
-
+                    
                     ScrollView {
-                        VStack(spacing: 20) {
-                            Text("내용")
-                                .font(.Headline)
+                        if selectedCategoryIndex == 0 {
+                            VStack(spacing: 12) {
+                                ForEach(viewModel.state.categoryType.indices, id: \.self) { index in
+                                    let category = viewModel.state.categoryType[index]
+                                    CategoryTitleView(title: category.title, content: category.content)
+                                    
+                                    CardListView()
+                                        .padding(.bottom, 22)
+                                }
+                            }
+                            .padding()
+                        } else {
+                            if selectedCategoryIndex == 3 {
+                                VStack(spacing: 12) {
+                                    let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
+                                    CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
+                                    
+                                    CardRankingListView()
+                                        .padding(.bottom, 22)
+                                }
+                                .padding()
+                            } else if selectedCategoryIndex == 4 {
+                                VStack(spacing: 12) {
+                                    let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
+                                    CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
+                                    
+                                    CardTasteListView()
+                                        .padding(.bottom, 22)
+                                }
+                                .padding()
+                            } else {
+                                VStack(spacing: 12) {
+                                    let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
+                                    CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
+                                    
+                                    CardListView()
+                                        .padding(.bottom, 22)
+                                }
+                                .padding()
+                            }
                         }
-                        .padding()
                     }
                 }
                 .frame(maxWidth: .infinity)
