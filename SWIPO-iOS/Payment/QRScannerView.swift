@@ -26,6 +26,12 @@ struct QRScannerView: View {
             }
         }
         .toolbar(.hidden)
+        .navigationDestination(for: qrType.self) { view in
+            switch view{
+            case .payment:
+                PaymentView(storeTitle: $storeTitle, price: $price)
+            }
+        }
     }
 }
 
