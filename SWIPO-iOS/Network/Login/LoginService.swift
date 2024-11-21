@@ -14,7 +14,7 @@ struct LoginService {
     }
     
     //애플 로그인
-    static func getAppleLogin(code: String) async -> BaseResponse<LoginModel>? {
-        return await NetworkManager.shared.request(LoginEndPoint.getAppleLogin(code: code))
+    static func getAppleLogin(token: String) async -> BaseResponse<LoginModel>? {
+        return await NetworkManager.shared.request(LoginEndPoint.getAppleLogin(token: token))
     }
 }
