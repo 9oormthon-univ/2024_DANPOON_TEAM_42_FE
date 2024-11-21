@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StoreListView: View {
 
-    let stores: [Store] = sampleStores
+    @StateObject var viewModel = StoreViewModel()
 
     @State var searchText: String = ""
 
@@ -17,12 +17,12 @@ struct StoreListView: View {
     @State var category: String = "전체"
 
     @State var sortModal: Bool = false
-    @State var sort: String = "가까운순"
+    @State var sort: String = "스위포 PICK!"
 
     @State var payButtonEnable: Bool = false
 
-    var filteredStores: [Store] {
-        stores.filter { store in
+    var filteredStores: [StoreModel] {
+        viewModel.state.sampleStores.filter { store in
             let matchesSearch = searchText.isEmpty || store.name.contains(searchText)
             let matchesCategory = category == "전체" || store.category == category
             return matchesSearch && matchesCategory
@@ -91,7 +91,7 @@ struct StoreListView: View {
                         sortModal.toggle()
                     }) {
                         RoundedRectangle(cornerRadius: 12)
-                            .frame(width: 116 * Constants.ControlWidth, height: 34 * Constants.ControlHeight)
+                            .frame(width: 141 * Constants.ControlWidth, height: 34 * Constants.ControlHeight)
                             .foregroundColor(.greyDark)
                             .overlay {
                                 HStack {
@@ -108,12 +108,12 @@ struct StoreListView: View {
                                 StoreOptionView(
                                     isModalVisible: $sortModal,
                                     selectedOption: $sort,
-                                    options: ["인기순", "추천순", "별점순", "가까운순", "관심등록순"],
-                                    height: 416
+                                    options: ["스위포 PICK!", "사용자 트렌드", "내 취향 가득", "관심 등록순", "전체 인기순", "별점순", "가까운순"],
+                                    height: 532
                                 )
                                 .background(ClearBackgroundView())
                                 .foregroundColor(.white)
-                                .presentationDetents([.height(416 * Constants.ControlHeight)])
+                                .presentationDetents([.height(532 * Constants.ControlHeight)])
                             }
                     }
 
@@ -131,14 +131,13 @@ struct StoreListView: View {
                                 .padding(.top, 20)
                         }
                     } else {
-                        ForEach(filteredStores) { store in
+                        ForEach(filteredStores, id: \.name) { store in
                             StoreRowView(store: store)
-                                .padding(.bottom, 33)
+                                .padding(.bottom, 13)
                         }
                     }
                 }
-                .padding(.top, 20)
-                .padding(.bottom, 40)
+                .padding(.bottom, 58)
             }
             .background(.black)
 
@@ -203,26 +202,89 @@ struct StoreListView: View {
 }
 
 struct StoreRowView: View {
-    @ObservedObject var store: Store
+    var store: StoreModel
+
+    @State private var imageCurrentIndex: Int = 0
+    @State private var reviewCurrentIndex: Int = 0
 
     var body: some View {
         VStack(alignment: .leading) {
             ZStack(alignment: .topTrailing) {
-                Image(store.imageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(height: 160)
-                    .clipped()
+                RoundedRectangle(cornerRadius: 0)
+                    .frame(width: .infinity, height: 160 * Constants.ControlHeight)
+                    .foregroundColor(.clear)
+                    .overlay {
+                        VStack(spacing: 0) {
+                            TabView(selection: $imageCurrentIndex) {
+                                ForEach(store.imageName.indices, id: \.self) { index in
+                                    VStack {
+                                        Image(store.imageName[index])
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(height: 160)
+                                            .clipped()
+                                    }
+                                    .tag(index)
+                                }
+                            }
+                            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+                        }
+                    }
+                    .overlay {
+                        VStack {
+                            Spacer()
 
-                Button(action: {
-                    store.isFavorite.toggle()
-                }) {
-                    Image(store.isFavorite ? .heartFilled : .heart)
-                        .resizable()
-                        .frame(width: 27 * Constants.ControlWidth, height: 27 * Constants.ControlHeight)
-                        .padding(10)
-                        .foregroundColor(.white)
-                }
+                            HStack(spacing: 6) {
+                                ForEach(store.imageName.indices, id: \.self) { index in
+                                    Circle()
+                                        .fill(index == reviewCurrentIndex ? .white : .white.opacity(0.64))
+                                        .frame(width: 6 * Constants.ControlWidth, height: 6 * Constants.ControlHeight)
+                                }
+                            }
+                            .padding(.bottom, 12 * Constants.ControlHeight)
+                        }
+                    }
+                    .overlay {
+                        VStack {
+                            Spacer()
+
+                            HStack {
+                                Spacer()
+
+                                RoundedRectangle(cornerRadius: 4)
+                                    .frame(width: 49 * Constants.ControlWidth, height: 24 * Constants.ControlHeight)
+                                    .foregroundColor(.black.opacity(0.6))
+                                    .overlay {
+                                        Text("\(imageCurrentIndex + 1)/\(store.imageName.count)")
+                                            .foregroundColor(Color.white)
+                                            .font(.Caption)
+                                    }
+                            }
+                                                }
+                        .padding(.trailing, 15)
+                        .padding(.bottom, 6)
+                    }
+                    .overlay {
+                        VStack {
+                            HStack {
+                                Spacer()
+
+                                Button(action: {
+//                                    store.isFavorite.toggle()
+                                }) {
+                                    Image(store.isFavorite ? .heartFilled : .heart)
+                                        .resizable()
+                                        .frame(width: 27 * Constants.ControlWidth, height: 27 * Constants.ControlHeight)
+                                        .foregroundColor(.white)
+                                }
+                            }
+
+                            Spacer()
+                        }
+                        .padding(.top, 12)
+                        .padding(.trailing, 15)
+                    }
+                    .padding(.top, 20)
             }
 
             VStack(alignment: .leading, spacing: 5) {
@@ -233,13 +295,16 @@ struct StoreRowView: View {
                     .font(.Body2)
                     .foregroundColor(.white)
 
-                HStack {
+                HStack(spacing: 4) {
                     RoundedRectangle(cornerRadius: 6)
                         .frame(width: 80 * Constants.ControlWidth, height: 24 * Constants.ControlHeight)
-                        .foregroundColor(.greyNormal)
+                        .foregroundColor(.white)
+                        .overlay (
+                                RoundedRectangle(cornerRadius: 6)
+                                    .stroke(.mainLightActive, lineWidth: 1))
                         .overlay {
-                            Text(store.point)
-                                .foregroundColor(Color.white)
+                            Text("Point \(store.point)%")
+                                .foregroundColor(.mainNormal)
                                 .font(.Subhead2)
                         }
 
@@ -268,6 +333,38 @@ struct StoreRowView: View {
                     }
                 }
                 .padding(.top, 8)
+
+                // 리뷰
+                RoundedRectangle(cornerRadius: 12)
+                    .frame(width: 360 * Constants.ControlWidth, height: 74 * Constants.ControlHeight)
+                    .foregroundColor(.greyDarkHover)
+                    .overlay {
+                        VStack(spacing: 0) {
+                            TabView(selection: $reviewCurrentIndex) {
+                                ForEach(store.review.indices, id: \.self) { index in
+                                    VStack {
+                                        Text(store.review[index])
+                                            .font(.Body1)
+                                            .foregroundStyle(.greyLightHover)
+                                            .multilineTextAlignment(.leading)
+                                    }
+                                    .padding(.top, 8 * Constants.ControlHeight)
+                                    .tag(index)
+                                }
+                            }
+                            .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
+
+                            HStack(spacing: 6) {
+                                ForEach(store.review.indices, id: \.self) { index in
+                                    Circle()
+                                        .fill(index == reviewCurrentIndex ? .greyNormal : .greyDark)
+                                        .frame(width: 6 * Constants.ControlWidth, height: 6 * Constants.ControlHeight)
+                                }
+                            }
+                            .padding(.bottom, 12 * Constants.ControlHeight)
+                        }
+                    }
+                    .padding(.top, 18)
             }
             .padding(.top, 12)
             .padding(.horizontal, 10)
@@ -277,4 +374,18 @@ struct StoreRowView: View {
 
 #Preview {
     StoreListView()
+}
+
+struct ReviewItem: View {
+    var review: String
+    
+    var body: some View {
+        ZStack {
+            HStack(spacing: 0) {
+                Text(review)
+                    .font(.Subhead3)
+                    .foregroundColor(.white)
+            }
+        }
+    }
 }

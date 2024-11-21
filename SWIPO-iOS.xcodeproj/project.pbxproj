@@ -73,12 +73,16 @@
 		9512B3022CEB32250029A9AA /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512B3012CEB32250029A9AA /* StoreModel.swift */; };
 		9512B3042CEB32550029A9AA /* StoreOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512B3032CEB32550029A9AA /* StoreOptionView.swift */; };
 		9512B3072CEB59170029A9AA /* PayChargeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512B3062CEB59170029A9AA /* PayChargeView.swift */; };
+		952256F02CEE34EB00F69EA0 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952256EF2CEE34EB00F69EA0 /* StoreViewModel.swift */; };
+		952256F22CEEBDBB00F69EA0 /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952256F12CEEBDBA00F69EA0 /* CategoryView.swift */; };
 		954FFAB72CEAD3B500E81D16 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 954FFAB62CEAD3B500E81D16 /* KakaoMapsSDK-SPM */; };
 		954FFABB2CEAD3F200E81D16 /* NearbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABA2CEAD3F200E81D16 /* NearbyView.swift */; };
 		954FFABD2CEAD43F00E81D16 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABC2CEAD43F00E81D16 /* MapView.swift */; };
 		954FFABF2CEAD44600E81D16 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABE2CEAD44600E81D16 /* MapViewController.swift */; };
 		954FFAC22CEAD49100E81D16 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFAC12CEAD49100E81D16 /* CustomTextField.swift */; };
 		954FFAC52CEAE6B500E81D16 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 954FFAC42CEAE6B500E81D16 /* SnapKit */; };
+		9583DA182CEF262400D2CEFA /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583DA172CEF262400D2CEFA /* CategoryViewModel.swift */; };
+		9583DA1A2CEF263B00D2CEFA /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583DA192CEF263B00D2CEFA /* CategoryModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -147,10 +151,14 @@
 		9512B3012CEB32250029A9AA /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		9512B3032CEB32550029A9AA /* StoreOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreOptionView.swift; sourceTree = "<group>"; };
 		9512B3062CEB59170029A9AA /* PayChargeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayChargeView.swift; sourceTree = "<group>"; };
+		952256EF2CEE34EB00F69EA0 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
+		952256F12CEEBDBA00F69EA0 /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		954FFABA2CEAD3F200E81D16 /* NearbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyView.swift; sourceTree = "<group>"; };
 		954FFABC2CEAD43F00E81D16 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		954FFABE2CEAD44600E81D16 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		954FFAC12CEAD49100E81D16 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		9583DA172CEF262400D2CEFA /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
+		9583DA192CEF263B00D2CEFA /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,6 +405,7 @@
 			children = (
 				9512B2FF2CEB32040029A9AA /* StoreListView.swift */,
 				9512B3012CEB32250029A9AA /* StoreModel.swift */,
+				952256EF2CEE34EB00F69EA0 /* StoreViewModel.swift */,
 				9512B3032CEB32550029A9AA /* StoreOptionView.swift */,
 			);
 			path = StoreList;
@@ -416,6 +425,7 @@
 				954FFABA2CEAD3F200E81D16 /* NearbyView.swift */,
 				954FFABC2CEAD43F00E81D16 /* MapView.swift */,
 				954FFABE2CEAD44600E81D16 /* MapViewController.swift */,
+				9583DA1B2CEF267300D2CEFA /* Category */,
 				9512B2FE2CEB31FD0029A9AA /* StoreList */,
 			);
 			path = Nearby;
@@ -427,6 +437,16 @@
 				954FFAC12CEAD49100E81D16 /* CustomTextField.swift */,
 			);
 			path = Custom;
+			sourceTree = "<group>";
+		};
+		9583DA1B2CEF267300D2CEFA /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				952256F12CEEBDBA00F69EA0 /* CategoryView.swift */,
+				9583DA192CEF263B00D2CEFA /* CategoryModel.swift */,
+				9583DA172CEF262400D2CEFA /* CategoryViewModel.swift */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -548,8 +568,10 @@
 				6D787BEB2CEACBDE00B587F8 /* Color.swift in Sources */,
 				9512B2FC2CEB31A60029A9AA /* NavigationBar.swift in Sources */,
 				6D3C63942CEBA43B00229404 /* SwipstoneGuideView.swift in Sources */,
+				952256F02CEE34EB00F69EA0 /* StoreViewModel.swift in Sources */,
 				6D3C63A22CEBC52E00229404 /* LocationNewModal.swift in Sources */,
 				6D3C638A2CEB940100229404 /* SwipointView.swift in Sources */,
+				9583DA1A2CEF263B00D2CEFA /* CategoryModel.swift in Sources */,
 				6D67265F2CEDCEE700301A50 /* SwipstoneViewModel.swift in Sources */,
 				954FFABF2CEAD44600E81D16 /* MapViewController.swift in Sources */,
 				954FFABD2CEAD43F00E81D16 /* MapView.swift in Sources */,
@@ -563,6 +585,7 @@
 				6D3C63AD2CED218D00229404 /* CustomFinishModal.swift in Sources */,
 				6D787BEF2CEACBE600B587F8 /* MainNavigationBar.swift in Sources */,
 				6D787BF82CEACC1F00B587F8 /* SwipayViewModel.swift in Sources */,
+				9583DA182CEF262400D2CEFA /* CategoryViewModel.swift in Sources */,
 				6D67265B2CEDC8F200301A50 /* SwipstoneView.swift in Sources */,
 				6D3C63AB2CECE99000229404 /* CustomStopModal.swift in Sources */,
 				6D787BF62CEACC1F00B587F8 /* SwipayModel.swift in Sources */,
@@ -578,6 +601,7 @@
 				6D3C639E2CEBBE7600229404 /* LocationCertificationModal.swift in Sources */,
 				6D67266C2CEE398800301A50 /* PasswordResetModal.swift in Sources */,
 				6D7602092CEA412E00C49EDC /* BaseResponse.swift in Sources */,
+				952256F22CEEBDBB00F69EA0 /* CategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

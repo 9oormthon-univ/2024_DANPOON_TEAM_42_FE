@@ -5,12 +5,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "focus-2@2x.png",
+      "filename" : "first@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "focus-2@3x.png",
+      "filename" : "first@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
