@@ -77,7 +77,7 @@ struct PayChargeView: View {
                     Spacer()
 
                     Button(action: {
-                        isTipHidden.toggle()
+                        isTipHidden = false
                     }) {
                         Text("스위페이 충전도 간편하게 💸")
                             .font(.Subhead2)

@@ -1,5 +1,5 @@
 //
-//  StoreOptionView.swift
+//  StoreOptionModal.swift
 //  SWIPO-iOS
 //
 //  Created by 박지윤 on 11/18/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StoreOptionView: View {
+struct StoreOptionModal: View {
     @Binding var isModalVisible: Bool
     @Binding var selectedOption: String
 
@@ -65,7 +65,7 @@ struct StoreOptionView: View {
 }
 
 #Preview {
-    StoreOptionView(
+    StoreOptionModal(
         isModalVisible: .constant(true),
         selectedOption: .constant(""),
         options: ["전체", "카페", "디저트", "음식점", "마트", "소품샵", "숙박"],

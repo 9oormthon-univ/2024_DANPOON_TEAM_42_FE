@@ -23,6 +23,13 @@ struct SwipayCardModel: Codable{
     var point: String
 }
 
+struct SwipayPointModel: Codable {
+    var id: Int64
+    var region: String
+    var cardImage: String
+    var point: Int
+}
+
 struct SwipayNewsModel: Codable{
     var id: Int64
     var title: String

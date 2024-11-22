@@ -13,65 +13,82 @@ struct SwipointView: View {
     @StateObject private var geoServiceManager = GeoServiceManager()
     @State var address: String = ""
     @State var isSelectedRegion: Int64? = nil
+    
+    @State var closeModal: Bool = false
+    @State var pointExchangeModal: Bool = false
     @State var makeCardModal: Bool = false
     @State var newCardModal: Bool = false
     @State var existenceCardModal: Bool = false
     
     var body: some View {
-        
-        ZStack{
-            VStack(spacing: 0){
-                ImageBtnNavigationBar(title: "스위포인트",
-                                      imageType: "question_circle_mark",
-                                      showBackButton: true, blur: false)
-                
-                SwipointMainView(viewModel: viewModel, isSelectedRegion: $isSelectedRegion, makeCardModal: $makeCardModal)
+            ZStack {
+                VStack(spacing: 0) {
+                    ImageBtnNavigationBar(title: "스위포인트",
+                                          imageType: "question_circle_mark",
+                                          showBackButton: true, blur: false)
+                    
+                    SwipointMainView(viewModel: viewModel,
+                                     isSelectedRegion: $isSelectedRegion,
+                                     pointExchangeModal: $pointExchangeModal,
+                                     makeCardModal: $makeCardModal)
                     .padding(.top, 30 * Constants.ControlHeight)
+                }
             }
-        }
-        .toolbar(.hidden)
-        .navigationDestination(for: swipointType.self) { view in
-            switch view{
-            case .guide:
-                SwipstoneGuideView()
-            case .custom:
-                CustomView(region: $address)
+            .toolbar(.hidden)
+            .navigationDestination(for: swipointType.self) { view in
+                switch view {
+                case .exchange:
+                    SwipointExchangeView(viewModel: SwipayViewModel())
+                case .guide:
+                    SwipstoneGuideView()
+                case .custom:
+                    CustomView(region: $address)
+                }
             }
-        }
-        .onAppear {
-            geoServiceManager.onAddressUpdate = { addressResult in
-                address = addressResult // 주소 업데이트
-                print("주소: \(addressResult)")
+            .onAppear {
+                geoServiceManager.onAddressUpdate = { addressResult in
+                    address = addressResult // 주소 업데이트
+                    print("주소: \(addressResult)")
+                }
             }
-        }
-        .alert(isPresented: $geoServiceManager.showAlert) {
-            Alert(
-                title: Text("위치 접근 권한이 필요합니다"),
-                message: Text("앱 설정으로 가서 위치 접근 권한을 허용해 주세요."),
-                primaryButton: .cancel(Text("취소")),
-                secondaryButton: .default(Text("설정하기"), action: {
-                    // 설정 화면으로 이동
-                    if let url = URL(string: UIApplication.openSettingsURLString) {
-                        UIApplication.shared.open(url)
-                    }
-                })
-            )
-        }
-        .sheet(isPresented: $makeCardModal, content: {
-            LocationCertificationModal(viewModel: viewModel, makeCardModal: $makeCardModal, region: $address, newCardModal: $newCardModal, existenceCardModal: $existenceCardModal)
+            .alert(isPresented: $geoServiceManager.showAlert) {
+                Alert(
+                    title: Text("위치 접근 권한이 필요합니다"),
+                    message: Text("앱 설정으로 가서 위치 접근 권한을 허용해 주세요."),
+                    primaryButton: .cancel(Text("취소")),
+                    secondaryButton: .default(Text("설정하기"), action: {
+                        // 설정 화면으로 이동
+                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                            UIApplication.shared.open(url)
+                        }
+                    })
+                )
+            }
+            .sheet(isPresented: $pointExchangeModal, content: {
+                SwipstoneSelectModal(viewModel: viewModel,
+                                      pointExchangeModal: $pointExchangeModal,
+                                      closeModal: $pointExchangeModal,
+                                      region: $address,
+                                      newCardModal: $newCardModal,
+                                      existenceCardModal: $existenceCardModal)
                 .background(ClearBackgroundView())// 팝업 뷰 height 조절
-                .presentationDetents([.height(346 * Constants.ControlHeight)])
-        })
-        .sheet(isPresented: $newCardModal, content: {
-            LocationNewModal(region: $address, viewModel: viewModel, newCardModal: $newCardModal)
-                .background(ClearBackgroundView())// 팝업 뷰 height 조절
-                .presentationDetents([.height(376 * Constants.ControlHeight)])
-        })
-        .sheet(isPresented: $existenceCardModal, content: {
-            LocationExistView(region: $address, viewModel: viewModel, existenceCardModal: $existenceCardModal)
-                .background(ClearBackgroundView())// 팝업 뷰 height 조절
-                .presentationDetents([.height(344 * Constants.ControlHeight)])
-        })
+                .presentationDetents([.height(740 * Constants.ControlHeight)])
+            })
+            .sheet(isPresented: $makeCardModal, content: {
+                LocationCertificationModal(viewModel: viewModel, makeCardModal: $makeCardModal, region: $address, newCardModal: $newCardModal, existenceCardModal: $existenceCardModal)
+                    .background(ClearBackgroundView())// 팝업 뷰 height 조절
+                    .presentationDetents([.height(346 * Constants.ControlHeight)])
+            })
+            .sheet(isPresented: $newCardModal, content: {
+                LocationNewModal(region: $address, viewModel: viewModel, newCardModal: $newCardModal)
+                    .background(ClearBackgroundView())// 팝업 뷰 height 조절
+                    .presentationDetents([.height(376 * Constants.ControlHeight)])
+            })
+            .sheet(isPresented: $existenceCardModal, content: {
+                LocationExistView(region: $address, viewModel: viewModel, existenceCardModal: $existenceCardModal)
+                    .background(ClearBackgroundView())// 팝업 뷰 height 조절
+                    .presentationDetents([.height(344 * Constants.ControlHeight)])
+            })
     }
 }
 
@@ -79,6 +96,7 @@ struct SwipointMainView: View {
     @ObservedObject var viewModel: SwipointViewModel
     @State private var selectedCardIndex: Int = 0 // 현재 선택된 카드 인덱스
     @Binding var isSelectedRegion: Int64?
+    @Binding var pointExchangeModal: Bool
     @Binding var makeCardModal: Bool
     
     var body: some View {
@@ -124,15 +142,19 @@ struct SwipointMainView: View {
                             .padding(.bottom, 14 * Constants.ControlHeight)
                             .padding(.top, 22 * Constants.ControlHeight)
                             
-                            HStack(spacing: 6){
-                                RoundedRectangle(cornerRadius: 6)
-                                    .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
-                                    .foregroundColor(.greyNormalHover)
-                                    .overlay {
-                                        Text("포인트 이동")
-                                            .font(.Body1)
-                                            .foregroundColor(.white)
-                                    }
+                            HStack(spacing: 6) {
+                                Button(action: {
+                                    pointExchangeModal = true
+                                }, label: {
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+                                        .foregroundColor(.greyNormalHover)
+                                        .overlay {
+                                            Text("포인트 환전")
+                                                .font(.Body1)
+                                                .foregroundColor(.white)
+                                        }
+                                })
                                 
                                 RoundedRectangle(cornerRadius: 6)
                                     .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
@@ -197,7 +219,8 @@ struct SwipointCardView: View {
     }
 }
 
-enum swipointType{
+enum swipointType {
+    case exchange
     case guide
     case custom
 }
