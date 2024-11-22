@@ -30,7 +30,7 @@ class JoinViewModel: ObservableObject {
         switch action {
         case let .getPhoneChk(phone):
             // 휴대폰 인증 API 호출
-            if let response = await JoinService.getPhoneChk(phone: phone),
+            if let response = await AuthService.getPhoneChk(phone: phone),
                let responseData = response.data {
                 await MainActor.run {
                     print(response)
@@ -40,7 +40,7 @@ class JoinViewModel: ObservableObject {
             }
         case let .getVerificationChk(phone, code):
             // 휴대폰 인증번호 확인 API 호출
-            if let response = await JoinService.getVerificationChk(phone: phone, code: code),
+            if let response = await AuthService.getVerificationChk(phone: phone, code: code),
                let responseData = response.data {
                 await MainActor.run {
                     state.verification = true
@@ -51,7 +51,7 @@ class JoinViewModel: ObservableObject {
                 print("Error")
             }
         case let .getJoin(provider, providerId, name, address, birth, telecom, phone, isMarket, pwd):
-            if let response = await JoinService.getJoin(provider: provider, providerId: providerId, name: name, address: address, birth: birth, telecom: telecom, phone: phone, isMarket: isMarket, pwd: pwd),
+            if let response = await AuthService.getJoin(provider: provider, providerId: providerId, name: name, address: address, birth: birth, telecom: telecom, phone: phone, isMarket: isMarket, pwd: pwd),
                let responseData = response.data {
                 await MainActor.run {
                     state.getJoinResponse = responseData

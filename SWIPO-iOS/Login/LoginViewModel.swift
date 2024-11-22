@@ -33,7 +33,7 @@ class LoginViewModel: ObservableObject {
         switch action {
         case let .getKakaoLogin(kakaoCode):
             // 카카오 로그인 API 호출
-            if let response = await LoginService.getKakaoLogin(kakaoCode: kakaoCode),
+            if let response = await AuthService.getKakaoLogin(kakaoCode: kakaoCode),
                let responseData = response.data {
                 await MainActor.run {
                     print(response)
@@ -44,7 +44,7 @@ class LoginViewModel: ObservableObject {
             }
         case let .getAppleLogin(token):
             // 애플 로그인 API 호출
-            if let response = await LoginService.getAppleLogin(token: token),
+            if let response = await AuthService.getAppleLogin(token: token),
                let responseData = response.data {
                 await MainActor.run {
                     print(response)
