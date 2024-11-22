@@ -478,12 +478,12 @@
 		9583DA1B2CEF267300D2CEFA /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				9571926B2CF00FC100E5BF1E /* CategoryTitleView.swift */,
+				9571926F2CF0108600E5BF1E /* CategoryCurationView.swift */,
 				957192652CF00FA200E5BF1E /* CategoryDefaultView.swift */,
 				957192672CF00FAC00E5BF1E /* CategoryRankingView.swift */,
 				957192692CF00FB600E5BF1E /* CategoryTasteView.swift */,
-				9571926F2CF0108600E5BF1E /* CategoryCurationView.swift */,
 				9571926D2CF0100E00E5BF1E /* CategoryLabView.swift */,
-				9571926B2CF00FC100E5BF1E /* CategoryTitleView.swift */,
 				9583DA192CEF263B00D2CEFA /* CategoryModel.swift */,
 				9583DA172CEF262400D2CEFA /* CategoryViewModel.swift */,
 			);
