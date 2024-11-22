@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct SwipointView: View {
     
-    @StateObject var viewModel = SwipointViewModel()
+    @ObservedObject var viewModel: SwipayViewModel
     @StateObject private var geoServiceManager = GeoServiceManager()
     @State var address: String = ""
     @State var isSelectedRegion: Int64? = nil
@@ -72,11 +73,17 @@ struct SwipointView: View {
                 .background(ClearBackgroundView())// 팝업 뷰 height 조절
                 .presentationDetents([.height(344 * Constants.ControlHeight)])
         })
+        .onAppear(){
+            Task {
+                await viewModel.action(.getSwipay)
+            }
+        }
     }
 }
 
 struct SwipointMainView: View {
-    @ObservedObject var viewModel: SwipointViewModel
+    @ObservedObject var viewModel: SwipayViewModel
+    
     @State private var selectedCardIndex: Int = 0 // 현재 선택된 카드 인덱스
     @Binding var isSelectedRegion: Int64?
     @Binding var makeCardModal: Bool
@@ -99,15 +106,16 @@ struct SwipointMainView: View {
                                         Spacer()
                                             .padding(.trailing, 56 * Constants.ControlWidth)
                                         
-                                        ForEach(viewModel.state.getSwipointCardResponse, id: \.id) { data in
-                                            SwipointCardView(region: data.region, point: data.point, cardImage: data.cardImage)
+                                        ForEach(viewModel.state.getSwipointCardResponse, id: \.cardId) { data in
+                                            
+                                            SwipointCardView(region: data.region, point: String(data.point), customImage: data.customImage)
                                                 .onTapGesture {
                                                     withAnimation(.easeInOut) {
-                                                        selectedCardIndex = Int(data.id)
-                                                        proxy.scrollTo(Int(data.id), anchor: .center)
+                                                        selectedCardIndex = Int(data.cardId) ?? 0
+                                                        proxy.scrollTo(Int(data.cardId), anchor: .center)
                                                     }
                                                 }
-                                                .id(Int(data.id))
+                                                .id(Int(data.cardId))
                                         }
                                         
                                         Spacer()
@@ -124,26 +132,28 @@ struct SwipointMainView: View {
                             .padding(.bottom, 14 * Constants.ControlHeight)
                             .padding(.top, 22 * Constants.ControlHeight)
                             
-                            HStack(spacing: 6){
-                                RoundedRectangle(cornerRadius: 6)
-                                    .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
-                                    .foregroundColor(.greyNormalHover)
-                                    .overlay {
-                                        Text("포인트 이동")
-                                            .font(.Body1)
-                                            .foregroundColor(.white)
-                                    }
-                                
-                                RoundedRectangle(cornerRadius: 6)
-                                    .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
-                                    .foregroundColor(.greyNormalHover)
-                                    .overlay {
-                                        Text("사용 내역")
-                                            .font(.Body1)
-                                            .foregroundColor(.white)
-                                    }
+                            if viewModel.state.getSwipointCardResponse.count >= 1 {
+                                HStack(spacing: 6){
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+                                        .foregroundColor(.greyNormalHover)
+                                        .overlay {
+                                            Text("포인트 이동")
+                                                .font(.Body1)
+                                                .foregroundColor(.white)
+                                        }
+                                    
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+                                        .foregroundColor(.greyNormalHover)
+                                        .overlay {
+                                            Text("사용 내역")
+                                                .font(.Body1)
+                                                .foregroundColor(.white)
+                                        }
+                                }
+                                .padding(.bottom, 30 * Constants.ControlHeight)
                             }
-                            .padding(.bottom, 30 * Constants.ControlHeight)
                         }
                     })
                 
@@ -168,9 +178,9 @@ struct SwipointMainView: View {
 
 struct SwipointCardView: View {
     
-    var region: String
-    var point: String
-    var cardImage: String
+    var region: String = ""
+    var point: String = ""
+    var customImage: String = ""
     
     var body: some View {
         ZStack{
@@ -188,7 +198,16 @@ struct SwipointCardView: View {
                     .foregroundColor(.mainLightHover)
                     .padding(.bottom, 22 * Constants.ControlHeight)
                 
-                Image("swipay_card_ex1")
+                KFImage(URL(string: customImage))
+                    .placeholder { //플레이스 홀더 설정
+                        Image("swipay_card_ex1")
+                    }.retry(maxCount: 3, interval: .seconds(5)) //재시도
+                    .onSuccess {r in //성공
+                        print("succes: \(r)")
+                    }
+                    .onFailure { e in //실패
+                        print("failure: \(e)")
+                    }
                     .resizable()
                     .scaledToFit()
                     .frame(width: 242 * Constants.ControlWidth, height: 384 * Constants.ControlHeight)
@@ -207,7 +226,7 @@ struct ImageBtnNavigationBar: View {
     let imageType: String
     let showBackButton: Bool
     var blur: Bool
-
+    
     var body: some View {
         ZStack {
             HStack {
@@ -219,16 +238,16 @@ struct ImageBtnNavigationBar: View {
                         Image(blur == false ? "back_btn" : "back_btn_8b8b8b")
                     })
                 }
-
+                
                 Spacer()
-
+                
                 // 네비게이션 타이틀
                 Text(title)
                     .font(.Headline)
                     .foregroundColor(blur == false ? .greyLighter : Color(hex: "8B8B8B"))
-
+                
                 Spacer()
-
+                
                 // 오른쪽 버튼
                 Button(action: {
                     AppState.shared.navigationPath.append(swipointType.guide)
@@ -263,6 +282,6 @@ struct ClearBackgroundViewModifier: ViewModifier {
 }
 
 #Preview {
-    SwipointView()
+    SwipointView(viewModel: SwipayViewModel())
 }
 

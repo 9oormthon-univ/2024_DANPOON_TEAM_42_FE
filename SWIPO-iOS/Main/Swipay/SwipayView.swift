@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SwipayView: View {
     
-    @StateObject var viewModel = SwipayViewModel()
+    @ObservedObject var viewModel = SwipayViewModel()
     @State private var currentIndex: Int = 0
     @State private var newsCurrentIndex: Int = 0
     @State var comingSoon: Bool = false
@@ -57,7 +57,7 @@ struct SwipayView: View {
                                         }
                                     
                                     HStack(spacing: 4){
-                                        Text("82,597")
+                                        Text("\(formatWithCommas(String(viewModel.state.getSwipayResponse.balance)))")
                                             .font(.Display3)
                                             .foregroundColor(.white)
                                         
@@ -458,9 +458,9 @@ struct SwipayView: View {
             case .payment:
                 QRScannerView()
             case .swipoint:
-                SwipointView()
+                SwipointView(viewModel: viewModel)
             case .swipointDetail(let id):
-                SwipointView(isSelectedRegion: id)
+                SwipointView(viewModel: viewModel, isSelectedRegion: id)
             }
         }
     }
@@ -545,7 +545,8 @@ struct SwipayCardView: View {
         
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 10) { // 카드 간 간격 조정
-                ForEach(viewModel.state.getSwipointCardResponse, id: \.id) { data in
+                ForEach(viewModel.state.getSwipointCardResponse, id: \.cardId) { data in
+                    
                     ZStack{
                         RoundedRectangle(cornerRadius: 16)
                             .frame(width: 242 * Constants.ControlWidth, height: 482.33 * Constants.ControlHeight)
@@ -561,7 +562,7 @@ struct SwipayCardView: View {
                                         Spacer()
                                         
                                         Button(action: {
-                                            AppState.shared.navigationPath.append(swipayType.swipointDetail(id: data.id))
+                                            AppState.shared.navigationPath.append(swipayType.swipointDetail(id: Int64(data.cardId) ?? 0))
                                         }, label: {
                                             Image("swipay_chevron_right_greyLighterHover")
                                                 .resizable()
@@ -574,7 +575,7 @@ struct SwipayCardView: View {
                                     .padding(.trailing, 22 * Constants.ControlWidth)
                                     
                                     HStack(spacing: 0){
-                                        Text("\(data.point)원 사용 가능")
+                                        Text("\(formatWithCommas(String(data.point)))원 사용 가능")
                                             .font(.Subhead3)
                                             .foregroundColor(.mainLightHover)
                                         
@@ -646,6 +647,20 @@ enum swipayType: Hashable {
     case payment
     case swipoint
     case swipointDetail(id: Int64)
+}
+
+// 숫자를 3자리마다 쉼표가 포함된 형식으로 변환하는 함수
+func formatWithCommas(_ value: String) -> String {
+    // 숫자만 남김
+    let numericValue = value.filter { $0.isNumber }
+    
+    // 숫자가 없으면 빈 문자열 반환
+    guard let number = Int(numericValue) else { return "" }
+    
+    // 3자리마다 쉼표 추가
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    return formatter.string(from: NSNumber(value: number)) ?? ""
 }
 
 #Preview {

@@ -9,8 +9,8 @@ import Foundation
 class SwipointViewModel: ObservableObject {
     struct State {
         
-        //스위포인트 카드
-        var getSwipointCardResponse: [SwipointCardModel] = [SwipointCardModel(id: 1, region: "부산", cardImage: "", point: "2,111"), SwipointCardModel(id: 2, region: "서울", cardImage: "", point: "2,222"), SwipointCardModel(id: 3, region: "대전", cardImage: "", point: "2,000"), SwipointCardModel(id: 4, region: "제주", cardImage: "", point: "4,000")]
+//        //스위포인트 카드
+//        var getSwipointCardResponse: [cardInfo] = [cardInfo(cardId: "1", region: "울산", point: 2000, customImage: ""), cardInfo(cardId: "2", region: "부산", point: 2000, customImage: "")]
     }
     
     enum Action {
@@ -55,16 +55,6 @@ extension SwipointViewModel {
         return fullToShortRegionMapping[inputRegion]
     }
 
-    // 도로명 주소와 스윕스톤에서 출력하는 지역으로 전환 후 기존 카드에 존재하는지 비교하는 함수
-    func isRegionAvailable(inputRegion: String) -> Bool {
-        guard let shortRegion = convertFullRegionToShort(inputRegion: inputRegion) else {
-            return true // 매핑에 없는 지역이라면 사용 가능(true)으로 간주
-        }
-
-        // 카드 리스트에 줄인 지역 이름이 존재하는지 확인
-        let isCardExists = state.getSwipointCardResponse.contains(where: { $0.region == shortRegion })
-        return !isCardExists // 카드가 존재하지 않으면 true, 존재하면 false 반환
-    }
     
     // 지역 이름을 영어로 치환 (이미지 사용을 위함)
     func convertRegionToEnglish(koreanRegion: String) -> String? {

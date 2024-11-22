@@ -8,7 +8,7 @@
 import Foundation
 
 struct JoinModel: Codable{
-    var user_id: Int64?
+    var userId: Int64?
     var accessToken: String?
     var refreshToken: String?
 }

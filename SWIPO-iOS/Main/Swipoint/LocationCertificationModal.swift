@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LocationCertificationModal: View {
 
-    @ObservedObject var viewModel: SwipointViewModel
+    @ObservedObject var viewModel: SwipayViewModel
     @Binding var makeCardModal: Bool
     @Binding var region: String
     @Binding var newCardModal: Bool
@@ -91,5 +91,5 @@ struct LocationCertificationModal: View {
 }
 
 #Preview {
-    LocationCertificationModal(viewModel: SwipointViewModel(), makeCardModal: .constant(false), region: .constant(""), newCardModal: .constant(false), existenceCardModal: .constant(false))
+    LocationCertificationModal(viewModel: SwipayViewModel(), makeCardModal: .constant(false), region: .constant(""), newCardModal: .constant(false), existenceCardModal: .constant(false))
 }

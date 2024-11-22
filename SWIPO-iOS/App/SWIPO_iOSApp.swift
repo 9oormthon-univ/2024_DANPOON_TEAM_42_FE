@@ -22,7 +22,7 @@ struct SWIPO_iOSApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $appState.navigationPath) {
-                if let passwordString = KeyChainManager.readItem(key: "providerId") {
+                if let userId = UserDefaults.standard.string(forKey: "userId") {
                     MainView()
                         .onOpenURL(perform: { url in
                             if AuthApi.isKakaoTalkLoginUrl(url) {
@@ -37,7 +37,6 @@ struct SWIPO_iOSApp: App {
                             }
                         })
                 }
-//                MainView()
                     
             }
         }

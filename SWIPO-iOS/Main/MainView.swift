@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @State private var selectedTab: Tab = .nearby // 초기 탭을 설정 (예: 스위페이)
-    
+    @StateObject var swipayViewModel = SwipayViewModel()
     var body: some View {
         VStack(spacing: 0) {
             MainNavigationBar(selectedTab: $selectedTab)
@@ -41,13 +41,28 @@ struct MainView: View {
             Spacer()
             
             // 선택된 탭에 따른 콘텐츠
-            TabContentView(selectedTab: selectedTab)
+            TabContentView(swipayViewModel: swipayViewModel, selectedTab: selectedTab)
                 .padding(.top, selectedTab != .nearby ? 13 * Constants.ControlHeight : 0)
 
             Spacer()
         }
         .edgesIgnoringSafeArea(.bottom)
         .toolbar(.hidden)
+        .onAppear(){
+            let token = KeyChainManager.readItem(key: "accessToken")
+            print("token: \(token)")
+        }
+        .onChange(of: selectedTab) { newValue in
+            if newValue == .swipPay {
+                Task {
+                    await swipayViewModel.action(.getSwipay)
+                }
+            }
+        }
+    }
+    
+    func getSwipay() async {
+        await swipayViewModel.action(.getSwipay)
     }
 }
 
@@ -105,6 +120,8 @@ struct TabButton: View {
 
 // 선택된 탭에 따른 콘텐츠 뷰
 struct TabContentView: View {
+    @ObservedObject var swipayViewModel = SwipayViewModel()
+    
     let selectedTab: Tab
     
     var body: some View {
@@ -113,7 +130,7 @@ struct TabContentView: View {
             NearbyView()
             
         case .swipPay:
-            SwipayView()
+            SwipayView(viewModel: swipayViewModel)
             
         case .swipStone:
             SwipstoneView()

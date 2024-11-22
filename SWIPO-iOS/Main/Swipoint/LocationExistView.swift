@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LocationExistView: View {
     @Binding var region: String
-    @ObservedObject var viewModel: SwipointViewModel
+    @ObservedObject var viewModel: SwipayViewModel
     @Binding var existenceCardModal: Bool
 
     var body: some View {
@@ -87,5 +87,5 @@ struct LocationExistView: View {
 }
 
 #Preview {
-    LocationExistView(region: .constant("울산광역시"), viewModel: SwipointViewModel(), existenceCardModal: .constant(false))
+    LocationExistView(region: .constant("울산광역시"), viewModel: SwipayViewModel(), existenceCardModal: .constant(false))
 }

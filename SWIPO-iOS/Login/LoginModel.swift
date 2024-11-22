@@ -7,9 +7,13 @@
 
 import Foundation
 struct LoginModel: Codable{
-    var user_id: Int64?
+    var userId: Int64?
     var accessToken: String?
     var refreshToken: String?
-    var providerId: String
-    var profileImage: String
+    var providerId: String?
+    var profileImage: String?
+}
+
+struct refreshTokenModel: Codable{
+    var accessToken: String?
 }
