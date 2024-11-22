@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CategoryModel: Codable {
+struct CategoryTitleModel: Codable {
     var title: String
     var content: String
 }
