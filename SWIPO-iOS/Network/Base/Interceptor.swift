@@ -53,11 +53,8 @@ class Interceptor: RequestInterceptor {
             }
     
             // 갱신된 토큰 저장
-            if let newAccessToken = refreshTokenResponse.data?.accessToken,
-               let newRefreshToken = refreshTokenResponse.data?.refreshToken {
+            if let newAccessToken = refreshTokenResponse.data?.accessToken{
                 KeyChainManager.updateItem(key: "accessToken", value: newAccessToken)
-                KeyChainManager.updateItem(key: "refreshToken", value: newRefreshToken)
-                UserDefaults.standard.set(Date(), forKey: "tokenIssueDate") // 새 발급 시간 저장
                 return true
             } else {
                 return false
@@ -69,3 +66,4 @@ class Interceptor: RequestInterceptor {
 enum AuthError: Error {
     case noToken
 }
+

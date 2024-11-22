@@ -566,7 +566,7 @@ struct PasswordMainView: View {
         await viewModel.action(.getJoin(provider: savedProvider, providerId: savedProviderId, name: savedName, address: savedAddress, birth: savedbirth, telecom: savedTelecom, phone: savedPhone, isMarket: true, pwd: passwordString))
         
         // getJoinResponse가 성공적으로 업데이트되었는지 확인
-        if viewModel.state.getJoinResponse.user_id != 0 {
+        if viewModel.state.getJoinResponse.userId != 0 {
             // 성공하면 navigationPath에 finish 추가
             DispatchQueue.main.async {
                 AppState.shared.navigationPath.append(passwordType.finish)
@@ -654,3 +654,4 @@ enum passwordType {
 #Preview {
     PasswordView(paymentModal: .constant(false))
 }
+

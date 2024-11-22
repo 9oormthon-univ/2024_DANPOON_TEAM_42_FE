@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @State private var selectedTab: Tab = .nearby // 초기 탭을 설정 (예: 스위페이)
+    @StateObject var swipayViewModel = SwipayViewModel()
     
     var body: some View {
         VStack(spacing: 0) {
@@ -48,6 +49,17 @@ struct MainView: View {
         }
         .edgesIgnoringSafeArea(.bottom)
         .toolbar(.hidden)
+        .onAppear(){
+            let token = KeyChainManager.readItem(key: "accessToken")
+            print("token: \(token)")
+        }
+        .onChange(of: selectedTab) { newValue in
+            if newValue == .swipPay {
+                Task {
+                    await swipayViewModel.action(.getSwipay)
+                }
+            }
+        }
     }
 }
 

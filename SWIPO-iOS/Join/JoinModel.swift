@@ -8,7 +8,7 @@
 import Foundation
 
 struct JoinModel: Codable{
-    var user_id: Int64?
+    var userId: Int64?
     var accessToken: String?
     var refreshToken: String?
 }
@@ -24,3 +24,4 @@ struct JoinRequestBody: Encodable {
     let isMarket: Bool
     let pwd: String
 }
+

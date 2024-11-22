@@ -8,7 +8,7 @@
 import Foundation
 class JoinViewModel: ObservableObject {
     struct State {
-        var getJoinResponse = JoinModel(user_id: 0, accessToken: "", refreshToken: "")
+        var getJoinResponse = JoinModel(userId: 0, accessToken: "", refreshToken: "")
         var verification: Bool = false
     }
     
@@ -55,7 +55,7 @@ class JoinViewModel: ObservableObject {
                let responseData = response.data {
                 await MainActor.run {
                     state.getJoinResponse = responseData
-                    KeyChainManager.addItem(key: "userId", value: String(responseData.user_id ?? 0))
+                    UserDefaults.standard.set(String(responseData.userId ?? 0), forKey: "userId")
                     KeyChainManager.addItem(key: "accessToken", value: responseData.accessToken ?? "")
                     KeyChainManager.addItem(key: "refreshToken", value: responseData.refreshToken ?? "")
                     
@@ -67,3 +67,4 @@ class JoinViewModel: ObservableObject {
         }
     }
 }
+

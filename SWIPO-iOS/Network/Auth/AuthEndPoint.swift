@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 enum AuthEndPoint {
-    case getKakaoLogin(kakaoCode: String) // 카카오 로그인
+    case getKakaoLogin(token: String) // 카카오 로그인
     case getAppleLogin(token: String) //애플 로그인
     case getPhoneChk(phone: String) // 전화번호 인증
     case getVerificationChk(phone: String, code: String) // 전화번호 인증번호 확인
@@ -58,9 +58,9 @@ extension AuthEndPoint: EndPoint {
     
     var task: APITask {
         switch self {
-        case let .getKakaoLogin(kakaoCode):
-            let param = ["kakaoCode": kakaoCode] as [String: Any]
-            return .requestParameters(parameters: param)
+        case let .getKakaoLogin(token):
+            let body = ["token": token]
+            return .requestWithoutInterceptor(body: body)
         case let .getAppleLogin(token):
             let body = ["token": token]
             return .requestWithoutInterceptor(body: body)
@@ -89,3 +89,4 @@ extension AuthEndPoint: EndPoint {
         }
     }
 }
+

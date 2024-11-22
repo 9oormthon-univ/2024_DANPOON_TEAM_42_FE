@@ -24,8 +24,8 @@ struct AuthService {
     }
     
     //카카오 로그인
-    static func getKakaoLogin(kakaoCode: String) async -> BaseResponse<LoginModel>? {
-        return await NetworkManager.shared.request(AuthEndPoint.getKakaoLogin(kakaoCode: kakaoCode))
+    static func getKakaoLogin(token: String) async -> BaseResponse<LoginModel>? {
+        return await NetworkManager.shared.request(AuthEndPoint.getKakaoLogin(token: token))
     }
     
     //애플 로그인
@@ -34,8 +34,9 @@ struct AuthService {
     }
     
     //accessToken 재발급
-    static func refreshingToken(refreshToken: String) async -> BaseResponse<LoginModel>? {
+    static func refreshingToken(refreshToken: String) async -> BaseResponse<refreshTokenModel>? {
         return await NetworkManager.shared.request(AuthEndPoint.refreshingToken(refreshToken: refreshToken))
     }
 
 }
+

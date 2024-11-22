@@ -70,7 +70,7 @@ struct LoginView: View {
                         Task{
                             // 카카오 로그인 성공 후 액세스 토큰을 가져와서 전달
                             if let token = authManager.kakaoAccessToken {
-                                await kakaoLogin(kakaoCode: token)
+                                await kakaoLogin(token: token)
                             } else {
                                 print("카카오 토큰을 가져올 수 없습니다.")
                             }
@@ -114,7 +114,6 @@ struct LoginView: View {
                                 default:
                                     break
                                 }
-                                AppState.shared.navigationPath.append(loginType.term(type: "apple"))
                             case .failure(let error):
                                 print(error.localizedDescription)
                                 print("error")
@@ -171,23 +170,28 @@ struct LoginView: View {
                 switch viewType {
                 case let .term(type):
                     TermsView(howLogin: type)
+                case let .main:
+                    MainView()
                 }
             }
         }
     }
     
-    func kakaoLogin(kakaoCode: String) async {
-        await viewModel.action(.getKakaoLogin(kakaoCode: kakaoCode))
+    func kakaoLogin(token: String) async {
+        await viewModel.action(.getKakaoLogin(token: token))
     }
     
     func appleLogin(token: String) async {
         await viewModel.action(.getAppleLogin(token: token))
     }
 }
-enum loginType: Hashable{
-    case term(type: String)
+
+enum loginType: Hashable {
+    case term(type: String) // 약관 동의 화면
+    case main               // 메인 화면
 }
 
 #Preview {
     LoginView()
 }
+

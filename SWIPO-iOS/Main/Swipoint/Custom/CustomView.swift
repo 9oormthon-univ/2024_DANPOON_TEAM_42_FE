@@ -330,7 +330,7 @@ struct CustomMainView: View {
     func saveToDocuments(imageData: Data) {
         let fileManager = FileManager.default
         if let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = documentsURL.appendingPathComponent("NewCard.jpeg")
+            let fileURL = documentsURL.appendingPathComponent("\(region).jpeg")
             do {
                 try imageData.write(to: fileURL)
                 print("Image saved to: \(fileURL.path)")
@@ -471,3 +471,4 @@ struct CustomNavigationBar: View {
 #Preview {
     CustomView(region: .constant(""))
 }
+

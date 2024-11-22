@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LocationNewModal: View {
     @Binding var region: String
-    @ObservedObject var viewModel: SwipointViewModel
+    @ObservedObject var viewModel: SwipayViewModel
     @Binding var newCardModal: Bool
     
     var body: some View {
@@ -99,5 +99,5 @@ struct LocationNewModal: View {
 }
 
 #Preview {
-    LocationNewModal(region: .constant("울산광역시"), viewModel: SwipointViewModel(), newCardModal: .constant(false))
+    LocationNewModal(region: .constant("울산광역시"), viewModel: SwipayViewModel(), newCardModal: .constant(false))
 }

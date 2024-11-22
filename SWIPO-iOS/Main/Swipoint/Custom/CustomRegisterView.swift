@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct CustomRegisterView: View {
     @Binding var generatedImage: UIImage?
     @Binding var region: String
+    @StateObject var viewModel = CustomViewModel()
+    @StateObject var swipayViewModel = SwipayViewModel()
     
     var body: some View {
         ZStack{
@@ -24,7 +27,50 @@ struct CustomRegisterView: View {
             
         }
         .toolbar(.hidden)
+        .onAppear(){
+            Task{
+                await registerCard(region: swipayViewModel.convertFullRegionToShort(inputRegion: region) ?? "", custom_image: "\(swipayViewModel.convertFullRegionToShort(inputRegion: region) ?? "").jpeg", multipartFile: generatedImageToData(image: generatedImage))
+            }
+        }
     }
+    
+    /// `UIImage`를 `Foundation.Data?`로 변환하여 배열로 감쌉니다.
+    func generatedImageToData(image: UIImage?) -> [Foundation.Data?] {
+        guard let image = image else { return [nil] } // 이미지가 없으면 nil
+        return [image.jpegData(compressionQuality: 0.8)] // JPEG 데이터로 변환 후 배열 반환
+    }
+    
+    /// 카드 등록 호출
+    func registerCard(region: String, custom_image: String, multipartFile: [Foundation.Data?]) async {
+        await viewModel.action(.registerCard(region: region, custom_image: custom_image, multipartFile: multipartFile))
+    }
+    
+    
+//    func convertImageToFileURL(image: UIImage) -> URL? {
+//        let fileManager = FileManager.default
+//        guard let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else {
+//            print("문서 디렉토리 경로를 찾을 수 없습니다.")
+//            return nil
+//        }
+//
+//        let fileURL = documentsURL.appendingPathComponent("NewCard.jpeg")
+//
+//        // UIImage를 JPEG 데이터로 변환
+//        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+//            print("이미지를 JPEG 데이터로 변환할 수 없습니다.")
+//            return nil
+//        }
+//
+//        do {
+//            // 이미지 데이터 저장
+//            try imageData.write(to: fileURL)
+//            print("이미지가 저장되었습니다: \(fileURL.path)")
+//            return fileURL
+//        } catch {
+//            print("이미지를 저장하는 동안 오류가 발생했습니다: \(error)")
+//            return nil
+//        }
+//    }
 }
 
 struct RegisterMainView: View {
@@ -77,12 +123,14 @@ struct RegisterMainView: View {
                                 .foregroundColor(.white)
                         }
                 }
-
+                
             }
         }
     }
 }
 
+
 #Preview {
     CustomRegisterView(generatedImage: .constant(nil), region: .constant(""))
 }
+

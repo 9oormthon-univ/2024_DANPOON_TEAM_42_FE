@@ -613,7 +613,7 @@ struct JoinMainView: View {
     func phoneChk(phone: String) async {
         await viewModel.action(.getPhoneChk(phone: phone))
     }
-//    
+//
 //    func verificationChk(phone: String, code: String) async {
 //        await viewModel.action(.getVerificationChk(phone: phone, code: code))
 //    }
@@ -622,4 +622,5 @@ struct JoinMainView: View {
 #Preview {
     JoinView()
 }
+
 
