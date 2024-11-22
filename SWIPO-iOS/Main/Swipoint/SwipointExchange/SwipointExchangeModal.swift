@@ -10,7 +10,8 @@ import SwiftUI
 struct SwipointExchangeModal: View {
 
     @ObservedObject var viewModel: SwipointViewModel
-    @Binding var makeCardModal: Bool
+
+    @Binding var pointExchangeModal: Bool
     @Binding var closeModal: Bool
     @Binding var region: String
     @Binding var newCardModal: Bool
@@ -19,7 +20,7 @@ struct SwipointExchangeModal: View {
     var body: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 28)
-                .frame(width: 374 * Constants.ControlWidth, height: 750 * Constants.ControlHeight)
+                .frame(width: 374 * Constants.ControlWidth, height: 740 * Constants.ControlHeight)
                 .overlay {
                     VStack(spacing: 0) {
                         Rectangle()
@@ -64,20 +65,8 @@ struct SwipointExchangeModal: View {
                             Spacer()
 
                             Button(action: {
-                                makeCardModal = false
-                                let isAvailable = viewModel.isRegionAvailable(inputRegion: region)
-                                if isAvailable {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                        newCardModal = true
-                                        existenceCardModal = false
-                                    }
-                                    
-                                } else {
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                        newCardModal = false
-                                        existenceCardModal = true
-                                    }
-                                }
+                                AppState.shared.navigationPath.append(swipointType.exchange)
+                                pointExchangeModal = false
                             }, label: {
                                 RoundedRectangle(cornerRadius: 16)
                                     .frame(width: 159 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
@@ -103,7 +92,7 @@ struct SwipointExchangeModal: View {
 
 #Preview {
     SwipointExchangeModal(viewModel: SwipointViewModel(),
-                          makeCardModal: .constant(false),
+                          pointExchangeModal: .constant(false),
                           closeModal: .constant(false),
                           region: .constant(""),
                           newCardModal: .constant(false),
