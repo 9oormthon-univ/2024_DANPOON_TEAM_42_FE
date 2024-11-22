@@ -11,22 +11,43 @@ struct SwipointExchangeView: View {
 
     @ObservedObject var viewModel: SwipayViewModel
 
+    @State private var exchangeInputText: String = ""
+    @State private var exchangeInputInt: Int = 0
+
     @State var makeStopModal: Bool = false
     @State var makeFinishModal: Bool = false
     @State var isTipHidden: Bool = true
 
     var body: some View {
+        let fromPoint = viewModel.state.sampleSwipointExchange[0]
+        let toPoint = viewModel.state.sampleSwipointExchange[1]
+
         ZStack {
             VStack(alignment: .leading) {
                 CustomNavigationBar(title: "스위포인트 환전",
                                     imageType: "question_circle_mark",
                                     stopModal: $makeStopModal, blur: false)
-                
-                Text("얼마를 환전 할까요?")
-                    .lineLimit(1)
-                    .font(.Display3)
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 16)
+
+                ZStack(alignment: .leading) {
+                    if exchangeInputText.isEmpty {
+                        Text("얼마를 환전 할까요?")
+                            .lineLimit(1)
+                            .font(.Display3)
+                            .foregroundColor(.white)
+                    }
+                    TextField("", text: $exchangeInputText)
+                        .keyboardType(.numberPad)
+                        .font(.Display3)
+                        .tint(.white)
+                        .onChange(of: exchangeInputText) { newValue in
+                            isTipHidden = false
+                            let cleanedValue = newValue.replacingOccurrences(of: ",", with: "")
+                            exchangeInputInt = Int(cleanedValue) ?? 0
+                            exchangeInputText = formatPrice(cleanedValue)
+                        }
+                }
+                .frame(height: 42)
+                .padding(.horizontal, 16)
 
                 Text("환전 금액을 꼭 확인해 주세요")
                     .lineLimit(1)
@@ -37,36 +58,56 @@ struct SwipointExchangeView: View {
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 0) {
-                        ForEach(viewModel.state.sampleSwipointExchange.indices, id: \.self) { index in
-                            let data = viewModel.state.sampleSwipointExchange[index]
+                        VStack {
+                            Text("\(fromPoint.region) 스위포인트")
+                                .font(.Headline)
+                                .foregroundColor(.white)
 
-                            VStack {
-                                Text("\(data.region) 스위포인트")
-                                    .font(.Headline)
-                                    .foregroundColor(.white)
-                                
-                                Image("swipay_card_ex1")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 202 * Constants.ControlWidth, height: 320.33 * Constants.ControlHeight)
-                                    .padding(.bottom, 6 * Constants.ControlHeight)
+                            Image("swipay_card_ex1")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 202 * Constants.ControlWidth, height: 320.33 * Constants.ControlHeight)
+                                .padding(.bottom, 6 * Constants.ControlHeight)
 
-                                RoundedRectangle(cornerRadius: 16)
-                                    .frame(width: 202 * Constants.ControlWidth, height: 60 * Constants.ControlHeight)
-                                    .foregroundColor(index == 0 ? .greyNormal : .greyDark)
-                                    .overlay {
-                                        Text("\(data.point) 원")
-                                            .font(.Headline)
-                                            .foregroundColor(.mainLightHover)
-                                    }
-                            }
+                            RoundedRectangle(cornerRadius: 16)
+                                .frame(width: 202 * Constants.ControlWidth, height: 60 * Constants.ControlHeight)
+                                .foregroundColor(exchangeInputText.isEmpty ? .greyNormal : .greyDark)
+                                .overlay {
+                                    Text(exchangeInputText.isEmpty ?
+                                         "\(fromPoint.point) 원" : "\(fromPoint.point - exchangeInputInt) 원")
+                                        .font(.Headline)
+                                        .foregroundColor(.mainLightHover)
+                                        .strikethrough(exchangeInputText.isEmpty ? false : true, color: .mainLightHover)
+                                }
+                        }
 
-                            if index < viewModel.state.sampleSwipointExchange.count - 1 {
-                                Image("connect_line")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 73 * Constants.ControlWidth, height: 173 * Constants.ControlHeight)
-                            }
+                        Image("connect_line")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 73 * Constants.ControlWidth, height: 173 * Constants.ControlHeight)
+                            .padding(.horizontal, -4)
+                            .padding(.bottom, 90)
+
+                        VStack {
+                            Text("\(toPoint.region) 스위포인트")
+                                .font(.Headline)
+                                .foregroundColor(.white)
+
+                            Image("swipay_card_ex1")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 202 * Constants.ControlWidth, height: 320.33 * Constants.ControlHeight)
+                                .padding(.bottom, 6 * Constants.ControlHeight)
+
+                            RoundedRectangle(cornerRadius: 16)
+                                .frame(width: 202 * Constants.ControlWidth, height: 60 * Constants.ControlHeight)
+                                .foregroundColor(exchangeInputText.isEmpty ? .greyDark : .mainNormalHover)
+                                .overlay {
+                                    Text(exchangeInputText.isEmpty
+                                         ? "\(toPoint.point) 원" : "\(toPoint.point + exchangeInputInt) 원")
+                                        .font(.Headline)
+                                        .foregroundColor(.mainLightHover)
+                                }
                         }
                     }
                     .padding(.horizontal, 16)
@@ -77,17 +118,35 @@ struct SwipointExchangeView: View {
                 HStack {
                     Spacer()
 
-                    Button(action: {
-                    }, label: {
-                        RoundedRectangle(cornerRadius: 16)
-                            .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
-                            .foregroundColor(.mainNormal)
-                            .overlay {
-                                Text("환전하기")
-                                    .foregroundColor(Color.white)
-                                    .font(.Subhead3)
-                            }
-                    })
+                    VStack {
+                        if !exchangeInputText.isEmpty {
+                            let originalPoint = viewModel.state.sampleSwipointExchange[0].point
+                            let remainPoint = originalPoint - (Int(exchangeInputText) ?? 0)
+                            Text("환전 후 포인트 잔액 \(remainPoint)원")
+                                .lineLimit(1)
+                                .font(.Subhead1)
+                                .foregroundColor(.white.opacity(0.56))
+                                .padding(.bottom, 8)
+                        }
+
+                        Button(action: {
+                        }, label: {
+                            RoundedRectangle(cornerRadius: 16)
+                                .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
+                                .foregroundColor(.mainNormal)
+                                .overlay {
+                                    if !exchangeInputText.isEmpty {
+                                        Text("\(exchangeInputText)원 환전하기")
+                                            .foregroundColor(Color.white)
+                                            .font(.Subhead3)
+                                    } else {
+                                        Text("환전하기")
+                                            .foregroundColor(Color.white)
+                                            .font(.Subhead3)
+                                    }
+                                }
+                        })
+                    }
 
                     Spacer()
                 }
@@ -97,7 +156,7 @@ struct SwipointExchangeView: View {
                 Spacer()
 
                 Button(action: {
-                    isTipHidden.toggle()
+                    isTipHidden = false
                 }) {
                     Text("100원 단위로 환전이 가능해요")
                         .font(.Subhead2)
@@ -117,7 +176,17 @@ struct SwipointExchangeView: View {
             .padding(.bottom, 75)
             .zIndex(1)
         }
+        .onTapGesture {
+            UIApplication.shared.endEditing()
+        }
         .navigationBarBackButtonHidden()
+    }
+
+    private func formatPrice(_ value: String) -> String {
+        guard let number = Int(value) else { return "" }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: number)) ?? ""
     }
 }
 
