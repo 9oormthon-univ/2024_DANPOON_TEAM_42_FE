@@ -28,8 +28,8 @@
 		6D648E752CEF77C500BF869A /* PaymentShortageModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D648E742CEF77C500BF869A /* PaymentShortageModal.swift */; };
 		6D648E772CEF87C500BF869A /* JoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D648E762CEF87C500BF869A /* JoinViewModel.swift */; };
 		6D648E792CEF87CD00BF869A /* JoinModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D648E782CEF87CD00BF869A /* JoinModel.swift */; };
-		6D648E7C2CEF89B200BF869A /* JoinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D648E7B2CEF89B200BF869A /* JoinService.swift */; };
-		6D648E7E2CEF89BC00BF869A /* JoinEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D648E7D2CEF89BC00BF869A /* JoinEndPoint.swift */; };
+		6D648E812CEFC1FF00BF869A /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D648E802CEFC1FF00BF869A /* AuthService.swift */; };
+		6D648E832CEFC20600BF869A /* AuthEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D648E822CEFC20600BF869A /* AuthEndPoint.swift */; };
 		6D67265B2CEDC8F200301A50 /* SwipstoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67265A2CEDC8F200301A50 /* SwipstoneView.swift */; };
 		6D67265D2CEDCEDF00301A50 /* SwipstoneModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67265C2CEDCEDF00301A50 /* SwipstoneModel.swift */; };
 		6D67265F2CEDCEE700301A50 /* SwipstoneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67265E2CEDCEE700301A50 /* SwipstoneViewModel.swift */; };
@@ -41,8 +41,6 @@
 		6D67266C2CEE398800301A50 /* PasswordResetModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67266B2CEE398800301A50 /* PasswordResetModal.swift */; };
 		6D67266E2CEE399B00301A50 /* PasswordResetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67266D2CEE399B00301A50 /* PasswordResetView.swift */; };
 		6D6726702CEE39AE00301A50 /* PasswordResetFinishModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67266F2CEE39AE00301A50 /* PasswordResetFinishModal.swift */; };
-		6D6726732CEE480C00301A50 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6726722CEE480C00301A50 /* LoginService.swift */; };
-		6D6726752CEE481800301A50 /* LoginEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D6726742CEE481800301A50 /* LoginEndPoint.swift */; };
 		6D67267B2CEE486F00301A50 /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67267A2CEE486F00301A50 /* LoginModel.swift */; };
 		6D67267D2CEE488700301A50 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D67267C2CEE488700301A50 /* LoginViewModel.swift */; };
 		6D7601E42CEA3EA800C49EDC /* SWIPO_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */; };
@@ -115,8 +113,8 @@
 		6D648E742CEF77C500BF869A /* PaymentShortageModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentShortageModal.swift; sourceTree = "<group>"; };
 		6D648E762CEF87C500BF869A /* JoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinViewModel.swift; sourceTree = "<group>"; };
 		6D648E782CEF87CD00BF869A /* JoinModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinModel.swift; sourceTree = "<group>"; };
-		6D648E7B2CEF89B200BF869A /* JoinService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinService.swift; sourceTree = "<group>"; };
-		6D648E7D2CEF89BC00BF869A /* JoinEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinEndPoint.swift; sourceTree = "<group>"; };
+		6D648E802CEFC1FF00BF869A /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		6D648E822CEFC20600BF869A /* AuthEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthEndPoint.swift; sourceTree = "<group>"; };
 		6D67265A2CEDC8F200301A50 /* SwipstoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipstoneView.swift; sourceTree = "<group>"; };
 		6D67265C2CEDCEDF00301A50 /* SwipstoneModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipstoneModel.swift; sourceTree = "<group>"; };
 		6D67265E2CEDCEE700301A50 /* SwipstoneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipstoneViewModel.swift; sourceTree = "<group>"; };
@@ -128,8 +126,6 @@
 		6D67266B2CEE398800301A50 /* PasswordResetModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetModal.swift; sourceTree = "<group>"; };
 		6D67266D2CEE399B00301A50 /* PasswordResetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetView.swift; sourceTree = "<group>"; };
 		6D67266F2CEE39AE00301A50 /* PasswordResetFinishModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetFinishModal.swift; sourceTree = "<group>"; };
-		6D6726722CEE480C00301A50 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
-		6D6726742CEE481800301A50 /* LoginEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEndPoint.swift; sourceTree = "<group>"; };
 		6D67267A2CEE486F00301A50 /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 		6D67267C2CEE488700301A50 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6D7601E02CEA3EA800C49EDC /* SWIPO-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWIPO-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,13 +260,13 @@
 			path = Payment;
 			sourceTree = "<group>";
 		};
-		6D648E7A2CEF89A800BF869A /* Join */ = {
+		6D648E7F2CEFC1F400BF869A /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				6D648E7B2CEF89B200BF869A /* JoinService.swift */,
-				6D648E7D2CEF89BC00BF869A /* JoinEndPoint.swift */,
+				6D648E802CEFC1FF00BF869A /* AuthService.swift */,
+				6D648E822CEFC20600BF869A /* AuthEndPoint.swift */,
 			);
-			path = Join;
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		6D6726682CEE395A00301A50 /* Password */ = {
@@ -282,15 +278,6 @@
 				6D67266F2CEE39AE00301A50 /* PasswordResetFinishModal.swift */,
 			);
 			path = Password;
-			sourceTree = "<group>";
-		};
-		6D6726712CEE47C500301A50 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				6D6726722CEE480C00301A50 /* LoginService.swift */,
-				6D6726742CEE481800301A50 /* LoginEndPoint.swift */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 		6D7601D72CEA3EA800C49EDC = {
@@ -349,8 +336,7 @@
 		6D7601F42CEA40AD00C49EDC /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				6D648E7A2CEF89A800BF869A /* Join */,
-				6D6726712CEE47C500301A50 /* Login */,
+				6D648E7F2CEFC1F400BF869A /* Auth */,
 				6D7601F52CEA40B800C49EDC /* Base */,
 			);
 			path = Network;
@@ -580,6 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D648E832CEFC20600BF869A /* AuthEndPoint.swift in Sources */,
 				6D7602052CEA411000C49EDC /* EndPoint.swift in Sources */,
 				6D67266A2CEE397000301A50 /* PasswordView.swift in Sources */,
 				6D787C1A2CEB223000B587F8 /* AuthManager.swift in Sources */,
@@ -588,9 +575,7 @@
 				9512B3002CEB32040029A9AA /* StoreListView.swift in Sources */,
 				6D6726632CEE38C400301A50 /* JoinView.swift in Sources */,
 				6D3C63A02CEBBE9E00229404 /* GeoServiceManager.swift in Sources */,
-				6D6726752CEE481800301A50 /* LoginEndPoint.swift in Sources */,
 				6D787C1C2CEB224600B587F8 /* Secrets.swift in Sources */,
-				6D648E7E2CEF89BC00BF869A /* JoinEndPoint.swift in Sources */,
 				6D3C63A72CEC6F8400229404 /* CustomView.swift in Sources */,
 				6D648E792CEF87CD00BF869A /* JoinModel.swift in Sources */,
 				9512B3022CEB32250029A9AA /* StoreModel.swift in Sources */,
@@ -603,7 +588,6 @@
 				6D7601F72CEA40C600C49EDC /* NetworkManager.swift in Sources */,
 				6D787BF72CEACC1F00B587F8 /* SwipayView.swift in Sources */,
 				6D67265D2CEDCEDF00301A50 /* SwipstoneModel.swift in Sources */,
-				6D6726732CEE480C00301A50 /* LoginService.swift in Sources */,
 				954FFAC22CEAD49100E81D16 /* CustomTextField.swift in Sources */,
 				6D3C63AF2CED2FC900229404 /* CustomRegisterView.swift in Sources */,
 				6D3C63902CEB9E9500229404 /* SwipointViewModel.swift in Sources */,
@@ -627,7 +611,6 @@
 				6D3C63872CEB5FE300229404 /* WebView.swift in Sources */,
 				6D6726652CEE38F400301A50 /* AgencyView.swift in Sources */,
 				6D3C63832CEB297600229404 /* TermsView.swift in Sources */,
-				6D648E7C2CEF89B200BF869A /* JoinService.swift in Sources */,
 				6D787BF92CEACC1F00B587F8 /* MainView.swift in Sources */,
 				6D3C63AD2CED218D00229404 /* CustomFinishModal.swift in Sources */,
 				6D787BEF2CEACBE600B587F8 /* MainNavigationBar.swift in Sources */,
@@ -639,6 +622,7 @@
 				6D6726612CEE29AC00301A50 /* SwipstoneAchiveModal.swift in Sources */,
 				6D3C63A92CEC99B900229404 /* CustomModel.swift in Sources */,
 				6D648E6F2CEEE45500BF869A /* QRScannerView.swift in Sources */,
+				6D648E812CEFC1FF00BF869A /* AuthService.swift in Sources */,
 				6D76020F2CEA41DC00C49EDC /* Fonts+.swift in Sources */,
 				6D3C638E2CEB9E8D00229404 /* SwipointModel.swift in Sources */,
 				6D67267D2CEE488700301A50 /* LoginViewModel.swift in Sources */,
