@@ -142,6 +142,7 @@ struct PayChargePriceView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(height: 78 * Constants.ControlHeight)
+                        .opacity(0.5)
 
                     Spacer()
 
