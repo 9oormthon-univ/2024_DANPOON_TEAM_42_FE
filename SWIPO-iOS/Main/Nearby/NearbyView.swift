@@ -166,8 +166,8 @@ struct CategoryModalView: View {
                                 ForEach(viewModel.state.categoryType.indices, id: \.self) { index in
                                     let category = viewModel.state.categoryType[index]
                                     CategoryTitleView(title: category.title, content: category.content)
-                                    
-                                    CardListView()
+
+                                    CategoryDefaultListView()
                                         .padding(.bottom, 22)
                                 }
                             }
@@ -177,8 +177,8 @@ struct CategoryModalView: View {
                                 VStack(spacing: 12) {
                                     let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
                                     CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
-                                    
-                                    CardRankingListView()
+
+                                    CategoryRankingListView()
                                         .padding(.bottom, 22)
                                 }
                                 .padding()
@@ -186,8 +186,8 @@ struct CategoryModalView: View {
                                 VStack(spacing: 12) {
                                     let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
                                     CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
-                                    
-                                    CardTasteListView()
+
+                                    CategoryTasteView()
                                         .padding(.bottom, 22)
                                 }
                                 .padding()
@@ -195,8 +195,8 @@ struct CategoryModalView: View {
                                 VStack(spacing: 12) {
                                     let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
                                     CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
-                                    
-                                    CardListView()
+
+                                    CategoryDefaultListView()
                                         .padding(.bottom, 22)
                                 }
                                 .padding()
