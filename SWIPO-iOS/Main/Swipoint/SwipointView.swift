@@ -65,7 +65,7 @@ struct SwipointView: View {
                 )
             }
             .sheet(isPresented: $pointExchangeModal, content: {
-                SwipointExchangeModal(viewModel: viewModel,
+                SwipstoneSelectModal(viewModel: viewModel,
                                       pointExchangeModal: $pointExchangeModal,
                                       closeModal: $pointExchangeModal,
                                       region: $address,

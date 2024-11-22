@@ -9,18 +9,13 @@ import SwiftUI
 
 struct SwipointExchangeModal: View {
 
-    @ObservedObject var viewModel: SwipointViewModel
+    @Binding var exchangeModal: Bool
+    @Binding var completeModal: Bool
 
-    @Binding var pointExchangeModal: Bool
-    @Binding var closeModal: Bool
-    @Binding var region: String
-    @Binding var newCardModal: Bool
-    @Binding var existenceCardModal: Bool
-    
     var body: some View {
-        ZStack{
+        ZStack {
             RoundedRectangle(cornerRadius: 28)
-                .frame(width: 374 * Constants.ControlWidth, height: 740 * Constants.ControlHeight)
+                .frame(width: 374 * Constants.ControlWidth, height: 232 * Constants.ControlHeight)
                 .overlay {
                     VStack(spacing: 0) {
                         Rectangle()
@@ -28,58 +23,61 @@ struct SwipointExchangeModal: View {
                             .foregroundColor(Color(hex: "E5E8EB"))
                             .padding(.top, 11 * Constants.ControlHeight)
                             .padding(.bottom, 24 * Constants.ControlHeight)
-                        
-                        VStack(alignment: .leading) {
-                            Text("어느 지역으로 환전할까요?")
-                                .frame(height: 28 * Constants.ControlHeight)
-                                .font(.Headline)
-                                .foregroundColor(.greyDarkHover)
-                                .padding(.bottom, 4)
-                            
-                            Text("등록하지 않은 지역은 표시되지 않아요!")
-                                .font(.Headline)
-                                .lineSpacing(4)
-                                .foregroundColor(.greyNormal)
-                        }
-                        .padding(.bottom, 24)
-
-
-                        SwipstoneSelectModal()
-                            .padding(.horizontal, 24)
 
                         HStack {
+                            VStack(alignment: .leading) {
+                                Text("포인트 환전을 진행할까요?")
+                                    .font(.Headline)
+                                    .tracking(-0.6)
+                                    .frame(height: 32 * Constants.ControlHeight)
+                                    .foregroundColor(.greyDarkHover)
+                                    .padding(.bottom, 8 * Constants.ControlHeight)
+                                
+                                Text("환전 1회당 1%의 수수료가 부과돼요!")
+                                    .font(.Body2)
+                                    .tracking(-0.6)
+                                    .foregroundColor(.greyNormal)
+                                    .frame(height: 24 * Constants.ControlHeight)
+                            }
+
+                            Spacer()
+                        }
+                        .padding(.horizontal, 24)
+
+                        Spacer()
+
+                        HStack(spacing: 8) {
                             Button(action: {
-                                closeModal = false
+                                exchangeModal = false
                             }, label: {
                                 RoundedRectangle(cornerRadius: 16)
                                     .frame(width: 159 * Constants.ControlWidth,
                                            height: 54 * Constants.ControlHeight)
                                     .foregroundColor(.greyLighter)
                                     .overlay {
-                                        Text("취소하기")
+                                        Text("중단 하기")
                                             .font(.Subhead3)
                                             .foregroundColor(Color(hex: "A7A7A7"))
                                     }
                             })
 
-                            Spacer()
-
                             Button(action: {
-                                AppState.shared.navigationPath.append(swipointType.exchange)
-                                pointExchangeModal = false
+                                exchangeModal = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                    completeModal = true
+                                }
                             }, label: {
                                 RoundedRectangle(cornerRadius: 16)
-                                    .frame(width: 159 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
+                                    .frame(width: 159 * Constants.ControlWidth,
+                                           height: 54 * Constants.ControlHeight)
                                     .foregroundColor(.mainNormal)
                                     .overlay {
-                                        Text("환전하기")
+                                        Text("계속 하기")
                                             .font(.Subhead3)
                                             .foregroundColor(.white)
                                     }
                             })
                         }
-                        .padding(.horizontal, 24)
-                        .padding(.top, 24)
                         .padding(.bottom, 28 * Constants.ControlHeight)
                     }
                 }
@@ -91,10 +89,5 @@ struct SwipointExchangeModal: View {
 }
 
 #Preview {
-    SwipointExchangeModal(viewModel: SwipointViewModel(),
-                          pointExchangeModal: .constant(false),
-                          closeModal: .constant(false),
-                          region: .constant(""),
-                          newCardModal: .constant(false),
-                          existenceCardModal: .constant(false))
+    SwipointExchangeModal(exchangeModal: .constant(false), completeModal: .constant(false))
 }

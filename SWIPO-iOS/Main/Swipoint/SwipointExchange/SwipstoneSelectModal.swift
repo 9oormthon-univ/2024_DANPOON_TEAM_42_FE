@@ -8,70 +8,93 @@
 import SwiftUI
 
 struct SwipstoneSelectModal: View {
-    
-    var layout: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 8), count: 3)
-    @StateObject var viewModel = SwipstoneViewModel()
-    @State private var selectedItem: RegionInfo? = nil
 
+    @ObservedObject var viewModel: SwipointViewModel
+
+    @Binding var pointExchangeModal: Bool
+    @Binding var closeModal: Bool
+    @Binding var region: String
+    @Binding var newCardModal: Bool
+    @Binding var existenceCardModal: Bool
+    
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
-                ScrollView {
-                    LazyVGrid(columns: layout, spacing: 8) {
-                        ForEach(viewModel.state.regionInfo, id: \.id) { item in
-                            SwipstoneSelectItemView(region: item.region,
-                                                    imageName: selectedItem?.id == item.id ? item.imageName : item.unselectedImageName,
-                                                    isSelected: selectedItem?.id == item.id,
-                                                    onSelect: {
-                                selectedItem = item
-                            })
-                            .onTapGesture {
-                                selectedItem = item
-                            }
+        ZStack{
+            RoundedRectangle(cornerRadius: 28)
+                .frame(width: 374 * Constants.ControlWidth, height: 740 * Constants.ControlHeight)
+                .overlay {
+                    VStack(spacing: 0) {
+                        Rectangle()
+                            .frame(width: 50 * Constants.ControlWidth, height: 5 * Constants.ControlHeight)
+                            .foregroundColor(Color(hex: "E5E8EB"))
+                            .padding(.top, 11 * Constants.ControlHeight)
+                            .padding(.bottom, 24 * Constants.ControlHeight)
+                        
+                        VStack(alignment: .leading) {
+                            Text("어느 지역으로 환전할까요?")
+                                .frame(height: 28 * Constants.ControlHeight)
+                                .font(.Headline)
+                                .foregroundColor(.greyDarkHover)
+                                .padding(.bottom, 4)
+                            
+                            Text("등록하지 않은 지역은 표시되지 않아요!")
+                                .font(.Headline)
+                                .lineSpacing(4)
+                                .foregroundColor(.greyNormal)
                         }
+                        .padding(.bottom, 24)
+
+
+                        SwipstoneSelectListView()
+                            .padding(.horizontal, 24)
+
+                        HStack {
+                            Button(action: {
+                                closeModal = false
+                            }, label: {
+                                RoundedRectangle(cornerRadius: 16)
+                                    .frame(width: 159 * Constants.ControlWidth,
+                                           height: 54 * Constants.ControlHeight)
+                                    .foregroundColor(.greyLighter)
+                                    .overlay {
+                                        Text("취소하기")
+                                            .font(.Subhead3)
+                                            .foregroundColor(Color(hex: "A7A7A7"))
+                                    }
+                            })
+
+                            Spacer()
+
+                            Button(action: {
+                                AppState.shared.navigationPath.append(swipointType.exchange)
+                                pointExchangeModal = false
+                            }, label: {
+                                RoundedRectangle(cornerRadius: 16)
+                                    .frame(width: 159 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
+                                    .foregroundColor(.mainNormal)
+                                    .overlay {
+                                        Text("환전하기")
+                                            .font(.Subhead3)
+                                            .foregroundColor(.white)
+                                    }
+                            })
+                        }
+                        .padding(.horizontal, 24)
+                        .padding(.top, 24)
+                        .padding(.bottom, 28 * Constants.ControlHeight)
                     }
                 }
-                .scrollIndicators(.hidden)
-            }
+                
         }
-    }
-}
-
-struct SwipstoneSelectItemView: View {
-    
-    var region: String
-    var imageName: String
-    var isSelected: Bool
-    var onSelect: () -> Void
-
-    var body: some View {
-        Button(action: onSelect) {
-            ZStack {
-                RoundedRectangle(cornerRadius: 9)
-                    .frame(width: 103 * Constants.ControlWidth, height: 87 * Constants.ControlHeight)
-                    .foregroundColor(.greyLighter)
-                    .overlay {
-                        VStack(spacing: 0) {
-                            Image(imageName)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40 * Constants.ControlWidth,
-                                       height: 40 * Constants.ControlHeight)
-                            
-                            Text(region)
-                                .font(.Body2)
-                                .foregroundColor(isSelected ? .mainNormal : .greyNormalHover)
-                        }
-                    }
-            }
-        }
+        .toolbar(.hidden)
+        .background(Color.clear)
     }
 }
 
 #Preview {
-    SwipstoneSelectModal()
-}
-
-#Preview {
-    SwipstoneSelectItemView(region: "서울", imageName: "unselected_seoul", isSelected: false, onSelect: { })
+    SwipstoneSelectModal(viewModel: SwipointViewModel(),
+                          pointExchangeModal: .constant(false),
+                          closeModal: .constant(false),
+                          region: .constant(""),
+                          newCardModal: .constant(false),
+                          existenceCardModal: .constant(false))
 }

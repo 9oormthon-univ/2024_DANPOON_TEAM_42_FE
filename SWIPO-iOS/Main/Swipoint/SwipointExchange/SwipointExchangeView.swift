@@ -10,12 +10,15 @@ import SwiftUI
 struct SwipointExchangeView: View {
 
     @ObservedObject var viewModel: SwipayViewModel
+    @Environment(\.dismiss) private var dismiss
 
     @State private var exchangeInputText: String = ""
     @State private var exchangeInputInt: Int = 0
 
     @State var makeStopModal: Bool = false
     @State var makeFinishModal: Bool = false
+    @State var exchangeModal: Bool = false
+    @State var completeModal: Bool = false
     @State var isTipHidden: Bool = true
 
     var body: some View {
@@ -120,9 +123,7 @@ struct SwipointExchangeView: View {
 
                     VStack {
                         if !exchangeInputText.isEmpty {
-                            let originalPoint = viewModel.state.sampleSwipointExchange[0].point
-                            let remainPoint = originalPoint - (Int(exchangeInputText) ?? 0)
-                            Text("환전 후 포인트 잔액 \(remainPoint)원")
+                            Text("환전 후 포인트 잔액 \(fromPoint.point - exchangeInputInt)원")
                                 .lineLimit(1)
                                 .font(.Subhead1)
                                 .foregroundColor(.white.opacity(0.56))
@@ -130,18 +131,23 @@ struct SwipointExchangeView: View {
                         }
 
                         Button(action: {
+                            if !exchangeInputText.isEmpty && fromPoint.point >= exchangeInputInt {
+                                exchangeModal = true
+                            }
                         }, label: {
                             RoundedRectangle(cornerRadius: 16)
-                                .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
-                                .foregroundColor(.mainNormal)
+                                .frame(width: 360 * Constants.ControlWidth,
+                                       height: 54 * Constants.ControlHeight)
+                                .foregroundColor(exchangeInputText.isEmpty || fromPoint.point < exchangeInputInt
+                                                 ? .mainLightActive : .mainNormal)
                                 .overlay {
                                     if !exchangeInputText.isEmpty {
                                         Text("\(exchangeInputText)원 환전하기")
-                                            .foregroundColor(Color.white)
+                                            .foregroundColor(.white)
                                             .font(.Subhead3)
                                     } else {
                                         Text("환전하기")
-                                            .foregroundColor(Color.white)
+                                            .foregroundColor(.white)
                                             .font(.Subhead3)
                                     }
                                 }
@@ -180,6 +186,19 @@ struct SwipointExchangeView: View {
             UIApplication.shared.endEditing()
         }
         .navigationBarBackButtonHidden()
+        .sheet(isPresented: $exchangeModal, content: {
+            SwipointExchangeModal(exchangeModal: $exchangeModal, completeModal: $completeModal)
+                .background(ClearBackgroundView()) // 팝업 뷰 height 조절
+                .presentationDetents([.height(232 * Constants.ControlHeight)])
+        })
+        .sheet(isPresented: $completeModal, content: {
+            SwipointExchangeCompleteModal(
+                completeModal: $completeModal,
+                onComplete: { dismiss() }
+            )
+                .background(ClearBackgroundView()) // 팝업 뷰 height 조절
+                .presentationDetents([.height(388 * Constants.ControlHeight)])
+        })
     }
 
     private func formatPrice(_ value: String) -> String {
