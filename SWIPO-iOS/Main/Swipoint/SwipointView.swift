@@ -10,10 +10,14 @@ import Kingfisher
 
 struct SwipointView: View {
     
-    @ObservedObject var viewModel: SwipayViewModel
+    @ObservedObject var swipayViewModel: SwipayViewModel
+    @StateObject var viewModel = SwipointViewModel()
     @StateObject private var geoServiceManager = GeoServiceManager()
     @State var address: String = ""
     @State var isSelectedRegion: Int64? = nil
+    
+    @State var closeModal: Bool = false
+    @State var pointExchangeModal: Bool = false
     @State var makeCardModal: Bool = false
     @State var newCardModal: Bool = false
     @State var existenceCardModal: Bool = false
@@ -26,7 +30,7 @@ struct SwipointView: View {
                                       imageType: "question_circle_mark",
                                       showBackButton: true, blur: false)
                 
-                SwipointMainView(viewModel: viewModel, isSelectedRegion: $isSelectedRegion, makeCardModal: $makeCardModal)
+                SwipointMainView(swipayViewModel: swipayViewModel, viewModel: viewModel, isSelectedRegion: $isSelectedRegion, makeCardModal: $makeCardModal, pointExchangeModal: $pointExchangeModal)
                     .padding(.top, 30 * Constants.ControlHeight)
             }
         }
@@ -60,35 +64,45 @@ struct SwipointView: View {
                 })
             )
         }
+        .sheet(isPresented: $pointExchangeModal, content: {
+            SwipstoneSelectModal(viewModel: viewModel,
+                                 pointExchangeModal: $pointExchangeModal,
+                                 closeModal: $pointExchangeModal,
+                                 region: $address,
+                                 newCardModal: $newCardModal,
+                                 existenceCardModal: $existenceCardModal)
+        })
         .sheet(isPresented: $makeCardModal, content: {
-            LocationCertificationModal(viewModel: viewModel, makeCardModal: $makeCardModal, region: $address, newCardModal: $newCardModal, existenceCardModal: $existenceCardModal)
+            LocationCertificationModal(viewModel: swipayViewModel, makeCardModal: $makeCardModal, region: $address, newCardModal: $newCardModal, existenceCardModal: $existenceCardModal)
                 .background(ClearBackgroundView())// 팝업 뷰 height 조절
                 .presentationDetents([.height(346 * Constants.ControlHeight)])
         })
         .sheet(isPresented: $newCardModal, content: {
-            LocationNewModal(region: $address, viewModel: viewModel, newCardModal: $newCardModal)
+            LocationNewModal(region: $address, viewModel: swipayViewModel, newCardModal: $newCardModal)
                 .background(ClearBackgroundView())// 팝업 뷰 height 조절
                 .presentationDetents([.height(376 * Constants.ControlHeight)])
         })
         .sheet(isPresented: $existenceCardModal, content: {
-            LocationExistView(region: $address, viewModel: viewModel, existenceCardModal: $existenceCardModal)
+            LocationExistView(region: $address, viewModel: swipayViewModel, existenceCardModal: $existenceCardModal)
                 .background(ClearBackgroundView())// 팝업 뷰 height 조절
                 .presentationDetents([.height(344 * Constants.ControlHeight)])
         })
         .onAppear(){
             Task {
-                await viewModel.action(.getSwipay)
+                await swipayViewModel.action(.getSwipay)
             }
         }
     }
 }
 
 struct SwipointMainView: View {
-    @ObservedObject var viewModel: SwipayViewModel
+    @ObservedObject var swipayViewModel: SwipayViewModel
+    @ObservedObject var viewModel: SwipointViewModel
     
     @State private var selectedCardIndex: Int = 0 // 현재 선택된 카드 인덱스
     @Binding var isSelectedRegion: Int64?
     @Binding var makeCardModal: Bool
+    @Binding var pointExchangeModal: Bool
     
     var body: some View {
         ZStack{
@@ -108,7 +122,7 @@ struct SwipointMainView: View {
                                         Spacer()
                                             .padding(.trailing, 56 * Constants.ControlWidth)
                                         
-                                        ForEach(viewModel.state.getSwipointCardResponse, id: \.cardId) { data in
+                                        ForEach(swipayViewModel.state.getSwipointCardResponse, id: \.cardId) { data in
                                             
                                             SwipointCardView(region: data.region, point: String(data.point), customImage: data.customImage)
                                                 .onTapGesture {
@@ -134,16 +148,20 @@ struct SwipointMainView: View {
                             .padding(.bottom, 14 * Constants.ControlHeight)
                             .padding(.top, 22 * Constants.ControlHeight)
                             
-                            if viewModel.state.getSwipointCardResponse.count >= 1 {
+                            if swipayViewModel.state.getSwipointCardResponse.count >= 1 {
                                 HStack(spacing: 6){
-                                    RoundedRectangle(cornerRadius: 6)
-                                        .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
-                                        .foregroundColor(.greyNormalHover)
-                                        .overlay {
-                                            Text("포인트 이동")
-                                                .font(.Body1)
-                                                .foregroundColor(.white)
-                                        }
+                                    Button(action: {
+                                        pointExchangeModal = true
+                                    }, label: {
+                                        RoundedRectangle(cornerRadius: 6)
+                                            .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+                                            .foregroundColor(.greyNormalHover)
+                                            .overlay {
+                                                Text("포인트 환전")
+                                                    .font(.Body1)
+                                                    .foregroundColor(.white)
+                                            }
+                                    })
                                     
                                     RoundedRectangle(cornerRadius: 6)
                                         .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
@@ -285,7 +303,7 @@ struct ClearBackgroundViewModifier: ViewModifier {
 }
 
 #Preview {
-    SwipointView(viewModel: SwipayViewModel())
+    SwipointView(swipayViewModel: SwipayViewModel())
 }
 
 

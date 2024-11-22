@@ -458,9 +458,9 @@ struct SwipayView: View {
             case .payment:
                 QRScannerView()
             case .swipoint:
-                SwipointView(viewModel: viewModel)
+                SwipointView(swipayViewModel: viewModel)
             case .swipointDetail(let id):
-                SwipointView(viewModel: viewModel, isSelectedRegion: id)
+                SwipointView(swipayViewModel: viewModel, isSelectedRegion: id)
             }
         }
     }
