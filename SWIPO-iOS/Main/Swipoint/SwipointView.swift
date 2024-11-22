@@ -13,6 +13,9 @@ struct SwipointView: View {
     @StateObject private var geoServiceManager = GeoServiceManager()
     @State var address: String = ""
     @State var isSelectedRegion: Int64? = nil
+
+    @State var pointExchangeModal: Bool = false
+    @State var closeModal: Bool = false
     @State var makeCardModal: Bool = false
     @State var newCardModal: Bool = false
     @State var existenceCardModal: Bool = false
@@ -25,7 +28,10 @@ struct SwipointView: View {
                                       imageType: "question_circle_mark",
                                       showBackButton: true, blur: false)
                 
-                SwipointMainView(viewModel: viewModel, isSelectedRegion: $isSelectedRegion, makeCardModal: $makeCardModal)
+                SwipointMainView(viewModel: viewModel,
+                                 isSelectedRegion: $isSelectedRegion,
+                                 pointExchangeModal: $pointExchangeModal,
+                                 makeCardModal: $makeCardModal)
                     .padding(.top, 30 * Constants.ControlHeight)
             }
         }
@@ -57,6 +63,16 @@ struct SwipointView: View {
                 })
             )
         }
+        .sheet(isPresented: $pointExchangeModal, content: {
+            SwipointExchangeModal(viewModel: viewModel,
+                                  makeCardModal: $makeCardModal,
+                                  closeModal: $pointExchangeModal,
+                                  region: $address,
+                                  newCardModal: $newCardModal,
+                                  existenceCardModal: $existenceCardModal)
+                .background(ClearBackgroundView())// 팝업 뷰 height 조절
+                .presentationDetents([.height(750 * Constants.ControlHeight)])
+        })
         .sheet(isPresented: $makeCardModal, content: {
             LocationCertificationModal(viewModel: viewModel, makeCardModal: $makeCardModal, region: $address, newCardModal: $newCardModal, existenceCardModal: $existenceCardModal)
                 .background(ClearBackgroundView())// 팝업 뷰 height 조절
@@ -79,6 +95,7 @@ struct SwipointMainView: View {
     @ObservedObject var viewModel: SwipointViewModel
     @State private var selectedCardIndex: Int = 0 // 현재 선택된 카드 인덱스
     @Binding var isSelectedRegion: Int64?
+    @Binding var pointExchangeModal: Bool
     @Binding var makeCardModal: Bool
     
     var body: some View {
@@ -124,15 +141,19 @@ struct SwipointMainView: View {
                             .padding(.bottom, 14 * Constants.ControlHeight)
                             .padding(.top, 22 * Constants.ControlHeight)
                             
-                            HStack(spacing: 6){
-                                RoundedRectangle(cornerRadius: 6)
-                                    .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
-                                    .foregroundColor(.greyNormalHover)
-                                    .overlay {
-                                        Text("포인트 이동")
-                                            .font(.Body1)
-                                            .foregroundColor(.white)
-                                    }
+                            HStack(spacing: 6) {
+                                Button(action: {
+                                    pointExchangeModal = true
+                                }, label: {
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+                                        .foregroundColor(.greyNormalHover)
+                                        .overlay {
+                                            Text("포인트 환전")
+                                                .font(.Body1)
+                                                .foregroundColor(.white)
+                                        }
+                                })
                                 
                                 RoundedRectangle(cornerRadius: 6)
                                     .frame(width: 114.5 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)

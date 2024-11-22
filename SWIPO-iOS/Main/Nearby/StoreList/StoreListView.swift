@@ -75,7 +75,7 @@ struct StoreListView: View {
                                 }
                             }
                             .sheet(isPresented: $categoryModal) {
-                                StoreOptionView(
+                                StoreOptionModal(
                                     isModalVisible: $categoryModal,
                                     selectedOption: $category,
                                     options: ["전체", "카페", "디저트", "음식점", "마트", "소품샵", "숙박"],
@@ -105,7 +105,7 @@ struct StoreListView: View {
                                 }
                             }
                             .sheet(isPresented: $sortModal) {
-                                StoreOptionView(
+                                StoreOptionModal(
                                     isModalVisible: $sortModal,
                                     selectedOption: $sort,
                                     options: ["스위포 PICK!", "사용자 트렌드", "내 취향 가득", "관심 등록순", "전체 인기순", "별점순", "가까운순"],
