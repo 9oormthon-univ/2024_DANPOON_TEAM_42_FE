@@ -42,16 +42,17 @@ struct CategoryLabView: View {
                     Text("울산 남구 무거동")
                         .font(.Body2)
                         .foregroundStyle(.greyLightHover)
-                        .padding(.bottom, 2)
+                        .padding(.bottom, 1)
 
                     Text("윤다희님의 취향과 찰떡궁합이네요!! 🎉")
                         .font(.Headline)
                         .foregroundStyle(.white)
-                        .padding(.bottom, 11)
+                        .padding(.bottom, 9)
 
                     Text("내 취향이 가득한 이곳 애정을 가져봐도 되겠어요!\n마음에 드는 매장은 관심등록으로 보관해봐요 🥰\n관련있는 추천을 더 받고 싶으시다면\n맞춤 가맹점들을 자주 방문해 보시는게 어떨까요?")
                         .font(.Subhead3)
-                        .foregroundStyle(.white)
+                        .foregroundStyle(.greyLighter)
+                        .lineSpacing(3)
                 }
                 .frame(width: 360 * Constants.ControlWidth,
                        height: 205 * Constants.ControlHeight)
