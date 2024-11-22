@@ -160,16 +160,72 @@ struct CategoryModalView: View {
                         .foregroundColor(.white)
                         .padding(.top, 11)
                     
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         if selectedCategoryIndex == 0 {
                             VStack(spacing: 12) {
-                                ForEach(viewModel.state.categoryType.indices, id: \.self) { index in
-                                    let category = viewModel.state.categoryType[index]
+                                CategoryCurationView()
+
+                                ForEach(viewModel.state.categoryType.indices.filter { $0 == 1 || $0 == 2 }, id: \.self) { index in
+                                    let category = viewModel.state.categoryType[index-1]
                                     CategoryTitleView(title: category.title, content: category.content)
-                                    
-                                    CardListView()
+
+                                    CategoryDefaultListView()
                                         .padding(.bottom, 22)
                                 }
+
+                                let category3 = viewModel.state.categoryType[2]
+                                CategoryTitleView(title: category3.title, content: category3.content)
+                                CategoryRankingListView()
+                                    .padding(.bottom, 22)
+
+                                let category4 = viewModel.state.categoryType[3]
+                                CategoryTitleView(title: category4.title, content: category4.content)
+                                CategoryTasteView()
+                                    .padding(.bottom, 22)
+
+                                RoundedRectangle(cornerRadius: 16)
+                                    .frame(width: 361 * Constants.ControlWidth, height: 88 * Constants.ControlHeight)
+                                    .scaledToFit()
+                                    .foregroundColor(.white)
+                                    .overlay {
+                                        HStack(spacing: 0){
+                                            VStack(alignment: .leading, spacing: 0){
+                                                Text("11월 BBQ X SWIPO의 특별 혜택")
+                                                    .lineLimit(1)
+                                                    .font(.Subhead3)
+                                                    .foregroundColor(.greyDarkHover)
+                                                
+                                                Text("포장 주문 및 결제시 10% 페이백!")
+                                                    .lineLimit(1)
+                                                    .font(.Subhead2)
+                                                    .foregroundColor(.greyNormalHover)
+                                            }
+                                            .padding(.leading, 22 * Constants.ControlWidth)
+                                            
+                                            Image("swipay_chicken")
+                                                .resizable()
+                                                .scaledToFit()
+                                                .frame(width: 102 * Constants.ControlWidth, height: 88 * Constants.ControlHeight)
+                                                .cornerRadius(16, corners: .topRight)
+                                                .cornerRadius(16, corners: .bottomRight)
+                                                .overlay {
+                                                    VStack(spacing: 0){
+                                                        HStack(spacing: 0){
+                                                            Spacer()
+                                                            
+                                                            Image("swipay_ad_exclamation_mark")
+                                                                .resizable()
+                                                                .scaledToFit()
+                                                                .frame(width: 20 * Constants.ControlWidth)
+                                                        }
+                                                        Spacer()
+                                                    }
+                                                    .padding(.top, 5)
+                                                }
+                                            
+                                        }
+                                    }
+                                    .padding(.bottom, 44 * Constants.ControlHeight)
                             }
                             .padding()
                         } else {
@@ -177,8 +233,8 @@ struct CategoryModalView: View {
                                 VStack(spacing: 12) {
                                     let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
                                     CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
-                                    
-                                    CardRankingListView()
+
+                                    CategoryRankingListView()
                                         .padding(.bottom, 22)
                                 }
                                 .padding()
@@ -186,8 +242,14 @@ struct CategoryModalView: View {
                                 VStack(spacing: 12) {
                                     let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
                                     CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
-                                    
-                                    CardTasteListView()
+
+                                    CategoryTasteView()
+                                        .padding(.bottom, 22)
+                                }
+                                .padding()
+                            } else if selectedCategoryIndex == 5 {
+                                VStack(spacing: 12) {
+                                    CategoryLabView()
                                         .padding(.bottom, 22)
                                 }
                                 .padding()
@@ -195,8 +257,8 @@ struct CategoryModalView: View {
                                 VStack(spacing: 12) {
                                     let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
                                     CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
-                                    
-                                    CardListView()
+
+                                    CategoryDefaultListView()
                                         .padding(.bottom, 22)
                                 }
                                 .padding()
