@@ -49,7 +49,8 @@ class NetworkManager {
                 "\(endPoint.baseURL)\(endPoint.path)",
                 method: endPoint.method,
                 parameters: parameters,
-                encoding: URLEncoding.default,
+//                encoding: URLEncoding.default,
+                encoding: JSONEncoding.default,
                 headers: endPoint.headers,
                 interceptor: Interceptor()
             )

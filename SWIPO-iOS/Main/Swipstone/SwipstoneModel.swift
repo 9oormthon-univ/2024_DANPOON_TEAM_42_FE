@@ -32,11 +32,11 @@ struct SwipstonePieceCountModel {
 }
 
 struct UsedPieceInfo: Codable {
-    let point: String
-    let usePieceNum: Int64
-    let myPieceIds: [String]   
+    let point: Int
+    let usePieceNum: Int
+    let myPieceIds: [String]
 }
 
 struct SubtractPieceModel: Codable {
-    let totalPay: Int64
+    let totalPay: Int
 }

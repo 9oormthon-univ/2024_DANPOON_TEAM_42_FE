@@ -46,14 +46,20 @@ class SwipstoneViewModel: ObservableObject {
     ) {
         self.state = state
         
-//        // Keychain에서 achieve 상태를 불러와 초기화
-//        for index in 0..<state.getSwipstoneResponse.count {
-//            let key = "achieve_status_\(state.getSwipstoneResponse[index].id)"
-//            if let achieveStatus = KeyChainManager.readItem(key: key), achieveStatus == "true" {
-//                self.state.getSwipstoneResponse[index].collect = false
-//                self.state.getSwipstoneResponse[index].achieve = true
-//            }
-//        }
+        for index in 0..<state.getSwipstoneResponse.count {
+            let key = "achieve_status_\(state.getSwipstoneResponse[index].id)"
+
+            if KeyChainManager.readItem(key: key) == "true" {
+                self.state.getSwipstoneResponse[index].achieve  = true
+                self.state.getSwipstoneResponse[index].collect = false
+            }
+        }
+        
+        // 초기화 상태 로그 출력
+        for card in state.getSwipstoneResponse {
+            print("카드 ID: \(card.id), achieve 상태: \(card.achieve)")
+        }
+           
     }
     
     func action(_ action: Action) async {
@@ -209,8 +215,8 @@ extension SwipstoneViewModel {
         
         // 사용된 데이터 생성
         let usedPieceInfo = UsedPieceInfo(
-            point: state.getSwipstoneResponse[selectedCardIndex].point,
-            usePieceNum: Int64(usedPieceIds.count),
+            point: Int(state.getSwipstoneResponse[selectedCardIndex].point) ?? 0,
+            usePieceNum: Int(usedPieceIds.count),
             myPieceIds: usedPieceIds
         )
         return usedPieceInfo
