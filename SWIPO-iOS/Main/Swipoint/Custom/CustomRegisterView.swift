@@ -29,8 +29,8 @@ struct CustomRegisterView: View {
         .toolbar(.hidden)
         .onAppear(){
             Task{
-//                await registerCard(region: swipayViewModel.convertFullRegionToShort(inputRegion: region) ?? "", custom_image: generatedImageToData(image: generatedImage))
-                await registerCard(region: "울산", custom_image: generatedImageToData(image: generatedImage))
+                await registerCard(region: swipayViewModel.convertFullRegionToShort(inputRegion: region) ?? "", custom_image: generatedImageToData(image: generatedImage))
+
             }
         }
     }

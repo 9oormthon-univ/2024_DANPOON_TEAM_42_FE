@@ -118,6 +118,7 @@ struct SwipointMainView: View {
     
     var body: some View {
         ZStack{
+            
             VStack{
                 RoundedRectangle(cornerRadius: 6)
                     .frame(width: Constants.screenWidth, height: 582 * Constants.ControlHeight)
@@ -190,6 +191,7 @@ struct SwipointMainView: View {
                             }
                         }
                     })
+                    .offset(y: -20)
                 
                 Spacer()
                 
@@ -205,6 +207,16 @@ struct SwipointMainView: View {
                                 .foregroundColor(.white)
                         }
                 })
+            }
+            
+            VStack(spacing: 0){
+                
+                Spacer()
+                
+                Image("swipoint_tooltip")
+                    .zIndex(1)
+                    .allowsHitTesting(false)
+                    .padding(.bottom, 50 * Constants.ControlHeight)
             }
         }
         .onAppear {
@@ -232,7 +244,7 @@ struct SwipointCardView: View {
                     .font(.Headline)
                     .foregroundColor(.white)
                 
-                Text("\(point)원 사용 가능")
+                Text("\(formatWithCommas(point))원 사용 가능")
                     .font(.Subhead3)
                     .frame(height: 22 * Constants.ControlHeight)
                     .tracking(-0.6)
@@ -254,6 +266,20 @@ struct SwipointCardView: View {
                     .frame(width: 242 * Constants.ControlWidth, height: 384 * Constants.ControlHeight)
             }
         }
+    }
+    
+    // 숫자를 3자리마다 쉼표가 포함된 형식으로 변환하는 함수
+    func formatWithCommas(_ value: String) -> String {
+        // 숫자만 남김
+        let numericValue = value.filter { $0.isNumber }
+        
+        // 숫자가 없으면 빈 문자열 반환
+        guard let number = Int(numericValue) else { return "" }
+        
+        // 3자리마다 쉼표 추가
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: number)) ?? ""
     }
 }
 

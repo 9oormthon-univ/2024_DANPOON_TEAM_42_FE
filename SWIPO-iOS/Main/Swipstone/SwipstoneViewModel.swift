@@ -48,7 +48,7 @@ class SwipstoneViewModel: ObservableObject {
         
         for index in 0..<state.getSwipstoneResponse.count {
             let key = "achieve_status_\(state.getSwipstoneResponse[index].id)"
-//            KeyChainManager.deleteItem(key: key)
+ //           KeyChainManager.deleteItem(key: key)
             if KeyChainManager.readItem(key: key) == "true" {
                 self.state.getSwipstoneResponse[index].achieve  = true
                 self.state.getSwipstoneResponse[index].collect = false

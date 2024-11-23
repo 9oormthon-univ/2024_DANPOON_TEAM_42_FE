@@ -33,16 +33,29 @@ struct SwipstoneSelectModal: View {
                             .padding(.bottom, 24 * Constants.ControlHeight)
                         
                         VStack(alignment: .leading) {
-                            Text("어느 지역으로 환전할까요?")
-                                .frame(height: 28 * Constants.ControlHeight)
-                                .font(.Headline)
-                                .foregroundColor(.greyDarkHover)
-                                .padding(.bottom, 4)
+                            HStack(spacing: 0){
+                                Text("다른 지역으로 떠나셨군요!")
+                                    .frame(height: 28 * Constants.ControlHeight)
+                                    .font(.Headline)
+                                    .foregroundColor(.greyDarkHover)
+                                    .padding(.bottom, 4)
+                                
+                                Image("island")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20 * Constants.ControlWidth)
+                                    .padding(.bottom, 4)
+                                
+                                Spacer()
+                            }
+                            .padding(.top)
+                            .padding(.leading)
                             
                             Text("등록하지 않은 지역은 표시되지 않아요!")
                                 .font(.Headline)
                                 .lineSpacing(4)
                                 .foregroundColor(.greyNormal)
+                                .padding(.leading)
                         }
                         .padding(.bottom, 24)
 
