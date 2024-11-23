@@ -11,6 +11,7 @@
 		6D30C4772CF260720014C6EB /* SwipExchangeEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D30C4762CF260720014C6EB /* SwipExchangeEndPoint.swift */; };
 		6D30C4792CF260B40014C6EB /* SwipointExchangeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D30C4782CF260B40014C6EB /* SwipointExchangeModel.swift */; };
 		6D30C47B2CF260C20014C6EB /* SwipointExchangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D30C47A2CF260C20014C6EB /* SwipointExchangeViewModel.swift */; };
+		6D30C47F2CF2626F0014C6EB /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D30C47E2CF2626F0014C6EB /* splash.json */; };
 		6D3C63832CEB297600229404 /* TermsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63822CEB297600229404 /* TermsView.swift */; };
 		6D3C63872CEB5FE300229404 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63862CEB5FE300229404 /* WebView.swift */; };
 		6D3C638A2CEB940100229404 /* SwipointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D3C63892CEB940100229404 /* SwipointView.swift */; };
@@ -55,7 +56,6 @@
 		6D7007E42CF12B4A001D4CB5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7007E32CF12B4A001D4CB5 /* Kingfisher */; };
 		6D7007EC2CF2182E001D4CB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7007EB2CF2182E001D4CB5 /* Lottie */; };
 		6D7007F32CF218C0001D4CB5 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7007F22CF218C0001D4CB5 /* LottieView.swift */; };
-		6D7007FC2CF2217D001D4CB5 /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D7007FB2CF2217D001D4CB5 /* splash.json */; };
 		6D7601E42CEA3EA800C49EDC /* SWIPO_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */; };
 		6D7601E82CEA3EA900C49EDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7601E72CEA3EA900C49EDC /* Assets.xcassets */; };
 		6D7601EB2CEA3EA900C49EDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7601EA2CEA3EA900C49EDC /* Preview Assets.xcassets */; };
@@ -131,6 +131,7 @@
 		6D30C4762CF260720014C6EB /* SwipExchangeEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipExchangeEndPoint.swift; sourceTree = "<group>"; };
 		6D30C4782CF260B40014C6EB /* SwipointExchangeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipointExchangeModel.swift; sourceTree = "<group>"; };
 		6D30C47A2CF260C20014C6EB /* SwipointExchangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipointExchangeViewModel.swift; sourceTree = "<group>"; };
+		6D30C47E2CF2626F0014C6EB /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
 		6D3C63822CEB297600229404 /* TermsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsView.swift; sourceTree = "<group>"; };
 		6D3C63862CEB5FE300229404 /* WebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		6D3C63892CEB940100229404 /* SwipointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipointView.swift; sourceTree = "<group>"; };
@@ -173,7 +174,6 @@
 		6D7007DE2CF12A12001D4CB5 /* CustomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomService.swift; sourceTree = "<group>"; };
 		6D7007E02CF12A19001D4CB5 /* CustomEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEndPoint.swift; sourceTree = "<group>"; };
 		6D7007F22CF218C0001D4CB5 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
-		6D7007FB2CF2217D001D4CB5 /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
 		6D7601E02CEA3EA800C49EDC /* SWIPO-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWIPO-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIPO_iOSApp.swift; sourceTree = "<group>"; };
 		6D7601E72CEA3EA900C49EDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -390,7 +390,7 @@
 		6D7007EF2CF21865001D4CB5 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
-				6D7007FB2CF2217D001D4CB5 /* splash.json */,
+				6D30C47E2CF2626F0014C6EB /* splash.json */,
 				6D7007F22CF218C0001D4CB5 /* LottieView.swift */,
 			);
 			path = Lottie;
@@ -741,7 +741,7 @@
 				6D76021A2CEA420800C49EDC /* SpoqaHanSansNeo-Light.ttf in Resources */,
 				6D7602172CEA420800C49EDC /* SpoqaHanSansNeo-Medium.ttf in Resources */,
 				6D7601E82CEA3EA900C49EDC /* Assets.xcassets in Resources */,
-				6D7007FC2CF2217D001D4CB5 /* splash.json in Resources */,
+				6D30C47F2CF2626F0014C6EB /* splash.json in Resources */,
 				6D7602192CEA420800C49EDC /* SpoqaHanSansNeo-Bold.ttf in Resources */,
 				6D7602182CEA420800C49EDC /* SpoqaHanSansNeo-Regular.ttf in Resources */,
 			);
