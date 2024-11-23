@@ -9,34 +9,46 @@ import SwiftUI
 import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoMapsSDK
+import Lottie
 
 @main
 struct SWIPO_iOSApp: App {
     @StateObject var appState = AppState.shared
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-
+    @State private var isAnimationCompleted = false
+    
     init() {
         KakaoSDK.initSDK(appKey: Secrets.kakaoLoginNativeTestAppKey)
     }
-
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $appState.navigationPath) {
-                if let userId = UserDefaults.standard.string(forKey: "userId") {
-                    MainView()
-                        .onOpenURL(perform: { url in
-                            if AuthApi.isKakaoTalkLoginUrl(url) {
-                                AuthController.handleOpenUrl(url: url)
-                            }
-                        })
+                if isAnimationCompleted {
+                    // 다음 화면으로 전환
+                    if let userId = UserDefaults.standard.string(forKey: "userId") {
+                        MainView()
+                            .onOpenURL(perform: { url in
+                                if AuthApi.isKakaoTalkLoginUrl(url) {
+                                    AuthController.handleOpenUrl(url: url)
+                                }
+                            })
+                    } else {
+                        LoginView()
+                            .onOpenURL(perform: { url in
+                                if AuthApi.isKakaoTalkLoginUrl(url) {
+                                    AuthController.handleOpenUrl(url: url)
+                                }
+                            })
+                    }
                 } else {
-                    LoginView()
-                        .onOpenURL(perform: { url in
-                            if AuthApi.isKakaoTalkLoginUrl(url) {
-                                AuthController.handleOpenUrl(url: url)
-                            }
-                        })
-                }   
+//                    // LottieView 표시
+                    LottieView(jsonName: "splash", onAnimationCompleted: {
+                        // 애니메이션 완료 시 상태 변경
+                        isAnimationCompleted = true
+                    })
+                    .ignoresSafeArea() // 전체 화면 표시 (옵션)
+                }
             }
         }
     }
