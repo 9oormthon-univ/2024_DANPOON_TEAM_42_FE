@@ -10,7 +10,7 @@ import Kingfisher
 
 struct SwipayView: View {
     
-    @ObservedObject var viewModel = SwipayViewModel()
+    @ObservedObject var viewModel: SwipayViewModel
     @State private var currentIndex: Int = 0
     @State private var newsCurrentIndex: Int = 0
     @State var comingSoon: Bool = false
@@ -674,7 +674,7 @@ func formatWithCommas(_ value: String) -> String {
 }
 
 #Preview {
-    SwipayView()
+    SwipayView(viewModel: SwipayViewModel())
 }
 
 
