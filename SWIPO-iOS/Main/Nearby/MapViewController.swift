@@ -20,10 +20,41 @@ extension UIImage {
 }
 
 class MapViewController: UIViewController, MapControllerDelegate {
+    var storeMapResponse: StoreMapResponse?
 
     let locationManager = CLLocationManager()
     var longitude = 0.0
     var latitude = 0.0
+
+    var mapData: StoreMapResponse?
+    var mapDataCoordinate: [MapCoordinateModel] = []
+    var mapPointCoordinates: [MapPoint] = []
+
+    func updateMapData(with data: StoreMapResponse) {
+        print("🍀updateMapData")
+        self.mapData = data
+        // 데이터를 반영하여 지도 업데이트
+        let newCoordinates = data.wishlist.map {
+            MapCoordinateModel(latitude: $0.latitude, longitude: $0.longitude)
+        } + data.nonWishlist.map {
+            MapCoordinateModel(latitude: $0.latitude, longitude: $0.longitude)
+        }
+
+        self.mapDataCoordinate.append(contentsOf: newCoordinates)
+        
+        // 기존 테스트 좌표와 병합하여 새로운 MapPoint 배열 생성
+        let mapPointCoordinates = self.mapDataCoordinate.map {
+            MapPoint(longitude: $0.longitude, latitude: $0.latitude)
+        }
+        
+        print("====== Updated testCoordinates: \(mapPointCoordinates)")
+        
+        print("====== Received data: \(data)")
+
+        createLabelLayer() // 라벨 레이어 생성
+        createPoiStyle() // POI 스타일 생성
+        createPois() // POI 생성
+    }
 
     private lazy var mapView: KMViewContainer = {
         let view = KMViewContainer()
@@ -152,6 +183,7 @@ class MapViewController: UIViewController, MapControllerDelegate {
         createLabelLayer() // 라벨 레이어 생성
         createPoiStyle() // POI 스타일 생성
         createPois() // POI 생성
+        createPois2()
     }
 
     //addView 실패 이벤트 delegate. 실패에 대한 오류 처리를 진행한다.
@@ -224,10 +256,13 @@ class MapViewController: UIViewController, MapControllerDelegate {
 
     //Poi생셩을 위한 LabelLayer
     func createLabelLayer() {
+        print(mapPointCoordinates)
         let view = mapController?.getView("mapview") as! KakaoMap
         let manager = view.getLabelManager()
         let layerOption = LabelLayerOptions(layerID: "PoiLayer", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 0)
+        let layerOption2 = LabelLayerOptions(layerID: "PoiLayer2", competitionType: .none, competitionUnit: .symbolFirst, orderType: .rank, zOrder: 0)
         let _ = manager.addLabelLayer(option: layerOption)
+        let _ = manager.addLabelLayer(option: layerOption2)
     }
 
     //Poi 표시 스타일 생성
@@ -242,15 +277,21 @@ class MapViewController: UIViewController, MapControllerDelegate {
             PerLevelPoiStyle(iconStyle: iconStyle1, level: 13)
         ])
         manager.addPoiStyle(poiStyle)
+
+        let noti2 = PoiBadge(badgeID: "badge2", image: UIImage(systemName: "tooltip2"), offset: CGPoint(x: 0.9, y: 0.1), zOrder: 0)
+        let iconStyle2 = PoiIconStyle(symbol: UIImage(systemName: "tooltip2"), anchorPoint: CGPoint(x: 0.0, y: 0.5), badges: [noti1])
+        let poiStyle2 = PoiStyle(styleID: "PerLevelStyle2", styles: [
+            PerLevelPoiStyle(iconStyle: iconStyle2, level: 13)
+        ])
+        manager.addPoiStyle(poiStyle2)
     }
 
     func createPois() {
-        let testCoordinates = [
-            MapPoint(longitude: 126.9572222, latitude: 37.4963538),
-            MapPoint(longitude: 126.9568920135498, latitude: 37.49512014040192),
-            MapPoint(longitude: 126.95839405059814, latitude: 37.496771511091566),
-            // 추가 좌표를 여기에 입력
-        ]
+        print("🍀createPois")
+        mapPointCoordinates = [
+            MapPoint(longitude: 127.0, latitude: 37.0),
+            MapPoint(longitude: 127.11015777077459, latitude: 37.3953370671138),
+            MapPoint(longitude: 127.10931300194046, latitude: 37.39525439328737)]
 
         guard let view = mapController?.getView("mapview") as? KakaoMap else {
             print("KakaoMap 뷰를 가져오지 못했습니다.")
@@ -262,7 +303,7 @@ class MapViewController: UIViewController, MapControllerDelegate {
         let poiOption = PoiOptions(styleID: "PerLevelStyle")
         poiOption.rank = 0
 
-        for (index, coordinate) in testCoordinates.enumerated() {
+        for (index, coordinate) in mapPointCoordinates.enumerated() {
             if let poi = layer?.addPoi(option: poiOption, at: coordinate) {
                 if let originalImage = UIImage(named: "tooltip") {
                     let resizedImage = originalImage.resize(to: CGSize(width: 60, height: 46))
@@ -277,6 +318,35 @@ class MapViewController: UIViewController, MapControllerDelegate {
         }
     }
 
+    func createPois2() {
+        print("🍀createPois2")
+        let mapPointCoordinates2 = [
+            MapPoint(longitude: 127.10900714239513, latitude: 37.39435883354992)]
+
+        guard let view = mapController?.getView("mapview") as? KakaoMap else {
+            print("KakaoMap 뷰를 가져오지 못했습니다.")
+            return
+        }
+
+        let manager = view.getLabelManager()
+        let layer = manager.getLabelLayer(layerID: "PoiLayer2")
+        let poiOption = PoiOptions(styleID: "PerLevelStyle2")
+        poiOption.rank = 0
+
+        for (index, coordinate) in mapPointCoordinates2.enumerated() {
+            if let poi = layer?.addPoi(option: poiOption, at: coordinate) {
+                if let originalImage = UIImage(named: "tooltip2") {
+                    let resizedImage = originalImage.resize(to: CGSize(width: 60, height: 46))
+                    let badge = PoiBadge(badgeID: "noti2_\(index)", image: resizedImage, offset: CGPoint(x: 0, y: 0), zOrder: 1)
+                    poi.addBadge(badge)
+                    poi.show()
+                    poi.showBadge(badgeID: "noti2_\(index)")
+                }
+            } else {
+                print("Poi 생성 실패 for coordinate: \(coordinate)")
+            }
+        }
+    }
     func getCurrentLocation() {
         let manager = CLLocationManager()
         manager.desiredAccuracy = kCLLocationAccuracyBest

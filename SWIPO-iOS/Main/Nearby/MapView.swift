@@ -9,11 +9,15 @@ import SwiftUI
 import UIKit
 
 struct MapView: UIViewControllerRepresentable {
+    @Binding var storeMapResponse: StoreMapResponse?
+
     func makeUIViewController(context: Context) -> MapViewController {
         return MapViewController()
     }
 
     func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
-        // 업데이트가 필요한 경우 코드 추가
+        if let response = storeMapResponse {
+            uiViewController.updateMapData(with: response)
+        }
     }
 }

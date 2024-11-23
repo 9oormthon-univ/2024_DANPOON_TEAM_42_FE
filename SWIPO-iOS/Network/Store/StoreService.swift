@@ -20,7 +20,7 @@ struct StoreService {
     }
     
     // 지도 하단 탭 조회
-    static func getStoreTab(storeId: Int) async -> BaseResponse<StoreTabResponse>? {
+    static func getStoreTab() async -> BaseResponse<StoreTabResponse>? {
         return await NetworkManager.shared.request(StoreEndPoint.getStoreTab)
     }
     

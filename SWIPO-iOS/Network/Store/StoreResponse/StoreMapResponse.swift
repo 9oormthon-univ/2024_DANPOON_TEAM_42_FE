@@ -8,22 +8,16 @@
 import Foundation
 
 struct StoreMapResponse: Codable {
-    let status: Int
-    let message: String
-    let data: StoreMapData
-}
-
-struct StoreMapData: Codable {
     let wishlist: [StoreMap]
     let nonWishlist: [StoreMap]
 }
 
 struct StoreMap: Codable {
-    let storeId: String?
-    let percent: Int?
-    let type: String?
-    let latitude: Double?
-    let longitude: Double?
+    let storeId: Int
+    let percent: Int
+    let type: String
+    let latitude: Double
+    let longitude: Double
 }
 
 // test용
