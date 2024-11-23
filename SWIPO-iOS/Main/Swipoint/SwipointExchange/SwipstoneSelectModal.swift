@@ -9,7 +9,6 @@ import SwiftUI
 
 struct SwipstoneSelectModal: View {
 
-    @ObservedObject var exchangeViewModel: SwipointExchangeViewModel
     @ObservedObject var viewModel: SwipointViewModel
 
     @Binding var pointExchangeModal: Bool
@@ -17,8 +16,6 @@ struct SwipstoneSelectModal: View {
     @Binding var region: String
     @Binding var newCardModal: Bool
     @Binding var existenceCardModal: Bool
-    @Binding var selectedCardID: String
-    @State var currentSelectdCardId: String = ""
     
     var body: some View {
         ZStack{
@@ -47,7 +44,7 @@ struct SwipstoneSelectModal: View {
                         .padding(.bottom, 24)
 
 
-                        SwipstoneSelectListView(exchangeViewModel: exchangeViewModel, selectedCardID: $selectedCardID, currentSelectdCardId: $currentSelectdCardId)
+                        SwipstoneSelectListView()
                             .padding(.horizontal, 24)
 
                         HStack {
@@ -68,13 +65,8 @@ struct SwipstoneSelectModal: View {
                             Spacer()
 
                             Button(action: {
-                                if let toCard = exchangeViewModel.state.getSwipointCardResponse.cards.first(where: { $0.cardId == currentSelectdCardId }),
-                                       let fromCard = exchangeViewModel.state.getSwipointCardResponse.cards.first(where: { $0.cardId == selectedCardID }) {
-                                    AppState.shared.navigationPath.append(swipointType.exchange(from: fromCard, to: toCard))
-                                        pointExchangeModal = false
-                                    } else {
-                                        print("Error: Could not find fromCard or toCard")
-                                    }
+                                AppState.shared.navigationPath.append(swipointType.exchange)
+                                pointExchangeModal = false
                             }, label: {
                                 RoundedRectangle(cornerRadius: 16)
                                     .frame(width: 159 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
@@ -99,10 +91,10 @@ struct SwipstoneSelectModal: View {
 }
 
 #Preview {
-    SwipstoneSelectModal(exchangeViewModel: SwipointExchangeViewModel(), viewModel: SwipointViewModel(),
+    SwipstoneSelectModal(viewModel: SwipointViewModel(),
                           pointExchangeModal: .constant(false),
                           closeModal: .constant(false),
                           region: .constant(""),
                           newCardModal: .constant(false),
-                         existenceCardModal: .constant(false), selectedCardID: .constant(""))
+                          existenceCardModal: .constant(false))
 }

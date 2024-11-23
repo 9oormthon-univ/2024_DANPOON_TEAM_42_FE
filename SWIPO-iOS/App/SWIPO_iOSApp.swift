@@ -43,7 +43,7 @@ struct SWIPO_iOSApp: App {
                     }
                 } else {
 //                    // LottieView 표시
-                    LottieView(jsonName: "splashsplash", onAnimationCompleted: {
+                    LottieView(jsonName: "splash", onAnimationCompleted: {
                         // 애니메이션 완료 시 상태 변경
                         isAnimationCompleted = true
                     })

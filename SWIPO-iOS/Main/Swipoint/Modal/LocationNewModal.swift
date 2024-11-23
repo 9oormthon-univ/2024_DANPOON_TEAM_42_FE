@@ -43,7 +43,7 @@ struct LocationNewModal: View {
                         
                         HStack(spacing: 0){
                             VStack(alignment: .leading, spacing: 0){
-                                Text("\(viewModel.state.getSwipayResponse.userName)님 환영해요!")
+                                Text("윤다희님 환영해요!")
                                     .frame(height: 28 * Constants.ControlHeight)
                                     .font(.Headline)
                                     .tracking(-0.6)

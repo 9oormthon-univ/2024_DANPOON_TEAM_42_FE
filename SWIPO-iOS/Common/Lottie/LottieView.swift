@@ -28,7 +28,7 @@ struct LottieView: UIViewRepresentable {
         // Lottie 애니메이션 뷰 생성
         let animationView = LottieAnimationView(name: name)
         animationView.loopMode = loopMode // 애니메이션 반복 모드 설정
-        animationView.contentMode = .scaleAspectFill
+        animationView.contentMode = .scaleAspectFill // 화면에 꽉 차게 설정
         animationView.backgroundBehavior = .pauseAndRestore // 백그라운드에서 일시 중지 후 복원
 
         // 애니메이션 완료 시 콜백 처리
