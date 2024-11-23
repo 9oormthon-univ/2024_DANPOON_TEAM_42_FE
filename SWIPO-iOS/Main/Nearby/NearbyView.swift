@@ -14,6 +14,7 @@ struct NearbyView: View {
     @State var payButtonEnable: Bool = false
 
     private var mapView = MapView()
+    @StateObject var mapViewModel = MapViewModel()
     @StateObject var viewModel = CategoryViewModel()
     @State private var selectedCategoryIndex: Int = 0
 
@@ -91,6 +92,11 @@ struct NearbyView: View {
                     // 모달 외부를 터치하면 닫힘
                 }
         }
+        .onAppear() {
+            Task{
+                await getStoreMap(request: StoreMapRequest())
+            }
+        }
         .navigationBarBackButtonHidden()
         .navigationDestination(for: mainType.self) { viewType in
             switch viewType {
@@ -102,6 +108,10 @@ struct NearbyView: View {
 
     enum mainType {
         case storeList
+    }
+
+    func getStoreMap(request: StoreMapRequest) async {
+        await mapViewModel.action(.getStoreMap(request: request))
     }
 }
 
