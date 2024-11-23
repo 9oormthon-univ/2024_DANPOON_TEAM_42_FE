@@ -35,7 +35,7 @@ class LoginViewModel: ObservableObject {
             if let response = await AuthService.getKakaoLogin(token: token) {
                 print("로그인 response: \(response)")
                 await MainActor.run {
-                    print("\(response.code)")
+                    print("\(response)")
                     
                     if response.code == 200, let responseData = response.data {
                         state.getKakaoLoginResponse = responseData
@@ -43,8 +43,9 @@ class LoginViewModel: ObservableObject {
                         // Keychain 저장
                         saveUserDefaultsData(responseData: responseData, provider: "KAKAO")
                         AppState.shared.navigationPath.append(loginType.main)
-                    } else if response.code == 418 {
-                        AppState.shared.navigationPath.append(loginType.term(type: "kakao"))
+                    } else if response.code == 418, let responseData = response.data {
+                        saveUserDefaultsData(responseData: responseData, provider: "KAKAO")
+                        AppState.shared.navigationPath.append(loginType.term)
                     } else {
                         print("Unhandled Status Code: \(response.code)")
                     }
@@ -68,8 +69,9 @@ class LoginViewModel: ObservableObject {
                         // Keychain 저장
                         saveUserDefaultsData(responseData: responseData, provider: "APPLE")
                         AppState.shared.navigationPath.append(loginType.main)
-                    } else if response.code == 418 {
-                        AppState.shared.navigationPath.append(loginType.term(type: "apple"))
+                    } else if response.code == 418, let responseData = response.data {
+                        saveUserDefaultsData(responseData: responseData, provider: "APPLE")
+                        AppState.shared.navigationPath.append(loginType.term)
                     } else {
                         print("Unhandled Status Code: \(response.code)")
                     }
@@ -81,6 +83,7 @@ class LoginViewModel: ObservableObject {
     }
     
     func saveUserDefaultsData(responseData: LoginModel, provider: String) {
+        print("Saving provider: \(provider)")  // 디버깅용 로그 추가
         let defaults = UserDefaults.standard
         
         if  defaults.string(forKey: "userId") == nil{
@@ -90,13 +93,13 @@ class LoginViewModel: ObservableObject {
             
             KeyChainManager.addItem(key: "providerId", value: responseData.providerId ?? "")
             KeyChainManager.addItem(key: "provider", value: provider)
-            
             KeyChainManager.addItem(key: "accessToken", value: responseData.accessToken ?? "")
             KeyChainManager.addItem(key: "refreshToken", value: responseData.refreshToken ?? "")
             defaults.synchronize()
         } else {
             defaults.set(responseData.userId, forKey: "userId")
             defaults.set(responseData.profileImage, forKey: "profileImage")
+            
             KeyChainManager.updateItem(key: "providerId", value: responseData.providerId ?? "")
             KeyChainManager.updateItem(key: "provider", value: provider)
             KeyChainManager.updateItem(key: "accessToken", value: responseData.accessToken ?? "")

@@ -9,8 +9,6 @@ import SwiftUI
 
 struct TermsView: View {
     
-    var howLogin: String = ""
-    
     @State private var isChkAll: Bool = false
     @State private var isChkAllModal: Bool = false
     

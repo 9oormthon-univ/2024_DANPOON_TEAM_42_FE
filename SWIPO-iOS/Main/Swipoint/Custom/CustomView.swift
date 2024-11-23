@@ -23,6 +23,7 @@ struct CustomView: View {
                     CustomNavigationBar(title: "스위포인트",
                                         imageType: "question_circle_mark_8b8b8b",
                                         stopModal: $makeStopModal, blur: true)
+                    .padding(.top, 30 * Constants.ControlHeight)
                     
                     CustomTutorialView()
                     
@@ -112,7 +113,7 @@ struct CustomMainView: View {
     var expression: [String] = ["expression1", "expression2", "expression3", "expression4"]
     var expressionLayout: [GridItem] = [GridItem(.flexible())]
     
-    var region: [String] = ["seoul", "gyeongnam", "gyeonggi", "incheon", "gangwon", "chungcheongnam", "daejeon", "chungcheongbuk", "sejong", "busan", "ulsan", "daegu", "gyeongsangbuk", "jeollanam", "gwanju", "jeollabuk", "jeju"]
+    var region: [String] = ["seoul", "gyeongnam", "gyeonggi", "incheon", "gangwon", "chungcheongnam", "daejeon", "chungcheongbuk", "sejong", "daegu", "busan", "ulsan", "gyeongsangbuk", "jeollanam", "gwanju", "jeollabuk", "jeju"]
     var regionLayout: [GridItem] = [GridItem(.flexible())]
     @Binding var generatedImage: UIImage? // 생성된 이미지를 저장
     

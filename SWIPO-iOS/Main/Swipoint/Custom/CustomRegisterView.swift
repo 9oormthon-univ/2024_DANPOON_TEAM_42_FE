@@ -29,7 +29,8 @@ struct CustomRegisterView: View {
         .toolbar(.hidden)
         .onAppear(){
             Task{
-                await registerCard(region: swipayViewModel.convertFullRegionToShort(inputRegion: region) ?? "", custom_image: "\(swipayViewModel.convertFullRegionToShort(inputRegion: region) ?? "").jpeg", multipartFile: generatedImageToData(image: generatedImage))
+//                await registerCard(region: swipayViewModel.convertFullRegionToShort(inputRegion: region) ?? "", custom_image: generatedImageToData(image: generatedImage))
+                await registerCard(region: "울산", custom_image: generatedImageToData(image: generatedImage))
             }
         }
     }
@@ -41,8 +42,8 @@ struct CustomRegisterView: View {
     }
     
     /// 카드 등록 호출
-    func registerCard(region: String, custom_image: String, multipartFile: [Foundation.Data?]) async {
-        await viewModel.action(.registerCard(region: region, custom_image: custom_image, multipartFile: multipartFile))
+    func registerCard(region: String, custom_image: [Foundation.Data?]) async {
+        await viewModel.action(.registerCard(region: region, custom_image: custom_image))
     }
     
     

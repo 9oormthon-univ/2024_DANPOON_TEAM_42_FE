@@ -9,7 +9,7 @@ import Foundation
 import Alamofire
 
 enum CustomEndPoint {
-    case registerCard(region: String, custom_image: String, multipartFile: [Foundation.Data?])
+    case registerCard(region: String, custom_image: [Foundation.Data?])
 }
 
 extension CustomEndPoint: EndPoint {
@@ -33,9 +33,8 @@ extension CustomEndPoint: EndPoint {
     
     var task: APITask {
         switch self {
-        case let .registerCard(region, custom_image, multipartFile):
-            let body = ["region": region, "custom_image": custom_image]
-            return .requestJSONWithImage(multipartFile: multipartFile, body: body, withInterceptor: true)
+        case let .registerCard(region, custom_image):
+            return .requestJSONWithImage(multipartFile: custom_image, body: region, withInterceptor: true)
         }
     }
     
