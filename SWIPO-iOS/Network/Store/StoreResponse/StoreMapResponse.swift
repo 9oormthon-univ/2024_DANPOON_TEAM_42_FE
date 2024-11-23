@@ -10,7 +10,7 @@ import Foundation
 struct StoreMapResponse: Codable {
     let status: Int
     let message: String
-    let data: [StoreMapData]
+    let data: StoreMapData
 }
 
 struct StoreMapData: Codable {
@@ -19,11 +19,11 @@ struct StoreMapData: Codable {
 }
 
 struct StoreMap: Codable {
-    let storeId: String
-    let percent: Int
-    let type: String
-    let latitude: Double
-    let longitude: Double
+    let storeId: String?
+    let percent: Int?
+    let type: String?
+    let latitude: Double?
+    let longitude: Double?
 }
 
 // test용
