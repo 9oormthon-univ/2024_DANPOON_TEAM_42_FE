@@ -6,24 +6,27 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct SwipointExchangeView: View {
 
     @ObservedObject var viewModel: SwipayViewModel
     @Environment(\.dismiss) private var dismiss
 
+    @StateObject var exchangeViewModel = SwipointExchangeViewModel()
     @State private var exchangeInputText: String = ""
-    @State private var exchangeInputInt: Int = 0
+    @State var exchangeInputInt: Int = 0
 
     @State var makeStopModal: Bool = false
     @State var makeFinishModal: Bool = false
     @State var exchangeModal: Bool = false
     @State var completeModal: Bool = false
     @State var isTipHidden: Bool = true
+    
+    var fromPoint: Cards = Cards(cardId: "", region: "", point: 0, customImage: "")
+    var toPoint: Cards = Cards(cardId: "", region: "", point: 0, customImage: "")
 
     var body: some View {
-        let fromPoint = viewModel.state.sampleSwipointExchange[0]
-        let toPoint = viewModel.state.sampleSwipointExchange[1]
 
         ZStack {
             VStack(alignment: .leading) {
@@ -66,7 +69,16 @@ struct SwipointExchangeView: View {
                                 .font(.Headline)
                                 .foregroundColor(.white)
 
-                            Image("swipay_card_ex1")
+                            KFImage(URL(string: fromPoint.customImage))
+                                .placeholder { //플레이스 홀더 설정
+                                    Image("swipay_card_ex1")
+                                }.retry(maxCount: 3, interval: .seconds(5)) //재시도
+                                .onSuccess {r in //성공
+                                    print("succes: \(r)")
+                                }
+                                .onFailure { e in //실패
+                                    print("failure: \(e)")
+                                }
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 202 * Constants.ControlWidth, height: 320.33 * Constants.ControlHeight)
@@ -96,7 +108,16 @@ struct SwipointExchangeView: View {
                                 .font(.Headline)
                                 .foregroundColor(.white)
 
-                            Image("swipay_card_ex1")
+                            KFImage(URL(string: toPoint.customImage))
+                                .placeholder { //플레이스 홀더 설정
+                                    Image("swipay_card_ex1")
+                                }.retry(maxCount: 3, interval: .seconds(5)) //재시도
+                                .onSuccess {r in //성공
+                                    print("succes: \(r)")
+                                }
+                                .onFailure { e in //실패
+                                    print("failure: \(e)")
+                                }
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 202 * Constants.ControlWidth, height: 320.33 * Constants.ControlHeight)
@@ -107,7 +128,7 @@ struct SwipointExchangeView: View {
                                 .foregroundColor(exchangeInputText.isEmpty ? .greyDark : .mainNormalHover)
                                 .overlay {
                                     Text(exchangeInputText.isEmpty
-                                         ? "\(toPoint.point) 원" : "\(toPoint.point + exchangeInputInt) 원")
+                                         ? "\(toPoint.point) 원" : "\(toPoint.point + Int((Double(exchangeInputInt)) * 0.99)) 원")
                                         .font(.Headline)
                                         .foregroundColor(.mainLightHover)
                                 }
@@ -142,7 +163,7 @@ struct SwipointExchangeView: View {
                                                  ? .mainLightActive : .mainNormal)
                                 .overlay {
                                     if !exchangeInputText.isEmpty {
-                                        Text("\(exchangeInputText)원 환전하기")
+                                        Text("\(Int((Double(exchangeInputInt)) * 0.99))원 환전하기")
                                             .foregroundColor(.white)
                                             .font(.Subhead3)
                                     } else {
@@ -187,14 +208,16 @@ struct SwipointExchangeView: View {
         }
         .navigationBarBackButtonHidden()
         .sheet(isPresented: $exchangeModal, content: {
-            SwipointExchangeModal(exchangeModal: $exchangeModal, completeModal: $completeModal)
+            SwipointExchangeModal(exchangeModal: $exchangeModal, completeModal: $completeModal, exchangeViewModel: exchangeViewModel, exchangeInputInt: $exchangeInputInt, fromCardId: fromPoint.cardId, toCardId: toPoint.cardId)
                 .background(ClearBackgroundView()) // 팝업 뷰 height 조절
                 .presentationDetents([.height(232 * Constants.ControlHeight)])
         })
         .sheet(isPresented: $completeModal, content: {
             SwipointExchangeCompleteModal(
                 completeModal: $completeModal,
-                onComplete: { dismiss() }
+                onComplete: { dismiss()},
+                exchangeViewModel: exchangeViewModel,
+                fromRegion: fromPoint.region, toRegion: toPoint.region
             )
                 .background(ClearBackgroundView()) // 팝업 뷰 height 조절
                 .presentationDetents([.height(388 * Constants.ControlHeight)])

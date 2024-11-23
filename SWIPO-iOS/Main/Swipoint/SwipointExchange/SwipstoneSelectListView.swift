@@ -9,24 +9,35 @@ import SwiftUI
 
 struct SwipstoneSelectListView: View {
     
+    @ObservedObject var exchangeViewModel: SwipointExchangeViewModel
     var layout: [GridItem] = Array(repeating: GridItem(.flexible(), spacing: 8), count: 3)
     @StateObject var viewModel = SwipstoneViewModel()
-    @State private var selectedItem: RegionInfo? = nil
-
+    @State private var selectedItem: Cards? = nil
+    @Binding var selectedCardID: String
+    @Binding var currentSelectdCardId: String
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
                 ScrollView {
                     LazyVGrid(columns: layout, spacing: 8) {
-                        ForEach(viewModel.state.regionInfo, id: \.id) { item in
-                            SwipstoneSelectItemView(region: item.region,
-                                                    imageName: selectedItem?.id == item.id ? item.imageName : item.unselectedImageName,
-                                                    isSelected: selectedItem?.id == item.id,
-                                                    onSelect: {
-                                selectedItem = item
-                            })
-                            .onTapGesture {
-                                selectedItem = item
+                        ForEach(exchangeViewModel.state.getSwipointCardResponse.cards, id: \.cardId) { item in
+                            if selectedCardID != item.cardId{
+                                SwipstoneSelectItemView(
+                                    region: item.region,
+                                    imageName: selectedItem?.cardId == item.cardId
+                                        ? exchangeViewModel.convertRegionToEnglish(koreanRegion: item.region) ?? "default_image"
+                                        : "unselected_\(exchangeViewModel.convertRegionToEnglish(koreanRegion: item.region) ?? "default_image")", // 선택 상태에 따른 이미지 변경
+                                    isSelected: selectedItem?.cardId == item.cardId, // 선택 상태 전달
+                                    onSelect: {
+                                        selectedItem = item // 선택된 항목 업데이트
+                                        currentSelectdCardId = item.cardId
+                                    }
+                                )
+                                .onTapGesture {
+                                    selectedItem = item // 선택된 항목 업데이트
+                                    currentSelectdCardId = item.cardId
+                                }
                             }
                         }
                     }
@@ -69,9 +80,5 @@ struct SwipstoneSelectItemView: View {
 }
 
 #Preview {
-    SwipstoneSelectListView()
-}
-
-#Preview {
-    SwipstoneSelectItemView(region: "서울", imageName: "unselected_seoul", isSelected: false, onSelect: { })
+    SwipstoneSelectListView(exchangeViewModel: SwipointExchangeViewModel(), selectedCardID: .constant(""), currentSelectdCardId: .constant(""))
 }
