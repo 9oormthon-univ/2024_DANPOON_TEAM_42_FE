@@ -14,7 +14,7 @@ struct CategoryTasteView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 27) {
                 CategoryRankingView(store: viewModel.state.sampleStores[0], rankingImageIndex: 0, isTaste: true)
-                CategoryDefaultView(store: viewModel.state.sampleStores[1], isTaste: true)
+//                CategoryDefaultView(store: <#T##StoreTab#>, isTaste: <#T##Bool#>)
                     .padding(.trailing, 30)
             }
         }

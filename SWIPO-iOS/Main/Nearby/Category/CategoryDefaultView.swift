@@ -6,30 +6,46 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CategoryDefaultListView: View {
     @StateObject var viewModel = StoreViewModel()
+    @ObservedObject var mapViewModel: MapViewModel
+    @Binding var tabIndex: Int
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16) {
-                ForEach(viewModel.state.sampleStores, id: \.name) { card in
-                    CategoryDefaultView(store: card, isTaste: false)
+
+        if tabIndex == 0 || tabIndex == 1 {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 16) {
+                    ForEach(mapViewModel.state.getStoreTabResponse.picks, id: \.name) { store in
+                        CategoryDefaultView(mapViewModel: mapViewModel, store: store, isTaste: false)
+                    }
+                    .padding(.horizontal, 14)
                 }
-                .padding(.horizontal, 14)
+            }
+        } else if tabIndex == 2 {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 16) {
+                    ForEach(mapViewModel.state.getStoreTabResponse.trends, id: \.name) { card in
+                        CategoryDefaultView(mapViewModel: mapViewModel, store: card, isTaste: false)
+                    }
+                    .padding(.horizontal, 14)
+                }
             }
         }
     }
 }
 
 struct CategoryDefaultView: View {
-    var store: StoreModel
+    @ObservedObject var mapViewModel: MapViewModel
+    var store: StoreTab
     var isTaste: Bool
 
     var body: some View {
         ZStack {
             VStack {
-                Image(store.imageName[0])
+                KFImage(URL(string: store.imageUrl ?? ""))
                     .resizable()
                     .scaledToFill()
                     .frame(width: 278, height: 190)
@@ -53,7 +69,7 @@ struct CategoryDefaultView: View {
                                             .resizable()
                                             .frame(width: 24 * Constants.ControlWidth, height: 24 * Constants.ControlHeight)
                                         
-                                        Text(store.review[0])
+                                        Text(store.reviewComment ?? "")
                                             .font(.Body1)
                                             .foregroundColor(.white)
                                             .lineLimit(2)
@@ -79,7 +95,7 @@ struct CategoryDefaultView: View {
                                 RoundedRectangle(cornerRadius: 6)
                                     .stroke(.mainLightActive, lineWidth: 1))
                             .overlay {
-                                Text("Point \(store.point)%")
+                                Text("Point \(store.percent)%")
                                     .foregroundColor(.mainNormal)
                                     .font(.Subhead2)
                             }
@@ -110,7 +126,7 @@ struct CategoryDefaultView: View {
                                 RoundedRectangle(cornerRadius: 6)
                                     .stroke(.mainLightActive, lineWidth: 1))
                             .overlay {
-                                Text("Point \(store.point)%")
+                                Text("Point \(store.percent)%")
                                     .foregroundColor(.mainNormal)
                                     .font(.Subhead2)
                             }
@@ -141,12 +157,7 @@ struct CategoryDefaultView: View {
                 }
             }
             .padding(.bottom, 7)
-            .cornerRadius(12)
         }
         .frame(width: 250, height: 200)
     }
-}
-
-#Preview {
-    CategoryDefaultListView()
 }

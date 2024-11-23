@@ -104,6 +104,7 @@ struct CategoryRankingView: View {
 
 struct CategoryRankingListView: View {
     @StateObject var viewModel = StoreViewModel()
+    @ObservedObject var mapViewModel: MapViewModel
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -114,9 +115,4 @@ struct CategoryRankingListView: View {
             }
         }
     }
-}
-
-
-#Preview {
-    CategoryRankingListView()
 }
