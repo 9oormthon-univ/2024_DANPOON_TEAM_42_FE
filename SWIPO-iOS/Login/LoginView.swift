@@ -67,14 +67,6 @@ struct LoginView: View {
                     
                     Button(action: {
                         authManager.kakaoLogin()
-                        Task{
-                            // 카카오 로그인 성공 후 액세스 토큰을 가져와서 전달
-                            if let token = authManager.kakaoAccessToken {
-                                await kakaoLogin(token: token)
-                            } else {
-                                print("카카오 토큰을 가져올 수 없습니다.")
-                            }
-                        }
                     }, label: {
                         RoundedRectangle(cornerRadius: 16)
                             .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
@@ -93,6 +85,14 @@ struct LoginView: View {
                                 }
                             }
                     })
+                    .onChange(of: authManager.kakaoAccessToken) { token in
+                        // 액세스 토큰이 업데이트되었을 때 Task 실행
+                        if let token = token {
+                            Task {
+                                await kakaoLogin(token: token)
+                            }
+                        }
+                    }
                     
                     // Apple 로그인 버튼 사용
                     SignInWithAppleButton(
@@ -144,7 +144,7 @@ struct LoginView: View {
                     }
                     
                     Button(action: {
-                        AppState.shared.navigationPath.append(loginType.term(type: "phone"))
+                        AppState.shared.navigationPath.append(loginType.term)
                     }, label: {
                         RoundedRectangle(cornerRadius: 16)
                             .frame(width: 360 * Constants.ControlWidth, height: 54 * Constants.ControlHeight)
@@ -161,15 +161,10 @@ struct LoginView: View {
                 }
                 .padding(.bottom, 53 * Constants.ControlHeight)
             }
-            .onChange(of: authManager.kakaoSuccess) { success in
-                if success {
-                    AppState.shared.navigationPath.append(loginType.term(type: "kakao"))
-                }
-            }
             .navigationDestination(for: loginType.self) { viewType in
                 switch viewType {
-                case let .term(type):
-                    TermsView(howLogin: type)
+                case let .term:
+                    TermsView()
                 case let .main:
                     MainView()
                 }
@@ -187,8 +182,8 @@ struct LoginView: View {
 }
 
 enum loginType: Hashable {
-    case term(type: String) // 약관 동의 화면
-    case main               // 메인 화면
+    case term  // 약관 동의 화면
+    case main  // 메인 화면
 }
 
 #Preview {

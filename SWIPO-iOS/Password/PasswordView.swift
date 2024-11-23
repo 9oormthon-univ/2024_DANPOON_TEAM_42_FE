@@ -562,7 +562,7 @@ struct PasswordMainView: View {
         let savedPhone = UserDefaults.standard.string(forKey: "phone") ?? ""
         
         let passwordString = password.map { String($0) }.joined()
-        
+
         await viewModel.action(.getJoin(provider: savedProvider, providerId: savedProviderId, name: savedName, address: savedAddress, birth: savedbirth, telecom: savedTelecom, phone: savedPhone, isMarket: true, pwd: passwordString))
         
         // getJoinResponse가 성공적으로 업데이트되었는지 확인

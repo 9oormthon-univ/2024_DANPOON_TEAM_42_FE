@@ -60,6 +60,11 @@ struct MainView: View {
                 }
             }
         }
+        .onAppear(){
+            Task {
+                await swipayViewModel.action(.getSwipay)
+            }
+        }
     }
 }
 

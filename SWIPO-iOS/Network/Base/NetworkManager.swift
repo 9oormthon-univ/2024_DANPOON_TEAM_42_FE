@@ -84,17 +84,28 @@ class NetworkManager {
             
         case let .requestJSONWithImage(multipartFile, body, withInterceptor):
             return AF.upload(multipartFormData: { multipartFormData in
+                //                for image in multipartFile {
+                //                    if let image = image {
+                //                        multipartFormData.append(image, withName: "custom_image", fileName: "\(image).jpeg", mimeType: "image/jpeg")
+                //                    }
+                //                }
+                //                if let jsonData = try? JSONEncoder().encode(body) {
+                //                    multipartFormData.append(jsonData, withName: "region", mimeType: "application/json")
+                //                }
+                // region 추가 (문자열로 추가)
+                if let region = body as? String {
+                    multipartFormData.append(region.data(using: .utf8)!, withName: "region")
+                }
+                
+                // custom_image 추가 (이미지 파일로 추가)
                 for image in multipartFile {
                     if let image = image {
-                        multipartFormData.append(image, withName: "multipartFile", fileName: "\(image).jpeg", mimeType: "image/jpeg")
+                        multipartFormData.append(image, withName: "custom_image", fileName: "image.jpeg", mimeType: "image/jpeg")
                     }
-                }
-                if let jsonData = try? JSONEncoder().encode(body) {
-                    multipartFormData.append(jsonData, withName: "reqDto", mimeType: "application/json")
                 }
             }, to: URL(string: "\(endPoint.baseURL)\(endPoint.path)")!, method: endPoint.method, headers: endPoint.headers, interceptor: withInterceptor ? Interceptor() : nil)
             .validate()
-        
+            
         case let .requestJSONWithImageWithParam(multipartFile, body, withInterceptor, parameters):
             var urlComponents = URLComponents(string: "\(endPoint.baseURL)\(endPoint.path)")!
             urlComponents.queryItems = parameters.map { URLQueryItem(name: $0.key, value: "\($0.value)")}
@@ -114,7 +125,7 @@ class NetworkManager {
             }, to: urlWithQuery, method: endPoint.method, headers: endPoint.headers, interceptor: withInterceptor ? Interceptor() : nil)
             .validate()
             
-        
+            
         case let .requestModifyJSONWithImage(multipartFile, body, withInterceptor):
             
             return AF.upload(multipartFormData: { multipartFormData in
@@ -130,17 +141,17 @@ class NetworkManager {
             .validate()
             
         case let .requestJSONWithImageList(multipartFile, body, withInterceptor):
-                    return AF.upload(multipartFormData: { multipartFormData in
-                        for image in multipartFile {
-                            if let image = image {
-                                multipartFormData.append(image, withName: "multipartFileList", fileName: "\(image).jpeg", mimeType: "image/jpeg")
-                            }
-                        }
-                        if let jsonData = try? JSONEncoder().encode(body) {
-                            multipartFormData.append(jsonData, withName: "reqDto", mimeType: "application/json")
-                        }
-                    }, to: URL(string: "\(endPoint.baseURL)\(endPoint.path)")!, method: endPoint.method, headers: endPoint.headers, interceptor: withInterceptor ? Interceptor() : nil)
-                    .validate()
+            return AF.upload(multipartFormData: { multipartFormData in
+                for image in multipartFile {
+                    if let image = image {
+                        multipartFormData.append(image, withName: "multipartFileList", fileName: "\(image).jpeg", mimeType: "image/jpeg")
+                    }
+                }
+                if let jsonData = try? JSONEncoder().encode(body) {
+                    multipartFormData.append(jsonData, withName: "reqDto", mimeType: "application/json")
+                }
+            }, to: URL(string: "\(endPoint.baseURL)\(endPoint.path)")!, method: endPoint.method, headers: endPoint.headers, interceptor: withInterceptor ? Interceptor() : nil)
+            .validate()
             
         }
     }

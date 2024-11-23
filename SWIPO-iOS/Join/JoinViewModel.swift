@@ -52,6 +52,7 @@ class JoinViewModel: ObservableObject {
             }
         case let .getJoin(provider, providerId, name, address, birth, telecom, phone, isMarket, pwd):
             if let response = await AuthService.getJoin(provider: provider, providerId: providerId, name: name, address: address, birth: birth, telecom: telecom, phone: phone, isMarket: isMarket, pwd: pwd),
+               
                let responseData = response.data {
                 await MainActor.run {
                     state.getJoinResponse = responseData

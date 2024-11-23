@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct SwipayView: View {
     
@@ -584,7 +585,16 @@ struct SwipayCardView: View {
                                     .padding(.leading, 22 * Constants.ControlWidth)
                                     .padding(.bottom, 14 * Constants.ControlHeight)
                                     
-                                    Image("swipay_card_ex1")
+                                    KFImage(URL(string: data.customImage))
+                                        .placeholder { //플레이스 홀더 설정
+                                            Image("swipay_card_ex1")
+                                        }.retry(maxCount: 3, interval: .seconds(5)) //재시도
+                                        .onSuccess {r in //성공
+                                            print("succes: \(r)")
+                                        }
+                                        .onFailure { e in //실패
+                                            print("failure: \(e)")
+                                        }
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 202 * Constants.ControlWidth, height: 320.33 * Constants.ControlHeight)
@@ -595,7 +605,7 @@ struct SwipayCardView: View {
                                         .scaledToFit()
                                         .foregroundColor(.greyNormalHover)
                                         .overlay {
-                                            Text("스위포인트 이동하기")
+                                            Text("다른 지역으로 전환하기")
                                                 .font(.Body1)
                                                 .foregroundColor(.white)
                                         }

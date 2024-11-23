@@ -12,7 +12,7 @@ class CustomViewModel: ObservableObject {
     }
     
     enum Action {
-        case registerCard(region: String, custom_image: String, multipartFile: [Foundation.Data?])
+        case registerCard(region: String, custom_image: [Foundation.Data?])
     }
     
     @Published var state: State
@@ -25,8 +25,8 @@ class CustomViewModel: ObservableObject {
     
     func action(_ action: Action) async {
         switch action {
-        case let .registerCard(region, custom_image, multipartFile):
-            if let response = await CustomService.registerCard(region: region, custom_image: custom_image, multipartFile: multipartFile) {
+        case let .registerCard(region, custom_image):
+            if let response = await CustomService.registerCard(region: region, custom_image: custom_image) {
                 await MainActor.run {
                     print("\(response.code)")
 
