@@ -600,15 +600,15 @@ struct SwipayCardView: View {
                                         .frame(width: 202 * Constants.ControlWidth, height: 320.33 * Constants.ControlHeight)
                                         .padding(.bottom, 14 * Constants.ControlHeight)
                                     
-                                    RoundedRectangle(cornerRadius: 6)
-                                        .frame(width: 202 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
-                                        .scaledToFit()
-                                        .foregroundColor(.greyNormalHover)
-                                        .overlay {
-                                            Text("다른 지역으로 전환하기")
-                                                .font(.Body1)
-                                                .foregroundColor(.white)
-                                        }
+//                                    RoundedRectangle(cornerRadius: 6)
+//                                        .frame(width: 202 * Constants.ControlWidth, height: 40 * Constants.ControlHeight)
+//                                        .scaledToFit()
+//                                        .foregroundColor(.greyNormalHover)
+//                                        .overlay {
+//                                            Text("다른 지역으로 전환하기")
+//                                                .font(.Body1)
+//                                                .foregroundColor(.white)
+//                                        }
                                     
                                     Spacer()
                                 }
