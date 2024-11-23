@@ -51,7 +51,12 @@
 		6D7007E42CF12B4A001D4CB5 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7007E32CF12B4A001D4CB5 /* Kingfisher */; };
 		6D7007EC2CF2182E001D4CB5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6D7007EB2CF2182E001D4CB5 /* Lottie */; };
 		6D7007F32CF218C0001D4CB5 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7007F22CF218C0001D4CB5 /* LottieView.swift */; };
-		6D7007FC2CF2217D001D4CB5 /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D7007FB2CF2217D001D4CB5 /* splash.json */; };
+		6D7007FE2CF22646001D4CB5 /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D7007FD2CF22646001D4CB5 /* splash.json */; };
+		6D7008002CF2305C001D4CB5 /* splashsplash.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D7007FF2CF2305C001D4CB5 /* splashsplash.json */; };
+		6D7008022CF2318C001D4CB5 /* SwipointExchangeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7008012CF2318C001D4CB5 /* SwipointExchangeViewModel.swift */; };
+		6D7008042CF23195001D4CB5 /* SwipointExchangeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7008032CF23195001D4CB5 /* SwipointExchangeModel.swift */; };
+		6D7008072CF23331001D4CB5 /* SwipExchangeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7008062CF23331001D4CB5 /* SwipExchangeService.swift */; };
+		6D7008092CF2333D001D4CB5 /* SwipExchangeEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7008082CF2333D001D4CB5 /* SwipExchangeEndPoint.swift */; };
 		6D7601E42CEA3EA800C49EDC /* SWIPO_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */; };
 		6D7601E82CEA3EA900C49EDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7601E72CEA3EA900C49EDC /* Assets.xcassets */; };
 		6D7601EB2CEA3EA900C49EDC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D7601EA2CEA3EA900C49EDC /* Preview Assets.xcassets */; };
@@ -155,7 +160,12 @@
 		6D7007DE2CF12A12001D4CB5 /* CustomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomService.swift; sourceTree = "<group>"; };
 		6D7007E02CF12A19001D4CB5 /* CustomEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEndPoint.swift; sourceTree = "<group>"; };
 		6D7007F22CF218C0001D4CB5 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
-		6D7007FB2CF2217D001D4CB5 /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
+		6D7007FD2CF22646001D4CB5 /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
+		6D7007FF2CF2305C001D4CB5 /* splashsplash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splashsplash.json; sourceTree = "<group>"; };
+		6D7008012CF2318C001D4CB5 /* SwipointExchangeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipointExchangeViewModel.swift; sourceTree = "<group>"; };
+		6D7008032CF23195001D4CB5 /* SwipointExchangeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipointExchangeModel.swift; sourceTree = "<group>"; };
+		6D7008062CF23331001D4CB5 /* SwipExchangeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipExchangeService.swift; sourceTree = "<group>"; };
+		6D7008082CF2333D001D4CB5 /* SwipExchangeEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipExchangeEndPoint.swift; sourceTree = "<group>"; };
 		6D7601E02CEA3EA800C49EDC /* SWIPO-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SWIPO-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7601E32CEA3EA800C49EDC /* SWIPO_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIPO_iOSApp.swift; sourceTree = "<group>"; };
 		6D7601E72CEA3EA900C49EDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -353,10 +363,20 @@
 		6D7007EF2CF21865001D4CB5 /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
-				6D7007FB2CF2217D001D4CB5 /* splash.json */,
+				6D7007FF2CF2305C001D4CB5 /* splashsplash.json */,
+				6D7007FD2CF22646001D4CB5 /* splash.json */,
 				6D7007F22CF218C0001D4CB5 /* LottieView.swift */,
 			);
 			path = Lottie;
+			sourceTree = "<group>";
+		};
+		6D7008052CF23311001D4CB5 /* SwipExchange */ = {
+			isa = PBXGroup;
+			children = (
+				6D7008062CF23331001D4CB5 /* SwipExchangeService.swift */,
+				6D7008082CF2333D001D4CB5 /* SwipExchangeEndPoint.swift */,
+			);
+			path = SwipExchange;
 			sourceTree = "<group>";
 		};
 		6D7601D72CEA3EA800C49EDC = {
@@ -415,6 +435,7 @@
 		6D7601F42CEA40AD00C49EDC /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				6D7008052CF23311001D4CB5 /* SwipExchange */,
 				6D7007E52CF1D607001D4CB5 /* Swipstone */,
 				6D7007DD2CF12A07001D4CB5 /* Custom */,
 				6D7007D62CF12913001D4CB5 /* Swipay */,
@@ -561,6 +582,8 @@
 			isa = PBXGroup;
 			children = (
 				957192762CF0635000E5BF1E /* SwipointExchangeView.swift */,
+				6D7008032CF23195001D4CB5 /* SwipointExchangeModel.swift */,
+				6D7008012CF2318C001D4CB5 /* SwipointExchangeViewModel.swift */,
 				95ED7EA82CF0BEF3003E2E36 /* SwipointExchangeModal.swift */,
 				9539CB5F2CF0C6660022C80E /* SwipointExchangeCompleteModal.swift */,
 				957192792CF063BE00E5BF1E /* SwipstoneSelectModal.swift */,
@@ -667,7 +690,8 @@
 				6D76021A2CEA420800C49EDC /* SpoqaHanSansNeo-Light.ttf in Resources */,
 				6D7602172CEA420800C49EDC /* SpoqaHanSansNeo-Medium.ttf in Resources */,
 				6D7601E82CEA3EA900C49EDC /* Assets.xcassets in Resources */,
-				6D7007FC2CF2217D001D4CB5 /* splash.json in Resources */,
+				6D7007FE2CF22646001D4CB5 /* splash.json in Resources */,
+				6D7008002CF2305C001D4CB5 /* splashsplash.json in Resources */,
 				6D7602192CEA420800C49EDC /* SpoqaHanSansNeo-Bold.ttf in Resources */,
 				6D7602182CEA420800C49EDC /* SpoqaHanSansNeo-Regular.ttf in Resources */,
 			);
@@ -683,6 +707,7 @@
 				6D648E832CEFC20600BF869A /* AuthEndPoint.swift in Sources */,
 				6D7602052CEA411000C49EDC /* EndPoint.swift in Sources */,
 				6D67266A2CEE397000301A50 /* PasswordView.swift in Sources */,
+				6D7008022CF2318C001D4CB5 /* SwipointExchangeViewModel.swift in Sources */,
 				6D787C1A2CEB223000B587F8 /* AuthManager.swift in Sources */,
 				6D787BED2CEACBE300B587F8 /* Constants.swift in Sources */,
 				6D67266E2CEE399B00301A50 /* PasswordResetView.swift in Sources */,
@@ -725,7 +750,9 @@
 				9571926C2CF00FC100E5BF1E /* CategoryTitleView.swift in Sources */,
 				6D3C638A2CEB940100229404 /* SwipointView.swift in Sources */,
 				9583DA1A2CEF263B00D2CEFA /* CategoryModel.swift in Sources */,
+				6D7008092CF2333D001D4CB5 /* SwipExchangeEndPoint.swift in Sources */,
 				6D7007E12CF12A19001D4CB5 /* CustomEndPoint.swift in Sources */,
+				6D7008042CF23195001D4CB5 /* SwipointExchangeModel.swift in Sources */,
 				6D67265F2CEDCEE700301A50 /* SwipstoneViewModel.swift in Sources */,
 				954FFABF2CEAD44600E81D16 /* MapViewController.swift in Sources */,
 				6D7007DF2CF12A12001D4CB5 /* CustomService.swift in Sources */,
@@ -736,6 +763,7 @@
 				6D3C63872CEB5FE300229404 /* WebView.swift in Sources */,
 				6D6726652CEE38F400301A50 /* AgencyView.swift in Sources */,
 				9571926E2CF0100E00E5BF1E /* CategoryLabView.swift in Sources */,
+				6D7008072CF23331001D4CB5 /* SwipExchangeService.swift in Sources */,
 				957192752CF0390200E5BF1E /* SwipstoneSelectListView.swift in Sources */,
 				958045A82CF2247B003DCB3D /* SwipstoneService.swift in Sources */,
 				9539CB602CF0C6660022C80E /* SwipointExchangeCompleteModal.swift in Sources */,

@@ -10,6 +10,7 @@ import Kingfisher
 
 struct SwipointView: View {
     
+    @StateObject var exchangeViewModel = SwipointExchangeViewModel()
     @ObservedObject var swipayViewModel: SwipayViewModel
     @StateObject var viewModel = SwipointViewModel()
     @StateObject private var geoServiceManager = GeoServiceManager()
@@ -22,6 +23,9 @@ struct SwipointView: View {
     @State var newCardModal: Bool = false
     @State var existenceCardModal: Bool = false
     
+    @State var selectedCardID: String = "" // 현재 선택된 카드 ID 저장
+    @State var selectedCardIndex: Int = 0
+    
     var body: some View {
         
         ZStack{
@@ -30,15 +34,15 @@ struct SwipointView: View {
                                       imageType: "question_circle_mark",
                                       showBackButton: true, blur: false)
                 
-                SwipointMainView(swipayViewModel: swipayViewModel, viewModel: viewModel, isSelectedRegion: $isSelectedRegion, makeCardModal: $makeCardModal, pointExchangeModal: $pointExchangeModal)
+                SwipointMainView(swipayViewModel: swipayViewModel, viewModel: viewModel, exchangeViewModel: exchangeViewModel, selectedCardIndex: $selectedCardIndex, isSelectedRegion: $isSelectedRegion, makeCardModal: $makeCardModal, pointExchangeModal: $pointExchangeModal, selectedCardID: $selectedCardID)
                     .padding(.top, 30 * Constants.ControlHeight)
             }
         }
         .toolbar(.hidden)
         .navigationDestination(for: swipointType.self) { view in
             switch view {
-            case .exchange:
-                SwipointExchangeView(viewModel: SwipayViewModel())
+            case .exchange(let to, let from):
+                SwipointExchangeView(viewModel: SwipayViewModel(), fromPoint: to, toPoint: from)
             case .guide:
                 SwipstoneGuideView()
             case .custom:
@@ -65,12 +69,17 @@ struct SwipointView: View {
             )
         }
         .sheet(isPresented: $pointExchangeModal, content: {
-            SwipstoneSelectModal(viewModel: viewModel,
-                                 pointExchangeModal: $pointExchangeModal,
-                                 closeModal: $pointExchangeModal,
-                                 region: $address,
-                                 newCardModal: $newCardModal,
-                                 existenceCardModal: $existenceCardModal)
+
+            SwipstoneSelectModal(
+                exchangeViewModel: exchangeViewModel,
+                viewModel: viewModel,
+                pointExchangeModal: $pointExchangeModal,
+                closeModal: $pointExchangeModal,
+                region: $address,
+                newCardModal: $newCardModal,
+                existenceCardModal: $existenceCardModal,
+                selectedCardID: $selectedCardID// 필터링된 데이터 전달
+            )
         })
         .sheet(isPresented: $makeCardModal, content: {
             LocationCertificationModal(viewModel: swipayViewModel, makeCardModal: $makeCardModal, region: $address, newCardModal: $newCardModal, existenceCardModal: $existenceCardModal)
@@ -90,6 +99,7 @@ struct SwipointView: View {
         .onAppear(){
             Task {
                 await swipayViewModel.action(.getSwipay)
+                await exchangeViewModel.action(.getSwipointCard)
             }
         }
     }
@@ -98,11 +108,13 @@ struct SwipointView: View {
 struct SwipointMainView: View {
     @ObservedObject var swipayViewModel: SwipayViewModel
     @ObservedObject var viewModel: SwipointViewModel
+    @ObservedObject var exchangeViewModel: SwipointExchangeViewModel
     
-    @State private var selectedCardIndex: Int = 0 // 현재 선택된 카드 인덱스
+    @Binding var selectedCardIndex: Int // 현재 선택된 카드 인덱스
     @Binding var isSelectedRegion: Int64?
     @Binding var makeCardModal: Bool
     @Binding var pointExchangeModal: Bool
+    @Binding var selectedCardID: String // 현재 선택된 카드 ID 저장
     
     var body: some View {
         ZStack{
@@ -124,10 +136,12 @@ struct SwipointMainView: View {
                                         
                                         ForEach(swipayViewModel.state.getSwipointCardResponse, id: \.cardId) { data in
                                             
+                                            
                                             SwipointCardView(region: data.region, point: String(data.point), customImage: data.customImage)
                                                 .onTapGesture {
                                                     withAnimation(.easeInOut) {
                                                         selectedCardIndex = Int(data.cardId) ?? 0
+                                                        selectedCardID = data.cardId // 현재 보고 있는 카드의 ID 저장
                                                         proxy.scrollTo(Int(data.cardId), anchor: .center)
                                                     }
                                                 }
@@ -193,6 +207,13 @@ struct SwipointMainView: View {
                 })
             }
         }
+        .onAppear {
+            if !swipayViewModel.state.getSwipointCardResponse.isEmpty {
+                selectedCardIndex = 0 // 첫 번째 카드의 인덱스를 기본값으로 설정
+                selectedCardID = swipayViewModel.state.getSwipointCardResponse[0].cardId // 첫 번째 카드의 ID 저장
+                print("초기 선택된 카드 ID: \(selectedCardID)")
+            }
+        }
     }
 }
 
@@ -236,10 +257,37 @@ struct SwipointCardView: View {
     }
 }
 
-enum swipointType {
-    case exchange
+enum swipointType: Hashable {
+    case exchange(from: Cards, to: Cards)
     case guide
     case custom
+
+    // Hashable 프로토콜 준수를 위한 구현
+    func hash(into hasher: inout Hasher) {
+        switch self {
+        case .exchange(let to, let from):
+            hasher.combine(to.cardId) // Cards의 고유 값(cardId)을 사용
+            hasher.combine(from.cardId)
+        case .guide:
+            hasher.combine("guide")
+        case .custom:
+            hasher.combine("custom")
+        }
+    }
+
+    // Equatable 프로토콜 준수를 위한 구현
+    static func == (lhs: swipointType, rhs: swipointType) -> Bool {
+        switch (lhs, rhs) {
+        case (.exchange(let to1, let from1), .exchange(let to2, let from2)):
+            return to1.cardId == to2.cardId && from1.cardId == from2.cardId
+        case (.guide, .guide):
+            return true
+        case (.custom, .custom):
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 struct ImageBtnNavigationBar: View {
@@ -301,6 +349,7 @@ struct ClearBackgroundViewModifier: ViewModifier {
             .background(ClearBackgroundView())
     }
 }
+
 
 #Preview {
     SwipointView(swipayViewModel: SwipayViewModel())
