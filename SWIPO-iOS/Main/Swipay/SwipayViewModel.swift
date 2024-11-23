@@ -39,7 +39,7 @@ class SwipayViewModel: ObservableObject {
     
     func action(_ action: Action) async {
         switch action {
-        case let .getSwipay:
+        case .getSwipay:
             if let response = await SwipayService.getSwipay() {
                 print(response)
                 await MainActor.run {

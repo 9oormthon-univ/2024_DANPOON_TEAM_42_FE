@@ -11,7 +11,7 @@ struct EmptyResponseModel: Codable {
     
 }
 
-struct BaseResponse<T: Codable>: Codable {
+struct BaseResponse<T: Decodable>: Decodable {
     let code: Int
     let message: String
     let data: T?

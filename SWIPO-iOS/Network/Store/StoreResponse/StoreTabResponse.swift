@@ -8,10 +8,6 @@
 import Foundation
 
 struct StoreTabResponse: Codable {
-    let data: StoreTabData
-}
-
-struct StoreTabData: Codable {
     let wishlists: [StoreTab]
     let picks: [StoreTab]
     let trends: [StoreTab]
@@ -20,10 +16,10 @@ struct StoreTabData: Codable {
 }
 
 struct StoreTab: Codable {
-    let storeId: String
+    let storeId: Int
     let name: String
     let address: String
     let percent: Int
-    let reviewComment: String
-    let imageUrl: String
+    let reviewComment: String?
+    let imageUrl: String?
 }

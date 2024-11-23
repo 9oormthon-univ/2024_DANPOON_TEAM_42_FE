@@ -9,13 +9,14 @@ import Foundation
 
 class MapViewModel: ObservableObject {
     struct State {
-
+        
     }
 
     enum Action {
         case getStoreMap(request: StoreMapRequest)
+        case getStoreTab
     }
-
+    
     @Published var state: State
     
     init(
@@ -34,7 +35,15 @@ class MapViewModel: ObservableObject {
             } else {
                 print("Error")
             }
+        case .getStoreTab:
+            if let response = await StoreService.getStoreTab() {
+                print(response)
+                await MainActor.run {
+                    print("\(response.code)")
+                }
+            } else {
+                print("Error")
+            }
         }
-        
     }
 }
