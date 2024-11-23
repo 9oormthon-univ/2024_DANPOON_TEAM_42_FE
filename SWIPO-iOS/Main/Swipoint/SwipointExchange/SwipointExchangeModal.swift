@@ -11,6 +11,10 @@ struct SwipointExchangeModal: View {
 
     @Binding var exchangeModal: Bool
     @Binding var completeModal: Bool
+    @ObservedObject var exchangeViewModel: SwipointExchangeViewModel
+    @Binding var exchangeInputInt: Int
+    var fromCardId: String = ""
+    var toCardId: String = ""
 
     var body: some View {
         ZStack {
@@ -63,6 +67,9 @@ struct SwipointExchangeModal: View {
 
                             Button(action: {
                                 exchangeModal = false
+                                Task{
+                                    await exchangeViewModel.action(.exchangePoint(fromCardId: fromCardId, toCardId: toCardId, point: exchangeInputInt))
+                                }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                                     completeModal = true
                                 }
@@ -89,5 +96,6 @@ struct SwipointExchangeModal: View {
 }
 
 #Preview {
-    SwipointExchangeModal(exchangeModal: .constant(false), completeModal: .constant(false))
+    SwipointExchangeModal(exchangeModal: .constant(false), completeModal: .constant(false), exchangeViewModel: SwipointExchangeViewModel(), exchangeInputInt: .constant(0))
 }
+

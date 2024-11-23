@@ -90,3 +90,4 @@ extension SwipointViewModel {
         return regionMapping[koreanRegion]
     }
 }
+

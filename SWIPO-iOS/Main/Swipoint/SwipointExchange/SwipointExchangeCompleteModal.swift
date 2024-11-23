@@ -11,6 +11,9 @@ struct SwipointExchangeCompleteModal: View {
 
     @Binding var completeModal: Bool
     var onComplete: () -> Void
+    @ObservedObject var exchangeViewModel: SwipointExchangeViewModel
+    var fromRegion: String = ""
+    var toRegion: String = ""
 
     var body: some View {
         ZStack {
@@ -39,7 +42,7 @@ struct SwipointExchangeCompleteModal: View {
 
                         VStack(spacing: 8) {
                             HStack {
-                                Text("부산 잔액")
+                                Text("\(fromRegion) 잔액")
                                     .font(.Headline)
                                     .tracking(-0.6)
                                     .frame(height: 32 * Constants.ControlHeight)
@@ -47,7 +50,7 @@ struct SwipointExchangeCompleteModal: View {
 
                                 Spacer()
 
-                                Text("124원")
+                                Text("\(exchangeViewModel.state.getExchangeResponse.fromPoint)원")
                                     .font(.Headline)
                                     .tracking(-0.6)
                                     .frame(height: 32 * Constants.ControlHeight)
@@ -56,7 +59,7 @@ struct SwipointExchangeCompleteModal: View {
                             .padding(.horizontal, 24 * Constants.ControlHeight)
 
                             HStack {
-                                Text("서울 잔액")
+                                Text("\(toRegion) 잔액")
                                     .font(.Headline)
                                     .tracking(-0.6)
                                     .frame(height: 32 * Constants.ControlHeight)
@@ -64,7 +67,7 @@ struct SwipointExchangeCompleteModal: View {
 
                                 Spacer()
 
-                                Text("15,024원")
+                                Text("\(exchangeViewModel.state.getExchangeResponse.toPoint)원")
                                     .font(.Headline)
                                     .tracking(-0.6)
                                     .frame(height: 32 * Constants.ControlHeight)
@@ -103,6 +106,7 @@ struct SwipointExchangeCompleteModal: View {
 #Preview {
     SwipointExchangeCompleteModal(
         completeModal: .constant(true),
-        onComplete: { }
+        onComplete: { }, exchangeViewModel: SwipointExchangeViewModel()
     )
 }
+

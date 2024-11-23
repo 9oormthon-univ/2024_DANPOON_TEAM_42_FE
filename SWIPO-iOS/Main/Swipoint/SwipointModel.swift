@@ -13,3 +13,4 @@ struct SwipointCardModel: Codable{
     var cardImage: String
     var point: String
 }
+
