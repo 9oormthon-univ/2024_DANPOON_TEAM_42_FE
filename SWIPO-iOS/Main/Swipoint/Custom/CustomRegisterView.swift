@@ -30,7 +30,7 @@ struct CustomRegisterView: View {
         .onAppear(){
             Task{
 //                await registerCard(region: swipayViewModel.convertFullRegionToShort(inputRegion: region) ?? "", custom_image: generatedImageToData(image: generatedImage))
-                await registerCard(region: "부산", custom_image: generatedImageToData(image: generatedImage))
+                await registerCard(region: "울산", custom_image: generatedImageToData(image: generatedImage))
             }
         }
     }

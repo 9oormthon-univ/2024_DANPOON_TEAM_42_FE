@@ -9,7 +9,7 @@ import Foundation
 
 class SwipayViewModel: ObservableObject {
     struct State {
-        var getSwipayResponse: SwipayModel = SwipayModel(userName: "", balance: 0, totalCards: 0, cards: [cardInfo(cardId: "0", region: "", point: 0, customImage: "")], paylistInfos: [paylistInfo(paylistId: "", amount: 0, storeName: "", createAt: "")])
+        var getSwipayResponse: SwipayModel = SwipayModel(balance: 0, totalCards: 0, cards: [cardInfo(cardId: "0", region: "", point: 0, customImage: "")], paylistInfos: [paylistInfo(paylistId: "", amount: 0, storeName: "", createAt: "")])
         
         //최근 이용내역
         var getRecentUsageResponse: [RecentUsageModel] = [RecentUsageModel(id: 1, region: "ulsan", title: "맛찬들왕소금구이 울산 무거점", date: "11.12 14:17", type: "결제", price: "10,500"), RecentUsageModel(id: 2, region: "busan", title: "맛찬들왕소금구이 울산 무거점", date: "11.12 14:17", type: "결제", price: "10,500"), RecentUsageModel(id: 3, region: "seoul", title: "맛찬들왕소금구이 울산 무거점", date: "11.12 14:17", type: "결제", price: "10,500"), RecentUsageModel(id: 4, region: "daegu", title: "맛찬들왕소금구이 울산 무거점", date: "11.12 14:17", type: "결제", price: "10,500"), RecentUsageModel(id: 5, region: "daejeon", title: "맛찬들왕소금구이 울산 무거점", date: "11.12 14:17", type: "결제", price: "10,500"), RecentUsageModel(id: 6, region: "jeju", title: "맛찬들왕소금구이 울산 무거점", date: "11.12 14:17", type: "결제", price: "10,500")]

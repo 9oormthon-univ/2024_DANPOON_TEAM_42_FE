@@ -24,7 +24,6 @@ struct SwipayNewsModel: Codable{
 
 
 struct SwipayModel: Codable{
-    var userName: String
     var balance:  Int64
     var totalCards: Int64
     var cards: [cardInfo]
