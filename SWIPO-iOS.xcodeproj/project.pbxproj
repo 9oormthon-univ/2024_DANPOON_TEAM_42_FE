@@ -90,11 +90,20 @@
 		6D787C202CEB242100B587F8 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D787C1F2CEB242100B587F8 /* LoginView.swift */; };
 		9512B2FC2CEB31A60029A9AA /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512B2FB2CEB31A60029A9AA /* NavigationBar.swift */; };
 		9512B3002CEB32040029A9AA /* StoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512B2FF2CEB32040029A9AA /* StoreListView.swift */; };
-		9512B3022CEB32250029A9AA /* StoreModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512B3012CEB32250029A9AA /* StoreModel.swift */; };
 		9512B3042CEB32550029A9AA /* StoreOptionModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512B3032CEB32550029A9AA /* StoreOptionModal.swift */; };
 		9512B3072CEB59170029A9AA /* PayChargeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512B3062CEB59170029A9AA /* PayChargeView.swift */; };
 		952256F02CEE34EB00F69EA0 /* StoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952256EF2CEE34EB00F69EA0 /* StoreViewModel.swift */; };
 		9539CB602CF0C6660022C80E /* SwipointExchangeCompleteModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB5F2CF0C6660022C80E /* SwipointExchangeCompleteModal.swift */; };
+		9539CB712CF138590022C80E /* StoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB702CF138590022C80E /* StoreService.swift */; };
+		9539CB732CF1385F0022C80E /* StoreEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB722CF1385F0022C80E /* StoreEndPoint.swift */; };
+		9539CB782CF138EB0022C80E /* StoreMapResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB772CF138EB0022C80E /* StoreMapResponse.swift */; };
+		9539CB7A2CF138F20022C80E /* StoreDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB792CF138F20022C80E /* StoreDetailResponse.swift */; };
+		9539CB7C2CF13AD20022C80E /* StoreTabResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB7B2CF13AD20022C80E /* StoreTabResponse.swift */; };
+		9539CB7E2CF13BA20022C80E /* StoreSearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB7D2CF13BA20022C80E /* StoreSearchResponse.swift */; };
+		9539CB832CF13F510022C80E /* StoreReviewRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB822CF13F510022C80E /* StoreReviewRequest.swift */; };
+		9539CB852CF13FB00022C80E /* StoreSearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB842CF13FB00022C80E /* StoreSearchRequest.swift */; };
+		9539CB872CF13FFD0022C80E /* StoreWishRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB862CF13FFD0022C80E /* StoreWishRequest.swift */; };
+		9539CB892CF140300022C80E /* StoreMapRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9539CB882CF140300022C80E /* StoreMapRequest.swift */; };
 		954FFAB72CEAD3B500E81D16 /* KakaoMapsSDK-SPM in Frameworks */ = {isa = PBXBuildFile; productRef = 954FFAB62CEAD3B500E81D16 /* KakaoMapsSDK-SPM */; };
 		954FFABB2CEAD3F200E81D16 /* NearbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABA2CEAD3F200E81D16 /* NearbyView.swift */; };
 		954FFABD2CEAD43F00E81D16 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954FFABC2CEAD43F00E81D16 /* MapView.swift */; };
@@ -112,6 +121,7 @@
 		9571927A2CF063BE00E5BF1E /* SwipstoneSelectModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957192792CF063BE00E5BF1E /* SwipstoneSelectModal.swift */; };
 		958045A82CF2247B003DCB3D /* SwipstoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958045A72CF2247B003DCB3D /* SwipstoneService.swift */; };
 		958045AA2CF224A1003DCB3D /* SwipstoneEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958045A92CF224A1003DCB3D /* SwipstoneEndPoint.swift */; };
+		958045B02CF2309B003DCB3D /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958045AF2CF2309B003DCB3D /* MapViewModel.swift */; };
 		9583DA182CEF262400D2CEFA /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583DA172CEF262400D2CEFA /* CategoryViewModel.swift */; };
 		9583DA1A2CEF263B00D2CEFA /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9583DA192CEF263B00D2CEFA /* CategoryModel.swift */; };
 		95ED7EA92CF0BEF3003E2E36 /* SwipointExchangeModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95ED7EA82CF0BEF3003E2E36 /* SwipointExchangeModal.swift */; };
@@ -198,11 +208,20 @@
 		6D787C1F2CEB242100B587F8 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		9512B2FB2CEB31A60029A9AA /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		9512B2FF2CEB32040029A9AA /* StoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreListView.swift; sourceTree = "<group>"; };
-		9512B3012CEB32250029A9AA /* StoreModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModel.swift; sourceTree = "<group>"; };
 		9512B3032CEB32550029A9AA /* StoreOptionModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreOptionModal.swift; sourceTree = "<group>"; };
 		9512B3062CEB59170029A9AA /* PayChargeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayChargeView.swift; sourceTree = "<group>"; };
 		952256EF2CEE34EB00F69EA0 /* StoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreViewModel.swift; sourceTree = "<group>"; };
 		9539CB5F2CF0C6660022C80E /* SwipointExchangeCompleteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipointExchangeCompleteModal.swift; sourceTree = "<group>"; };
+		9539CB702CF138590022C80E /* StoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreService.swift; sourceTree = "<group>"; };
+		9539CB722CF1385F0022C80E /* StoreEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreEndPoint.swift; sourceTree = "<group>"; };
+		9539CB772CF138EB0022C80E /* StoreMapResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMapResponse.swift; sourceTree = "<group>"; };
+		9539CB792CF138F20022C80E /* StoreDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailResponse.swift; sourceTree = "<group>"; };
+		9539CB7B2CF13AD20022C80E /* StoreTabResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTabResponse.swift; sourceTree = "<group>"; };
+		9539CB7D2CF13BA20022C80E /* StoreSearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchResponse.swift; sourceTree = "<group>"; };
+		9539CB822CF13F510022C80E /* StoreReviewRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreReviewRequest.swift; sourceTree = "<group>"; };
+		9539CB842CF13FB00022C80E /* StoreSearchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchRequest.swift; sourceTree = "<group>"; };
+		9539CB862CF13FFD0022C80E /* StoreWishRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreWishRequest.swift; sourceTree = "<group>"; };
+		9539CB882CF140300022C80E /* StoreMapRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMapRequest.swift; sourceTree = "<group>"; };
 		954FFABA2CEAD3F200E81D16 /* NearbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyView.swift; sourceTree = "<group>"; };
 		954FFABC2CEAD43F00E81D16 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		954FFABE2CEAD44600E81D16 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -218,6 +237,7 @@
 		957192792CF063BE00E5BF1E /* SwipstoneSelectModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipstoneSelectModal.swift; sourceTree = "<group>"; };
 		958045A72CF2247B003DCB3D /* SwipstoneService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipstoneService.swift; sourceTree = "<group>"; };
 		958045A92CF224A1003DCB3D /* SwipstoneEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipstoneEndPoint.swift; sourceTree = "<group>"; };
+		958045AF2CF2309B003DCB3D /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		9583DA172CEF262400D2CEFA /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		9583DA192CEF263B00D2CEFA /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		95ED7EA82CF0BEF3003E2E36 /* SwipointExchangeModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipointExchangeModal.swift; sourceTree = "<group>"; };
@@ -435,7 +455,7 @@
 		6D7601F42CEA40AD00C49EDC /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				6D7008052CF23311001D4CB5 /* SwipExchange */,
+				9539CB6F2CF1384C0022C80E /* Store */,
 				6D7007E52CF1D607001D4CB5 /* Swipstone */,
 				6D7007DD2CF12A07001D4CB5 /* Custom */,
 				6D7007D62CF12913001D4CB5 /* Swipay */,
@@ -534,7 +554,6 @@
 			isa = PBXGroup;
 			children = (
 				9512B2FF2CEB32040029A9AA /* StoreListView.swift */,
-				9512B3012CEB32250029A9AA /* StoreModel.swift */,
 				952256EF2CEE34EB00F69EA0 /* StoreViewModel.swift */,
 				9512B3032CEB32550029A9AA /* StoreOptionModal.swift */,
 			);
@@ -549,11 +568,45 @@
 			path = PayCharge;
 			sourceTree = "<group>";
 		};
+		9539CB6F2CF1384C0022C80E /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				9539CB702CF138590022C80E /* StoreService.swift */,
+				9539CB722CF1385F0022C80E /* StoreEndPoint.swift */,
+				9539CB812CF13F310022C80E /* StoreRequest */,
+				9539CB762CF138DA0022C80E /* StoreResponse */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		9539CB762CF138DA0022C80E /* StoreResponse */ = {
+			isa = PBXGroup;
+			children = (
+				9539CB772CF138EB0022C80E /* StoreMapResponse.swift */,
+				9539CB792CF138F20022C80E /* StoreDetailResponse.swift */,
+				9539CB7B2CF13AD20022C80E /* StoreTabResponse.swift */,
+				9539CB7D2CF13BA20022C80E /* StoreSearchResponse.swift */,
+			);
+			path = StoreResponse;
+			sourceTree = "<group>";
+		};
+		9539CB812CF13F310022C80E /* StoreRequest */ = {
+			isa = PBXGroup;
+			children = (
+				9539CB842CF13FB00022C80E /* StoreSearchRequest.swift */,
+				9539CB862CF13FFD0022C80E /* StoreWishRequest.swift */,
+				9539CB822CF13F510022C80E /* StoreReviewRequest.swift */,
+				9539CB882CF140300022C80E /* StoreMapRequest.swift */,
+			);
+			path = StoreRequest;
+			sourceTree = "<group>";
+		};
 		954FFAB82CEAD3DD00E81D16 /* Nearby */ = {
 			isa = PBXGroup;
 			children = (
 				954FFABA2CEAD3F200E81D16 /* NearbyView.swift */,
 				954FFABC2CEAD43F00E81D16 /* MapView.swift */,
+				958045AF2CF2309B003DCB3D /* MapViewModel.swift */,
 				954FFABE2CEAD44600E81D16 /* MapViewController.swift */,
 				9583DA1B2CEF267300D2CEFA /* Category */,
 				9512B2FE2CEB31FD0029A9AA /* StoreList */,
@@ -709,6 +762,7 @@
 				6D67266A2CEE397000301A50 /* PasswordView.swift in Sources */,
 				6D7008022CF2318C001D4CB5 /* SwipointExchangeViewModel.swift in Sources */,
 				6D787C1A2CEB223000B587F8 /* AuthManager.swift in Sources */,
+				9539CB7C2CF13AD20022C80E /* StoreTabResponse.swift in Sources */,
 				6D787BED2CEACBE300B587F8 /* Constants.swift in Sources */,
 				6D67266E2CEE399B00301A50 /* PasswordResetView.swift in Sources */,
 				9512B3002CEB32040029A9AA /* StoreListView.swift in Sources */,
@@ -719,7 +773,6 @@
 				6D3C63A72CEC6F8400229404 /* CustomView.swift in Sources */,
 				6D648E792CEF87CD00BF869A /* JoinModel.swift in Sources */,
 				6D7007DA2CF1292C001D4CB5 /* SwipayEndPoint.swift in Sources */,
-				9512B3022CEB32250029A9AA /* StoreModel.swift in Sources */,
 				6D787C202CEB242100B587F8 /* LoginView.swift in Sources */,
 				6D648E712CEF006F00BF869A /* PaymentView.swift in Sources */,
 				6D648E732CEF008400BF869A /* PaymentFinishView.swift in Sources */,
@@ -727,13 +780,18 @@
 				6D7007D82CF12921001D4CB5 /* SwipayService.swift in Sources */,
 				6D6726672CEE390C00301A50 /* JoinFinishView.swift in Sources */,
 				6D648E752CEF77C500BF869A /* PaymentShortageModal.swift in Sources */,
+				9539CB832CF13F510022C80E /* StoreReviewRequest.swift in Sources */,
+				958045B02CF2309B003DCB3D /* MapViewModel.swift in Sources */,
 				6D7601F72CEA40C600C49EDC /* NetworkManager.swift in Sources */,
 				6D787BF72CEACC1F00B587F8 /* SwipayView.swift in Sources */,
 				6D67265D2CEDCEDF00301A50 /* SwipstoneModel.swift in Sources */,
 				954FFAC22CEAD49100E81D16 /* CustomTextField.swift in Sources */,
+				9539CB7A2CF138F20022C80E /* StoreDetailResponse.swift in Sources */,
 				6D3C63AF2CED2FC900229404 /* CustomRegisterView.swift in Sources */,
+				9539CB782CF138EB0022C80E /* StoreMapResponse.swift in Sources */,
 				6D7007F32CF218C0001D4CB5 /* LottieView.swift in Sources */,
 				6D3C63902CEB9E9500229404 /* SwipointViewModel.swift in Sources */,
+				9539CB7E2CF13BA20022C80E /* StoreSearchResponse.swift in Sources */,
 				957192682CF00FAC00E5BF1E /* CategoryRankingView.swift in Sources */,
 				6D648E772CEF87C500BF869A /* JoinViewModel.swift in Sources */,
 				6D7602032CEA410200C49EDC /* Interceptor.swift in Sources */,
@@ -749,12 +807,14 @@
 				6D3C63A22CEBC52E00229404 /* LocationNewModal.swift in Sources */,
 				9571926C2CF00FC100E5BF1E /* CategoryTitleView.swift in Sources */,
 				6D3C638A2CEB940100229404 /* SwipointView.swift in Sources */,
+				9539CB872CF13FFD0022C80E /* StoreWishRequest.swift in Sources */,
 				9583DA1A2CEF263B00D2CEFA /* CategoryModel.swift in Sources */,
 				6D7008092CF2333D001D4CB5 /* SwipExchangeEndPoint.swift in Sources */,
 				6D7007E12CF12A19001D4CB5 /* CustomEndPoint.swift in Sources */,
 				6D7008042CF23195001D4CB5 /* SwipointExchangeModel.swift in Sources */,
 				6D67265F2CEDCEE700301A50 /* SwipstoneViewModel.swift in Sources */,
 				954FFABF2CEAD44600E81D16 /* MapViewController.swift in Sources */,
+				9539CB712CF138590022C80E /* StoreService.swift in Sources */,
 				6D7007DF2CF12A12001D4CB5 /* CustomService.swift in Sources */,
 				954FFABD2CEAD43F00E81D16 /* MapView.swift in Sources */,
 				6D7602072CEA411D00C49EDC /* APITask.swift in Sources */,
@@ -775,11 +835,13 @@
 				6D787BF82CEACC1F00B587F8 /* SwipayViewModel.swift in Sources */,
 				9583DA182CEF262400D2CEFA /* CategoryViewModel.swift in Sources */,
 				6D67265B2CEDC8F200301A50 /* SwipstoneView.swift in Sources */,
+				9539CB732CF1385F0022C80E /* StoreEndPoint.swift in Sources */,
 				6D3C63AB2CECE99000229404 /* CustomStopModal.swift in Sources */,
 				6D787BF62CEACC1F00B587F8 /* SwipayModel.swift in Sources */,
 				6D6726612CEE29AC00301A50 /* SwipstoneAchiveModal.swift in Sources */,
 				95ED7EA92CF0BEF3003E2E36 /* SwipointExchangeModal.swift in Sources */,
 				6D3C63A92CEC99B900229404 /* CustomModel.swift in Sources */,
+				9539CB892CF140300022C80E /* StoreMapRequest.swift in Sources */,
 				6D648E6F2CEEE45500BF869A /* QRScannerView.swift in Sources */,
 				6D648E812CEFC1FF00BF869A /* AuthService.swift in Sources */,
 				6D7007DC2CF1298B001D4CB5 /* CustomViewModel.swift in Sources */,
@@ -788,6 +850,7 @@
 				6D67267D2CEE488700301A50 /* LoginViewModel.swift in Sources */,
 				6D6726702CEE39AE00301A50 /* PasswordResetFinishModal.swift in Sources */,
 				6D7601E42CEA3EA800C49EDC /* SWIPO_iOSApp.swift in Sources */,
+				9539CB852CF13FB00022C80E /* StoreSearchRequest.swift in Sources */,
 				9512B3072CEB59170029A9AA /* PayChargeView.swift in Sources */,
 				9512B3042CEB32550029A9AA /* StoreOptionModal.swift in Sources */,
 				6D3C639E2CEBBE7600229404 /* LocationCertificationModal.swift in Sources */,
