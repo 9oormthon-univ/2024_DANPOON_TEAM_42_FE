@@ -8,7 +8,8 @@
 import Foundation
 
 struct StoreSearchRequest: Encodable {
-    let latitude: Double
-    let longitude: Double
-    let radius: Double
+    let keyword: String
+    let category: String
+    let type: String
+    let page: Int
 }
