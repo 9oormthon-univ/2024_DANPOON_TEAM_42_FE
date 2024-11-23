@@ -12,15 +12,15 @@ import CoreLocation
 struct NearbyView: View {
     @State var searchText: String = ""
     @State var payButtonEnable: Bool = false
+    @State private var storeMapResponse: StoreMapResponse? = nil
 
-    private var mapView = MapView()
     @StateObject var mapViewModel = MapViewModel()
     @StateObject var viewModel = CategoryViewModel()
     @State private var selectedCategoryIndex: Int = 0
 
     var body: some View {
         ZStack {
-            mapView
+            MapView(storeMapResponse: $storeMapResponse)
 
             VStack {
                 HStack {
@@ -64,6 +64,7 @@ struct NearbyView: View {
                 .padding(.top, 18)
 
                 CategoryButtonView(selectedCategoryIndex: $selectedCategoryIndex)
+                    .zIndex(1)
 
                 Spacer()
 
@@ -93,8 +94,13 @@ struct NearbyView: View {
                 }
         }
         .onAppear() {
-            Task{
+            Task {
+                let response = await getStoreMap(request: StoreMapRequest())
+                DispatchQueue.main.async {
+                    self.storeMapResponse = response
+                }
                 await getStoreMap(request: StoreMapRequest())
+                await getStoreTab()
             }
         }
         .navigationBarBackButtonHidden()
@@ -110,8 +116,22 @@ struct NearbyView: View {
         case storeList
     }
 
-    func getStoreMap(request: StoreMapRequest) async {
-        await mapViewModel.action(.getStoreMap(request: request))
+    private func getStoreMap(request: StoreMapRequest) async -> StoreMapResponse? {
+        guard let response = await StoreService.getStoreMap(request: request) else {
+            print("Failed to fetch store map data")
+            return nil
+        }
+
+        if response.code == 200 {
+            return response.data
+        } else {
+            print("Error: \(response.message)")
+            return nil
+        }
+    }
+
+    func getStoreTab() async {
+        await mapViewModel.action(.getStoreTab)
     }
 }
 
