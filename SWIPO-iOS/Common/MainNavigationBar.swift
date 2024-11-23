@@ -22,6 +22,17 @@ struct MainNavigationBar: View {
                 
                 Spacer()
                 
+                if selectedTab == Tab.swipStone {
+                    Button(action: {
+                        AppState.shared.navigationPath.append(swipstoneType.guide)
+                    }, label: {
+                        Image("question_circle_mark")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24 * Constants.ControlWidth)
+                    })
+                }
+                
                 Button(action: {
                     
                 }, label: {
@@ -30,7 +41,9 @@ struct MainNavigationBar: View {
                         .scaledToFit()
                         .frame(width: 24 * Constants.ControlWidth)
                 })
-                .padding()
+                .padding(.trailing)
+                .padding(.top)
+                .padding(.bottom)
                 
             }
             .frame(height: 58 * Constants.ControlHeight)

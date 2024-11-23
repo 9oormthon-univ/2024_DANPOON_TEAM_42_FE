@@ -13,10 +13,30 @@ struct SwipstoneModel: Codable{
     var collect: Bool
     var achieve: Bool
     var piece: [String]
+    var achievedPieces: [String]? // 카드 완성 시 조각 스냅샷
 }
 
 struct SwipstonePieceModel: Codable{
-    var id: Int64
+    var picesNum: Int64
+    var pieces: [PieceModel]
+}
+
+struct PieceModel: Codable {
+    var myPieceId: String
+    var pieceName: String
+}
+
+struct SwipstonePieceCountModel {
     var region: String
-    var count: Int64
+    var count: Int
+}
+
+struct UsedPieceInfo: Codable {
+    let point: String
+    let usePieceNum: Int64
+    let myPieceIds: [String]   
+}
+
+struct SubtractPieceModel: Codable {
+    let totalPay: Int64
 }

@@ -42,7 +42,7 @@ struct SwipstoneAchiveModal: View {
                         .padding(.leading, 22 * Constants.ControlWidth)
                         
                         HStack(spacing: 0){
-                            Text("\(point)원")
+                            Text("\(formatWithCommas(point))원")
                                 .font(.Display1)
                                 .tracking(-0.6)
                                 .frame(height: 32 * Constants.ControlHeight)
@@ -91,6 +91,21 @@ struct SwipstoneAchiveModal: View {
         }
         .toolbar(.hidden)
         .background(Color.clear)
+    }
+    
+    
+    // 숫자를 3자리마다 쉼표가 포함된 형식으로 변환하는 함수
+    func formatWithCommas(_ value: String) -> String {
+        // 숫자만 남김
+        let numericValue = value.filter { $0.isNumber }
+        
+        // 숫자가 없으면 빈 문자열 반환
+        guard let number = Int(numericValue) else { return "" }
+        
+        // 3자리마다 쉼표 추가
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        return formatter.string(from: NSNumber(value: number)) ?? ""
     }
 }
 

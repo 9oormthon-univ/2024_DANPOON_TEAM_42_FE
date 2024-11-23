@@ -41,6 +41,7 @@ class SwipayViewModel: ObservableObject {
         switch action {
         case let .getSwipay:
             if let response = await SwipayService.getSwipay() {
+                print(response)
                 await MainActor.run {
                     print("\(response.code)")
                     
