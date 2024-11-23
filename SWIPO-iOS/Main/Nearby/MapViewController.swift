@@ -353,8 +353,10 @@ class MapViewController: UIViewController, MapControllerDelegate {
         manager.requestWhenInUseAuthorization()
 
         if let location = manager.location {
-            latitude = location.coordinate.latitude
-            longitude = location.coordinate.longitude
+//            latitude = location.coordinate.latitude
+//            longitude = location.coordinate.longitude
+            latitude = 37.39525439328737
+            longitude = 127.10931300194046
             print(latitude)
             print(longitude)
         } else {
