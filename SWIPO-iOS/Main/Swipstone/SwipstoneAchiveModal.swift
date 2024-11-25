@@ -61,7 +61,7 @@ struct SwipstoneAchiveModal: View {
                         .padding(.bottom, 8 * Constants.ControlHeight)
                         
                         HStack(spacing: 0){
-                            Text("윤다희님 덕분에\n지역경제가 활발해지고 있어요!🔥 ")
+                            Text("엄재웅님 덕분에\n지역경제가 활발해지고 있어요!🔥 ")
                                 .font(.Body2)
                                 .tracking(-0.6)
                                 .foregroundColor(.greyNormal)

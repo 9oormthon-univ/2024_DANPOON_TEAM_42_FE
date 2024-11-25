@@ -12,10 +12,11 @@ import CoreLocation
 struct NearbyView: View {
     @State var searchText: String = ""
     @State var payButtonEnable: Bool = false
-    @State private var storeMapResponse: StoreMapResponse? = nil
+    @State var storeMapResponse: StoreMapResponse? = nil
+    @State var storeTabResponse: StoreTabResponse = StoreTabResponse(wishlists: [], picks: [], trends: [], tastes: [], labs: [])
 
-    @StateObject var mapViewModel = MapViewModel()
-    @StateObject var viewModel = CategoryViewModel()
+    @State var mapViewModel = MapViewModel()
+    @State var viewModel = CategoryViewModel()
     @State private var selectedCategoryIndex: Int = 0
 
     var body: some View {
@@ -88,19 +89,24 @@ struct NearbyView: View {
                 .padding(.horizontal)
             }
 
-            CategoryModalView(viewModel: viewModel, selectedCategoryIndex: $selectedCategoryIndex)
-                .onTapGesture {
-                    // 모달 외부를 터치하면 닫힘
-                }
+            CategoryModalView(mapViewModel: mapViewModel,
+                              categoryViewModel: viewModel,
+                              selectedCategoryIndex: $selectedCategoryIndex,
+                              storeTabResponse: $storeTabResponse)
+            .onTapGesture {
+                // 모달 외부를 터치하면 닫힘
+            }
         }
         .onAppear() {
             Task {
-                let response = await getStoreMap(request: StoreMapRequest())
+                let storeMapResponse = await getStoreMap(request: StoreMapRequest())
                 DispatchQueue.main.async {
-                    self.storeMapResponse = response
+                    self.storeMapResponse = storeMapResponse
                 }
-                await getStoreMap(request: StoreMapRequest())
-                await getStoreTab()
+                let storeTabResponse = await getStoreTab()
+                DispatchQueue.main.async {
+                    self.mapViewModel.state.getStoreTabResponse = storeTabResponse ?? StoreTabResponse(wishlists: [], picks: [], trends: [], tastes: [], labs: [])
+                }
             }
         }
         .navigationBarBackButtonHidden()
@@ -130,8 +136,18 @@ struct NearbyView: View {
         }
     }
 
-    func getStoreTab() async {
-        await mapViewModel.action(.getStoreTab)
+    private func getStoreTab() async -> StoreTabResponse? {
+        guard let response = await StoreService.getStoreTab() else {
+            print("Failed to fetch store map data")
+            return nil
+        }
+
+        if response.code == 200 {
+            return response.data
+        } else {
+            print("Error: \(response.message)")
+            return nil
+        }
     }
 }
 
@@ -145,26 +161,30 @@ struct CategoryButtonView: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 4) {
-                ForEach(buttonTitles.indices, id: \.self) { index in
-                    Button(action: {
-                        selectedCategoryIndex = index
-                    }) {
-                        Text(buttonTitles[index])
-                            .font(.Subhead3)
-                            .padding(.vertical, 10)
-                            .padding(.horizontal, 15)
-                            .background(
-                                RoundedRectangle(cornerRadius: 14)
-                                    .fill(selectedCategoryIndex == index ? .mainNormal : .white)
-                            )
-                            .foregroundColor(selectedCategoryIndex == index ? .white : .mainNormal)
-                    }
-                }
-            }
-            .padding(.horizontal, 16)
-        }
-        .padding(.top, 4)
+                   HStack(spacing: 4) {
+                       ForEach(buttonTitles.indices, id: \.self) { index in
+                           Button(action: {
+                               selectedCategoryIndex = index
+                           }) {
+                               VStack(){
+                                   Text(buttonTitles[index])
+                                       .font(.Subhead3)
+                                       .padding(.vertical, 10)
+                                       .padding(.horizontal, 15)
+                                       .background(
+                                           RoundedRectangle(cornerRadius: 14)
+                                               .fill(selectedCategoryIndex == index ? .mainNormal : .white)
+                                               .allowsHitTesting(true)
+                                       )
+                                       .foregroundColor(selectedCategoryIndex == index ? .white : .mainNormal)
+                               }
+                           }
+                           .padding(.vertical, 10)
+                       }
+                   }
+                   .padding(.horizontal, 16)
+               }
+               .padding(.top, 4)
     }
 }
 
@@ -177,8 +197,11 @@ struct CategoryModalView: View {
 
     @State private var modalPosition: ModalPosition = .collapsed
     @State private var dragOffset: CGFloat = 0
-    @StateObject var viewModel = CategoryViewModel()
+    @ObservedObject var mapViewModel: MapViewModel
+//    @Binding var mapViewModel: MapViewModel
+    @StateObject var categoryViewModel = CategoryViewModel()
     @Binding var selectedCategoryIndex: Int
+    @Binding var storeTabResponse: StoreTabResponse
 
     var body: some View {
         GeometryReader { geometry in
@@ -195,20 +218,24 @@ struct CategoryModalView: View {
                             VStack(spacing: 12) {
                                 CategoryCurationView()
 
-                                ForEach(viewModel.state.categoryType.indices.filter { $0 == 1 || $0 == 2 }, id: \.self) { index in
-                                    let category = viewModel.state.categoryType[index-1]
-                                    CategoryTitleView(title: category.title, content: category.content)
+                                let category0 = categoryViewModel.state.categoryType[0]
+                                CategoryTitleView(title: category0.title, content: category0.content)
 
-                                    CategoryDefaultListView()
-                                        .padding(.bottom, 22)
-                                }
-
-                                let category3 = viewModel.state.categoryType[2]
-                                CategoryTitleView(title: category3.title, content: category3.content)
-                                CategoryRankingListView()
+                                CategoryDefaultListView(viewModel: StoreViewModel(), mapViewModel: mapViewModel, tabIndex: $selectedCategoryIndex)
                                     .padding(.bottom, 22)
 
-                                let category4 = viewModel.state.categoryType[3]
+                                let category1 = categoryViewModel.state.categoryType[1]
+                                CategoryTitleView(title: category1.title, content: category1.content)
+
+                                CategoryDefaultListView(viewModel: StoreViewModel(), mapViewModel: mapViewModel, tabIndex: $selectedCategoryIndex)
+                                    .padding(.bottom, 22)
+
+                                let category3 = categoryViewModel.state.categoryType[2]
+                                CategoryTitleView(title: category3.title, content: category3.content)
+                                CategoryRankingListView(mapViewModel: mapViewModel)
+                                    .padding(.bottom, 22)
+
+                                let category4 = categoryViewModel.state.categoryType[3]
                                 CategoryTitleView(title: category4.title, content: category4.content)
                                 CategoryTasteView()
                                     .padding(.bottom, 22)
@@ -258,19 +285,39 @@ struct CategoryModalView: View {
                                     .padding(.bottom, 44 * Constants.ControlHeight)
                             }
                             .padding()
+                        } else if selectedCategoryIndex == 1 {
+                            VStack(spacing: 12) {
+                                
+                                let category = categoryViewModel.state.categoryType[0]
+                                CategoryTitleView(title: category.title, content: category.content)
+                                
+                                CategoryDefaultListView(viewModel: StoreViewModel(), mapViewModel: mapViewModel, tabIndex: $selectedCategoryIndex)
+                                    .padding(.bottom, 22)
+                            }
+                            .padding()
+                        } else if selectedCategoryIndex == 2 {
+                            VStack(spacing: 12) {
+                                
+                                let category = categoryViewModel.state.categoryType[1]
+                                CategoryTitleView(title: category.title, content: category.content)
+                                
+                                CategoryDefaultListView(viewModel: StoreViewModel(), mapViewModel: mapViewModel, tabIndex: $selectedCategoryIndex)
+                                    .padding(.bottom, 22)
+                            }
+                            .padding()
                         } else {
                             if selectedCategoryIndex == 3 {
                                 VStack(spacing: 12) {
-                                    let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
+                                    let selectedCategory = categoryViewModel.state.categoryType[selectedCategoryIndex - 1]
                                     CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
 
-                                    CategoryRankingListView()
+                                    CategoryRankingListView(mapViewModel: mapViewModel)
                                         .padding(.bottom, 22)
                                 }
                                 .padding()
                             } else if selectedCategoryIndex == 4 {
                                 VStack(spacing: 12) {
-                                    let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
+                                    let selectedCategory = categoryViewModel.state.categoryType[selectedCategoryIndex - 1]
                                     CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
 
                                     CategoryTasteView()
@@ -285,10 +332,10 @@ struct CategoryModalView: View {
                                 .padding()
                             } else {
                                 VStack(spacing: 12) {
-                                    let selectedCategory = viewModel.state.categoryType[selectedCategoryIndex - 1]
+                                    let selectedCategory = categoryViewModel.state.categoryType[selectedCategoryIndex - 1]
                                     CategoryTitleView(title: selectedCategory.title, content: selectedCategory.content)
 
-                                    CategoryDefaultListView()
+//                                    CategoryDefaultListView(tabIndex: $selectedCategoryIndex, mapViewModel: MapViewModel)
                                         .padding(.bottom, 22)
                                 }
                                 .padding()
@@ -378,3 +425,4 @@ struct CategoryModalView: View {
         }
     }
 }
+

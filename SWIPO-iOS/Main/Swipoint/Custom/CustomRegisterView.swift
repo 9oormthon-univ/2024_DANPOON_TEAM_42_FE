@@ -83,7 +83,7 @@ struct RegisterMainView: View {
     var body: some View {
         ZStack{
             VStack(spacing: 0){
-                Text("윤다희님 너무 멋진데요?")
+                Text("엄재웅님 너무 멋진데요?")
                     .font(.Headline)
                     .tracking(-0.6)
                     .frame(height: 32 * Constants.ControlHeight)

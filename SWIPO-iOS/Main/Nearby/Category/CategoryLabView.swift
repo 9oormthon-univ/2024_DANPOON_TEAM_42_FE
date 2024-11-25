@@ -12,30 +12,30 @@ struct CategoryLabView: View {
 
     var body: some View {
             VStack(alignment: .center) {
-//                Text("스윕 Lab에 오신걸 환영해요!")
-//                    .font(.Body2)
-//                    .foregroundStyle(.white)
-//                    .padding(.bottom, 10)
-//                Text("윤다희님의 3km 반경을\n분석해 볼까요?")
-//                    .font(.Display1)
-//                    .foregroundStyle(.white)
-//                    .padding(.bottom, 15)
-//                Image("lab")
-//                    .resizable()
-//                    .frame(width: 132 * Constants.ControlWidth,
-//                           height: 106 * Constants.ControlHeight)
-//                    .padding(.bottom, 5)
-//                Text("울산 남구 무거동")
-//                    .font(.Body2)
-//                    .foregroundStyle(.white)
-//                    .padding(.bottom, 30)
-//                
-//                VStack(spacing: 14) {
-//                    ForEach(viewModel.state.labType, id: \.title) { type in
-//                        CategoryLabItemView(title: type.title, content: type.content)
-//                    }
-//                }
-//                .padding(.bottom, 30)
+                Text("스윕 Lab에 오신걸 환영해요!")
+                    .font(.Body2)
+                    .foregroundStyle(.white)
+                    .padding(.bottom, 10)
+                Text("엄재웅님의 3km 반경을\n분석해 볼까요?")
+                    .font(.Display1)
+                    .foregroundStyle(.white)
+                    .padding(.bottom, 15)
+                Image("lab")
+                    .resizable()
+                    .frame(width: 132 * Constants.ControlWidth,
+                           height: 106 * Constants.ControlHeight)
+                    .padding(.bottom, 5)
+                Text("울산 남구 무거동")
+                    .font(.Body2)
+                    .foregroundStyle(.white)
+                    .padding(.bottom, 30)
+                
+                VStack(spacing: 14) {
+                    ForEach(viewModel.state.labType, id: \.title) { type in
+                        CategoryLabItemView(title: type.title, content: type.content)
+                    }
+                }
+                .padding(.bottom, 30)
                 
                 VStack(alignment: .leading) {
                     Text("울산 남구 무거동")
@@ -43,7 +43,7 @@ struct CategoryLabView: View {
                         .foregroundStyle(.greyLightHover)
                         .padding(.bottom, 1)
 
-                    Text("윤다희님의 취향과 찰떡궁합이네요!! 🎉")
+                    Text("엄재웅님의 취향과 찰떡궁합이네요!! 🎉")
                         .font(.Headline)
                         .foregroundStyle(.white)
                         .padding(.bottom, 9)
@@ -65,7 +65,7 @@ struct CategoryLabView: View {
                 .padding(.bottom, 30 * Constants.ControlHeight)
 
                 VStack(alignment: .leading) {
-                    Text("윤다희님과 잘 맞는 국내 핫플은?")
+                    Text("엄재웅님과 잘 맞는 국내 핫플은?")
                         .font(.Headline)
                         .foregroundStyle(.white)
                         .tracking(-0.6)

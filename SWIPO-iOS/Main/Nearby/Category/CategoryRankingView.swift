@@ -60,7 +60,7 @@ struct CategoryRankingView: View {
                                                height: 24 * Constants.ControlHeight)
                                         .foregroundColor(.mainNormal)
                                         .overlay {
-                                            Text("윤다희님 PICK!")
+                                            Text("엄재웅님 PICK!")
                                                 .foregroundColor(.white)
                                                 .font(.Subhead2)
                                         }
@@ -104,6 +104,7 @@ struct CategoryRankingView: View {
 
 struct CategoryRankingListView: View {
     @StateObject var viewModel = StoreViewModel()
+    @ObservedObject var mapViewModel: MapViewModel
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -116,7 +117,3 @@ struct CategoryRankingListView: View {
     }
 }
 
-
-#Preview {
-    CategoryRankingListView()
-}

@@ -37,5 +37,5 @@ struct CategoryTitleView: View {
 
 #Preview {
     CategoryTitleView(title: "관심등록 가맹점 💛",
-                 content: "윤다희님의 관심 가맹점들 가보고 싶어지네요!")
+                 content: "엄재웅님의 관심 가맹점들 가보고 싶어지네요!")
 }
